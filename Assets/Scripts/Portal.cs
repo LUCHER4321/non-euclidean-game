@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class Portal : MonoBehaviour
 {
     [SerializeField]
-    Camera inputCam = Camera.main;
+    Camera inputCam;
     [SerializeField]
     Portal linkedPortal;
     [SerializeField]
@@ -12,10 +12,11 @@ public class Portal : MonoBehaviour
     [SerializeField]
     bool teleport = true;
     private RenderTexture rt;
-    private Dictionary<Collider, int> teleportObjects = new Dictionary<Collider, int>();
+    private Dictionary<Collider, int> teleportObjects;
 
     void Awake()
     {
+        teleportObjects = new Dictionary<Collider, int>();
         inputCam = Camera.main;
     }
 
@@ -85,8 +86,7 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!teleport) return;
-        if (linkedPortal == null) return;
+        if (!teleport || linkedPortal == null) return;
         Rigidbody rb = other.GetComponent<Rigidbody>();
         if (rb == null) return;
         Vector3 fromPortal = transform.InverseTransformPoint(rb.transform.position);
