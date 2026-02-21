@@ -9,10 +9,13 @@ public class PortalST : MonoBehaviour
     string inputName = "_Portal_Texture";
     [SerializeField]
     LayerMask lMask;
+    [SerializeField]
+    GameObject portalPrefab;
 
     public Shader GetGraph { get => graph; }
     public string GetInputName { get => inputName; }
     public LayerMask GetLayerMask { get => lMask; }
+    public GameObject GetPortalPrefab { get => portalPrefab; }
 
     void Awake()
     {
