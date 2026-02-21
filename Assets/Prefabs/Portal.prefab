@@ -130,8 +130,6 @@ MonoBehaviour:
   cam: {fileID: 1069835590771987643}
   teleport: 1
   sGraph: {fileID: -6465566751694194690, guid: b5772350ab9aa2b42ae1999c13805e06, type: 3}
-  inputName: _Portal_Texture
-  rt: {fileID: 0}
 --- !u!1 &5692197733043598915
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +203,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 183
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: b195cd4d776a6bb40b401ec16beee012, type: 2}
   m_TargetDisplay: 0
@@ -278,6 +276,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7213751280881674260}
+  - component: {fileID: 3740317690887242097}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -301,3 +300,15 @@ Transform:
   - {fileID: 534704307710465613}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3740317690887242097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8674542135064124273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 939eb0bfbbee9fa4ca69fff13530284b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SelectParent
