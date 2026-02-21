@@ -7,6 +7,7 @@ public class Character : MonoBehaviour
     public Camera cam;
     private bool touchingFloor = false;
     public Vector2 limit = new Vector2(-90f, 90f);
+    public float height = 1f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,7 +29,9 @@ public class Character : MonoBehaviour
 
     public void Jump(float height)
     {
-        if (!touchingFloor || rb == null) return;
+        if (rb == null) return;
+        Ray ray = new Ray(transform.position, Vector3.down);
+        if (!Physics.Raycast(ray, height + 0.1f)) return;
         float initialSpeed = Mathf.Sqrt(2 * height * -Physics.gravity.y);
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, initialSpeed, rb.linearVelocity.z);
     }
