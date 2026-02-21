@@ -146,7 +146,7 @@
                     "id": "03c3d349-9888-42dd-a737-632c175218ce",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "StickDeadzone,ScaleVector2(x=2,y=2)",
                     "groups": "",
                     "action": "Look",
                     "isComposite": false,
@@ -166,7 +166,7 @@
                 {
                     "name": "",
                     "id": "58b17870-62d5-4e39-adaf-8351e9af6c40",
-                    "path": "<Gamepad>/leftShoulder",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
