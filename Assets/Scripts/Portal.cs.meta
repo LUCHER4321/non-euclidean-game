@@ -1,2 +1,14 @@
 fileFormatVersion: 2
 guid: 5a6e15055968615468793e97f330d00b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - linkedPortal: {instanceID: 0}
+  - cam: {instanceID: 0}
+  - sGraph: {fileID: -6465566751694194690, guid: b5772350ab9aa2b42ae1999c13805e06, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
