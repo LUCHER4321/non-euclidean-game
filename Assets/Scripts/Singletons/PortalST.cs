@@ -11,11 +11,14 @@ public class PortalST : MonoBehaviour
     LayerMask lMask;
     [SerializeField]
     GameObject portalPrefab;
+    [SerializeField]
+    string exclusiveLayerName;
 
     public Shader GetGraph { get => graph; }
     public string GetInputName { get => inputName; }
     public LayerMask GetLayerMask { get => lMask; }
     public GameObject GetPortalPrefab { get => portalPrefab; }
+    public string GetExclusiveLayerName { get => exclusiveLayerName; }
 
     void Awake()
     {
