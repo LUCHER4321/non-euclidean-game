@@ -5,9 +5,21 @@ public class Character : MonoBehaviour
 {
     public Rigidbody rb;
     public Camera cam;
-    private bool touchingFloor = false;
-    public Vector2 limit = new Vector2(-90f, 90f);
-    public float height = 1f;
+    public bool isRunning = false;
+    public CharacterSO characterSO;
+
+    public bool CanSee(GameObject target)
+    {
+        if (characterSO == null) return false;
+        Vector3 direction = target.transform.position - cam.transform.position;
+        if (direction.sqrMagnitude > Mathf.Pow(characterSO.GetVisionLength, 2)) return false;
+        if (Vector3.Dot(cam.transform.forward, direction.normalized) <= Mathf.Cos(characterSO.GetVisionAngle * Mathf.Deg2Rad)) return false;
+        if (Physics.Raycast(cam.transform.position, direction, out RaycastHit hit, characterSO.GetVisionLength))
+        {
+            return hit.collider.gameObject == target;
+        }
+        return false;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -24,15 +36,16 @@ public class Character : MonoBehaviour
     public void Move(Vector2 velocity)
     {
         if (rb == null) return;
-        rb.linearVelocity = velocity.x * rb.transform.right + rb.linearVelocity.y * Vector3.up + velocity.y * rb.transform.forward;
+        Vector2 input = velocity.normalized * (isRunning ? characterSO.GetRunSpeed : characterSO.GetMoveSpeed);
+        rb.linearVelocity = input.x * rb.transform.right + rb.linearVelocity.y * Vector3.up + input.y * rb.transform.forward;
     }
 
-    public void Jump(float height)
+    public void Jump()
     {
         if (rb == null) return;
         Ray ray = new Ray(transform.position, Vector3.down);
-        if (!Physics.Raycast(ray, height + 0.1f)) return;
-        float initialSpeed = Mathf.Sqrt(2 * height * -Physics.gravity.y);
+        if (!Physics.Raycast(ray, characterSO.GetHeight + 0.1f)) return;
+        float initialSpeed = Mathf.Sqrt(2 * characterSO.GetJumpHeight * -Physics.gravity.y);
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, initialSpeed, rb.linearVelocity.z);
     }
 
@@ -43,22 +56,7 @@ public class Character : MonoBehaviour
         float currentPitch = cam.transform.localRotation.eulerAngles.x;
         if (currentPitch > 180f) currentPitch -= 360f;
         float newPitch = currentPitch - delta.y;
-        newPitch = Mathf.Clamp(newPitch, limit.x, limit.y);
+        newPitch = Mathf.Clamp(newPitch, characterSO.GetLimit.x, characterSO.GetLimit.y);
         cam.transform.localRotation = Quaternion.Euler(newPitch, 0f, 0f);
-    }
-
-    private void OnCollisionStay(Collision other)
-    {
-        if (other == null) return;
-        ContactPoint[] contactPoints = other.contacts;
-        foreach (ContactPoint contact in contactPoints)
-        {
-            if (contact.normal.y > 0.5f)
-            {
-                touchingFloor = true;
-                return;
-            }
-        }
-        touchingFloor = false;
     }
 }
