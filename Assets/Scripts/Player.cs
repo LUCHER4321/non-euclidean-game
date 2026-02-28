@@ -3,10 +3,6 @@ using UnityEngine.InputSystem;
 
 public class Player : Character
 {
-    public float moveSpeed = 5f;
-    public float runSpeed = 10f;
-    public float jumpHeight = 0.5f;
-    public bool isRunning = false;
     public PlayerInput playerInput;
 
     public float sensitivity = 0.5f;
@@ -34,15 +30,13 @@ public class Player : Character
     public void PlayerMove(Vector2 input)
     {
         if (!inputEnabled) return;
-        float speed = isRunning ? runSpeed : moveSpeed;
-        Vector2 velocity = input.normalized * speed;
-        Move(velocity);
+        Move(input.normalized);
     }
 
     public void PlayerJump()
     {
         if (!inputEnabled) return;
-        Jump(jumpHeight);
+        Jump();
     }
 
     public void PlayerLook(InputAction.CallbackContext context)
