@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class Portal : MonoBehaviour
 {
-    [SerializeField]
-    Portal linkedPortal;
+    public Portal linkedPortal;
     [SerializeField]
     Camera cam;
     [SerializeField]
@@ -46,14 +46,8 @@ public class Portal : MonoBehaviour
     void Update()
     {
         cam.aspect = Camera.main.aspect;
-        SetInputCamera();
         RotateCamera();
         TranslateCamera();
-        //SetNearClipPlane();
-    }
-
-    void SetInputCamera()
-    {
     }
 
     void RotateCamera()
@@ -68,18 +62,6 @@ public class Portal : MonoBehaviour
         if (linkedPortal == null || cam == null) return;
         Vector3 offset = transform.InverseTransformPoint(Camera.main.transform.position);
         linkedPortal.cam.transform.localPosition = new Vector3(-offset.x, offset.y, -offset.z);
-    }
-
-    void SetNearClipPlane()
-    {
-        Vector3 planeNormal = linkedPortal.transform.forward;
-        Vector3 planePos = linkedPortal.transform.position;
-        float distance = -Vector3.Dot(planeNormal, planePos);
-        Vector4 clipPlaneWorldSpace = new Vector4(planeNormal.x, planeNormal.y, planeNormal.z, distance);
-        Matrix4x4 cameraToWorld = cam.worldToCameraMatrix.inverse;
-        Vector4 clipPlaneCameraSpace = Matrix4x4.Transpose(cameraToWorld) * clipPlaneWorldSpace;
-        Matrix4x4 newProjectionMatrix = Camera.main.CalculateObliqueMatrix(clipPlaneCameraSpace);
-        cam.projectionMatrix = newProjectionMatrix;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -135,7 +117,7 @@ public class Portal : MonoBehaviour
         {
             foreach (Transform t in transforms.Keys)
             {
-                bool lookingAtPortal = Vector3.Dot(transform.forward, t.forward) < 0;
+                bool lookingAtPortal = Vector3.Dot(transform.forward, t.position - transform.position) < 0;
                 transforms[t].enabled = lookingAtPortal;
                 copyCameras[transforms[t]].enabled = !lookingAtPortal;
             }
