@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 6156494002791241171}
   m_Layer: 0
   m_Name: Plane (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -297,7 +297,7 @@ GameObject:
   - component: {fileID: 8610120470527609825}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -521,7 +521,7 @@ GameObject:
   - component: {fileID: 4666076115943756254}
   m_Layer: 0
   m_Name: Plane (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -981,6 +981,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5073503965688217455}
     m_Modifications:
+    - target: {fileID: 1451689133411192245, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
+      propertyPath: linkedPortal
+      value: 
+      objectReference: {fileID: 5860376265911712686}
     - target: {fileID: 7213751280881674260, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -1038,6 +1042,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
+--- !u!114 &1883770023375444699 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1451689133411192245, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
+  m_PrefabInstance: {fileID: 1009106793929267054}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6e15055968615468793e97f330d00b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Portal
 --- !u!4 &7646397320341159802 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7213751280881674260, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
@@ -1619,6 +1634,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5073503965688217455}
     m_Modifications:
+    - target: {fileID: 1451689133411192245, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
+      propertyPath: linkedPortal
+      value: 
+      objectReference: {fileID: 1883770023375444699}
     - target: {fileID: 7213751280881674260, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -1681,6 +1700,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7213751280881674260, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
   m_PrefabInstance: {fileID: 5003871617026684443}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5860376265911712686 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1451689133411192245, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
+  m_PrefabInstance: {fileID: 5003871617026684443}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6e15055968615468793e97f330d00b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Portal
 --- !u!1001 &5040782729306443729
 PrefabInstance:
   m_ObjectHideFlags: 0
