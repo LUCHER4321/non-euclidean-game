@@ -34,7 +34,6 @@ public class PortalST : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(this);
         }
     }
 
