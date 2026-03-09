@@ -73,6 +73,7 @@ public class Portal : MonoBehaviour
         GameObject copy = Instantiate(other.gameObject, linkedPortal.transform.TransformPoint(new Vector3(-offset.x, offset.y, -offset.z)), linkedPortal.transform.rotation * Quaternion.Inverse(transform.rotation) * other.transform.rotation);
         copy.name = other.gameObject.name + " Copy";
         copy.GetComponent<Collider>().enabled = false;
+        copy.GetComponent<Rigidbody>().useGravity = false;
         foreach (AudioListener listener in copy.GetComponentsInChildren<AudioListener>())
         {
             listener.enabled = false;
@@ -84,13 +85,6 @@ public class Portal : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (!teleport || !copies.ContainsKey(other) || linkedPortal == null || !linkedPortal.teleport || copies.ContainsValue(other.gameObject)) return;
-        bool moveToLinkedPortal = Vector3.Dot(transform.forward, other.transform.position - transform.position) > 0;
-        if (moveToLinkedPortal)
-        {
-            Vector3 offset = transform.InverseTransformPoint(other.transform.position);
-            other.transform.position = linkedPortal.transform.TransformPoint(new Vector3(-offset.x, offset.y, -offset.z));
-            other.transform.rotation = linkedPortal.transform.rotation * Quaternion.Inverse(transform.rotation) * other.transform.rotation * Quaternion.Euler(0, 180, 0);
-        }
         GameObject copy = copies[other];
         copies.Remove(other);
         Destroy(copy.gameObject);
@@ -113,19 +107,47 @@ public class Portal : MonoBehaviour
             copyCameras.Add(c, camerasC[count]);
             count++;
         }
+        int portalSideOld = Math.Sign(Vector3.Dot(other.transform.position - transform.position, transform.forward));
         while (copies.ContainsKey(other) && copies[other] != null)
         {
             foreach (Transform t in transforms.Keys)
             {
-                bool lookingAtPortal = Vector3.Dot(transform.forward, t.position - transform.position) < 0;
+                Vector3 dirToPortal = transform.position - t.position;
+                bool inFrontOfCamera = Vector3.Dot(t.forward, dirToPortal) > 0;
+                bool onFrontSideOfPortal = Vector3.Dot(transform.forward, -dirToPortal) > 0;
+                bool lookingAtPortal = inFrontOfCamera && onFrontSideOfPortal;
                 transforms[t].enabled = lookingAtPortal;
                 copyCameras[transforms[t]].enabled = !lookingAtPortal;
             }
             Vector3 offset = transform.InverseTransformPoint(other.transform.position);
-            copies[other].transform.position = linkedPortal.transform.TransformPoint(new Vector3(-offset.x, offset.y, -offset.z));
-            copies[other].transform.rotation = linkedPortal.transform.rotation * Quaternion.Inverse(transform.rotation) * other.transform.rotation * Quaternion.Euler(0, 180, 0);
+            Vector3 targetPosition = linkedPortal.transform.TransformPoint(new Vector3(-offset.x, offset.y, -offset.z));
+            Quaternion targetRotation = linkedPortal.transform.rotation * Quaternion.Inverse(transform.rotation) * other.transform.rotation * Quaternion.Euler(0, 180, 0);
+            copies[other].transform.position = targetPosition;
+            copies[other].transform.rotation = targetRotation;
+            int portalSide = Math.Sign(Vector3.Dot(other.transform.position - transform.position, transform.forward));
+            if (portalSide != portalSideOld)
+            {
+                other.transform.position = targetPosition;
+                other.transform.rotation = targetRotation;
+                Rigidbody rb = other.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    Quaternion relativeRot = linkedPortal.transform.rotation * Quaternion.Inverse(transform.rotation) * Quaternion.Euler(0, 180, 0);
+                    rb.linearVelocity = relativeRot * rb.linearVelocity;
+                    rb.angularVelocity = relativeRot * rb.angularVelocity;
+                }
+                portalSideOld = portalSide;
+            }
+
             yield return null;
         }
+    }
+    void SetObliqueNearClipPlane(Camera playerCam, Camera portalCam, Transform destinationPortal)
+    {
+        Plane portalPlane = new Plane(destinationPortal.forward, destinationPortal.position);
+        Vector4 clipPlaneWorldSpace = new Vector4(portalPlane.normal.x, portalPlane.normal.y, portalPlane.normal.z, portalPlane.distance);
+        Vector4 clipPlaneCameraSpace = Matrix4x4.Transpose(Matrix4x4.Inverse(portalCam.worldToCameraMatrix)) * clipPlaneWorldSpace;
+        portalCam.projectionMatrix = playerCam.CalculateObliqueMatrix(clipPlaneCameraSpace);
     }
 
     /// <summary>
