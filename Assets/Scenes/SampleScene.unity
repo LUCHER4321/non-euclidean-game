@@ -1472,6 +1472,10 @@ PrefabInstance:
       propertyPath: linkedPortal
       value: 
       objectReference: {fileID: 1873276392}
+    - target: {fileID: 3522739933729437444, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
+      propertyPath: linkedPortal
+      value: 
+      objectReference: {fileID: 1873276393}
     - target: {fileID: 7213751280881674260, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -1532,6 +1536,17 @@ PrefabInstance:
 --- !u!114 &677977679 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1451689133411192245, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
+  m_PrefabInstance: {fileID: 677977678}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6e15055968615468793e97f330d00b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Portal
+--- !u!114 &677977680 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3522739933729437444, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
   m_PrefabInstance: {fileID: 677977678}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -2829,6 +2844,10 @@ PrefabInstance:
       propertyPath: linkedPortal
       value: 
       objectReference: {fileID: 677977679}
+    - target: {fileID: 3522739933729437444, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
+      propertyPath: linkedPortal
+      value: 
+      objectReference: {fileID: 677977680}
     - target: {fileID: 7213751280881674260, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -2889,6 +2908,17 @@ PrefabInstance:
 --- !u!114 &1873276392 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1451689133411192245, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
+  m_PrefabInstance: {fileID: 1873276391}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6e15055968615468793e97f330d00b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Portal
+--- !u!114 &1873276393 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3522739933729437444, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
   m_PrefabInstance: {fileID: 1873276391}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
