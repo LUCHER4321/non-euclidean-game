@@ -3,8 +3,9 @@ using UnityEngine.InputSystem;
 
 public class Player : Character
 {
+    [Header("Player")]
     public PlayerInput playerInput;
-
+    [Min(0f)]
     public float sensitivity = 0.5f;
     public bool inputEnabled = true;
 
