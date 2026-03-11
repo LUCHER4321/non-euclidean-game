@@ -3,19 +3,21 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CharacterSO", menuName = "Scriptable Objects/CharacterSO")]
 public class CharacterSO : ScriptableObject
 {
-    [SerializeField]
+    [Header("Moving Stats")]
+    [SerializeField, Min(0f)]
     float moveSpeed = 5f;
-    [SerializeField]
+    [SerializeField, Min(0f)]
     float runSpeed = 10f;
-    [SerializeField]
+    [SerializeField, Min(0f)]
     float jumpHeight = 0.5f;
-    [SerializeField]
+    [SerializeField, Min(0f)]
     float height = 1f;
     [SerializeField]
     Vector2 limit = new Vector2(-90f, 90f);
-    [SerializeField]
+    [Header("Vision Stats")]
+    [SerializeField, Min(0f)]
     float visionLength = 1000f;
-    [SerializeField]
+    [SerializeField, Min(0f)]
     float visionAngle = 60f;
     public float GetMoveSpeed { get => moveSpeed; }
     public float GetRunSpeed { get => runSpeed; }
