@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
+    [Header("Character")]
     public Rigidbody rb;
     public Camera cam;
     public bool isRunning = false;
