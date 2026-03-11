@@ -7,6 +7,8 @@ public class Portal : MonoBehaviour
 {
     public Portal linkedPortal;
     [SerializeField]
+    Portal auxiliaryPortal;
+    [SerializeField]
     Camera cam;
     [SerializeField]
     bool teleport = true;
@@ -16,6 +18,12 @@ public class Portal : MonoBehaviour
     void Awake()
     {
         copies = new Dictionary<Collider, GameObject>();
+        if (auxiliaryPortal != null)
+        {
+            auxiliaryPortal.linkedPortal = linkedPortal.auxiliaryPortal;
+            auxiliaryPortal.Start();
+            auxiliaryPortal.gameObject.SetActive(false);
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -67,6 +75,8 @@ public class Portal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!teleport || linkedPortal == null || !linkedPortal.teleport || copies.ContainsKey(other) || copies.ContainsValue(other.gameObject) || other.gameObject.name.Contains("Copy")) return;
+        auxiliaryPortal.gameObject.SetActive(true);
+        linkedPortal.auxiliaryPortal.gameObject.SetActive(true);
         Rigidbody rb = other.attachedRigidbody;
         if (rb == null) return;
         Vector3 offset = transform.InverseTransformPoint(other.transform.position);
@@ -85,6 +95,8 @@ public class Portal : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (!teleport || !copies.ContainsKey(other) || linkedPortal == null || !linkedPortal.teleport || copies.ContainsValue(other.gameObject)) return;
+        auxiliaryPortal.gameObject.SetActive(false);
+        linkedPortal.auxiliaryPortal.gameObject.SetActive(false);
         GameObject copy = copies[other];
         copies.Remove(other);
         Destroy(copy.gameObject);
