@@ -1051,8 +1051,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Intensity: 0
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1094,7 +1094,7 @@ Light:
   m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 0
   m_ColorTemperature: 5000
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
@@ -1476,7 +1476,7 @@ PrefabInstance:
     - target: {fileID: 3522739933729437444, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
       propertyPath: linkedPortal
       value: 
-      objectReference: {fileID: 1873276393}
+      objectReference: {fileID: 0}
     - target: {fileID: 7213751280881674260, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -1537,17 +1537,6 @@ PrefabInstance:
 --- !u!114 &677977679 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1451689133411192245, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
-  m_PrefabInstance: {fileID: 677977678}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a6e15055968615468793e97f330d00b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Portal
---- !u!114 &677977680 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3522739933729437444, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
   m_PrefabInstance: {fileID: 677977678}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -2245,7 +2234,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1568516134247207914, guid: 83365f571a225d34088be52664e76eb9, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3910446232746339087, guid: 83365f571a225d34088be52664e76eb9, type: 3}
       propertyPath: m_LocalScale.x
@@ -2305,7 +2294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7263969549941097298, guid: 83365f571a225d34088be52664e76eb9, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2676,6 +2665,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 2094061557530036984, guid: 83365f571a225d34088be52664e76eb9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739783552915168907, guid: 83365f571a225d34088be52664e76eb9, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3910446232746339087, guid: 83365f571a225d34088be52664e76eb9, type: 3}
       propertyPath: m_LocalScale.x
       value: 12
@@ -2969,7 +2966,7 @@ PrefabInstance:
     - target: {fileID: 3522739933729437444, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
       propertyPath: linkedPortal
       value: 
-      objectReference: {fileID: 677977680}
+      objectReference: {fileID: 0}
     - target: {fileID: 7213751280881674260, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -3038,17 +3035,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a6e15055968615468793e97f330d00b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Portal
---- !u!114 &1873276393 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3522739933729437444, guid: 23e2499d5592610478d9556b94c745ad, type: 3}
-  m_PrefabInstance: {fileID: 1873276391}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a6e15055968615468793e97f330d00b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Portal
 --- !u!4 &1965297712 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 950954070696062976, guid: fdb09a2e857098f408fbae11e29bea36, type: 3}
@@ -3064,7 +3050,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1568516134247207914, guid: 83365f571a225d34088be52664e76eb9, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3910446232746339087, guid: 83365f571a225d34088be52664e76eb9, type: 3}
       propertyPath: m_LocalScale.x
@@ -3124,7 +3110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7263969549941097298, guid: 83365f571a225d34088be52664e76eb9, type: 3}
       propertyPath: m_Layer
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3405,7 +3391,7 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 65546887}
   - {fileID: 898819661}
-  - {fileID: 1156902244}
   - {fileID: 803753440}
+  - {fileID: 1156902244}
   - {fileID: 1546628820}
   - {fileID: 147088449}
