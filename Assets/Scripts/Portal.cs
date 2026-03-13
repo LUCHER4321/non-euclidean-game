@@ -21,8 +21,6 @@ public class Portal : MonoBehaviour
         if (auxiliaryPortal != null)
         {
             auxiliaryPortal.linkedPortal = linkedPortal.auxiliaryPortal;
-            auxiliaryPortal.Start();
-            auxiliaryPortal.gameObject.SetActive(false);
         }
     }
 
@@ -47,7 +45,7 @@ public class Portal : MonoBehaviour
         Material newMaterial = new Material(PortalST.Instance.GetGraph);
         newMaterial.SetTexture(PortalST.Instance.GetInputName, rt);
         Renderer rndr = linkedPortal != null ? linkedPortal.GetComponent<Renderer>() : null;
-        if (rndr != null && linkedPortal.teleport) rndr.material = newMaterial;
+        if (rndr != null) rndr.material = newMaterial;
     }
 
     // Update is called once per frame
@@ -56,6 +54,17 @@ public class Portal : MonoBehaviour
         cam.aspect = Camera.main.aspect;
         RotateCamera();
         TranslateCamera();
+        //SetCameraNear();
+    }
+
+    public Ray RedirectRay(Vector3 hitPoint, Vector3 incomingDirection)
+    {
+        if (!teleport || linkedPortal == null) return new Ray(hitPoint, incomingDirection);
+        Vector3 localHitPoint = transform.InverseTransformPoint(hitPoint);
+        Vector3 outOrigin = linkedPortal.transform.TransformPoint(new Vector3(-localHitPoint.x, localHitPoint.y, -localHitPoint.z));
+        Vector3 localDirection = transform.InverseTransformDirection(incomingDirection);
+        Vector3 outDirection = linkedPortal.transform.TransformDirection(new Vector3(-localDirection.x, localDirection.y, -localDirection.z));
+        return new Ray(outOrigin, outDirection);
     }
 
     void RotateCamera()
@@ -67,16 +76,35 @@ public class Portal : MonoBehaviour
 
     void TranslateCamera()
     {
-        if (linkedPortal == null || cam == null) return;
+        if (linkedPortal == null || cam == null || !teleport) return;
         Vector3 offset = transform.InverseTransformPoint(Camera.main.transform.position);
         linkedPortal.cam.transform.localPosition = new Vector3(-offset.x, offset.y, -offset.z);
+        linkedPortal.auxiliaryPortal.cam.transform.position = linkedPortal.cam.transform.position;
+    }
+
+    void SetCameraNear()
+    {
+        MeshFilter meshFilter = GetComponent<MeshFilter>();
+        if (meshFilter == null) return;
+        Mesh mesh = meshFilter.sharedMesh;
+        if (mesh == null) return;
+        List<Vector3> localVertices = new List<Vector3>();
+        mesh.GetVertices(localVertices);
+        float minDistance = float.MaxValue;
+        foreach (Vector3 v in localVertices)
+        {
+            Vector3 worldVertex = transform.TransformPoint(v);
+            float distance = Vector3.Distance(cam.transform.position, worldVertex);
+            float linkedDistance = Vector3.Distance(linkedPortal.cam.transform.position, worldVertex);
+            float distanceToUse = Mathf.Min(distance, linkedDistance);
+            if (distanceToUse < minDistance) minDistance = distanceToUse;
+        }
+        cam.nearClipPlane = minDistance;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!teleport || linkedPortal == null || !linkedPortal.teleport || copies.ContainsKey(other) || copies.ContainsValue(other.gameObject) || other.gameObject.name.Contains("Copy")) return;
-        auxiliaryPortal.gameObject.SetActive(true);
-        linkedPortal.auxiliaryPortal.gameObject.SetActive(true);
         Rigidbody rb = other.attachedRigidbody;
         if (rb == null) return;
         Vector3 offset = transform.InverseTransformPoint(other.transform.position);
@@ -88,6 +116,10 @@ public class Portal : MonoBehaviour
         {
             listener.enabled = false;
         }
+        foreach (Camera camera in copy.GetComponentsInChildren<Camera>())
+        {
+            camera.enabled = false;
+        }
         copies.Add(other, copy);
         StartCoroutine(MoveCopy(other));
     }
@@ -95,8 +127,6 @@ public class Portal : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (!teleport || !copies.ContainsKey(other) || linkedPortal == null || !linkedPortal.teleport || copies.ContainsValue(other.gameObject)) return;
-        auxiliaryPortal.gameObject.SetActive(false);
-        linkedPortal.auxiliaryPortal.gameObject.SetActive(false);
         GameObject copy = copies[other];
         copies.Remove(other);
         Destroy(copy.gameObject);
