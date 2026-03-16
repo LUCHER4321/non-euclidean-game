@@ -14,6 +14,8 @@ public class Player : Character
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        cam.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
 
     // Update is called once per frame
