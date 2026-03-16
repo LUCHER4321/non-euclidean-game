@@ -9,9 +9,12 @@ public class PortalST : MonoBehaviour
     Shader graph;
     [SerializeField]
     string inputName = "_Portal_Texture";
+    [SerializeField]
+    List<Light> incomingLights = new List<Light>();
 
     public Shader GetGraph { get => graph; }
     public string GetInputName { get => inputName; }
+    public List<Light> GetIncomingLights { get => incomingLights; }
 
     void Awake()
     {
