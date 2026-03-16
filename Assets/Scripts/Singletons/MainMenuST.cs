@@ -48,6 +48,6 @@ public class MainMenuST : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene(gameSceneName);
+        mainMenu.SetActive(false);
     }
 }
