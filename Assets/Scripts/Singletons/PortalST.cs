@@ -11,10 +11,13 @@ public class PortalST : MonoBehaviour
     string inputName = "_Portal_Texture";
     [SerializeField]
     List<Light> incomingLights = new List<Light>();
+    [SerializeField]
+    Material negativeDecalMaterial;
 
     public Shader GetGraph { get => graph; }
     public string GetInputName { get => inputName; }
     public List<Light> GetIncomingLights { get => incomingLights; }
+    public Material GetNegativeDecalMaterial { get => negativeDecalMaterial; }
 
     void Awake()
     {
