@@ -8,7 +8,7 @@ public class Node : MonoBehaviour
     [SerializeField]
     Node[] connectedNodes;
     [SerializeField]
-    float[] distances;
+    Node connectedPortalNode;
     private Dictionary<Node, float> connections;
     public Dictionary<Node, float> GetConnections { get => connections; }
     public float GetHeuristicDistance(Node node)
@@ -32,10 +32,9 @@ public class Node : MonoBehaviour
     void Start()
     {
         connections = new Dictionary<Node, float>();
-        for (int i = 0; i < connectedNodes.Length; i++)
-        {
-            connections[connectedNodes[i]] = distances[i];
-        }
+        foreach (Node connectedNode in connectedNodes) connections[connectedNode] = Vector3.Distance(transform.position, connectedNode.transform.position);
+        if (connectedPortalNode == null) return;
+        foreach (Node connectedNode in connectedPortalNode.connectedNodes) connections[connectedNode] = Vector3.Distance(transform.position, connectedNode.transform.position);
     }
 
     // Update is called once per frame
