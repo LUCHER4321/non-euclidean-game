@@ -2336,7 +2336,8 @@ MonoBehaviour:
   inputName: _Portal_Texture
   incomingLights:
   - {fileID: 1115142165}
-  lightCookieShader: {fileID: -6465566751694194690, guid: effaed45d2bd76640bc227d70c2392eb, type: 3}
+  negativeDecalMaterial: {fileID: 2100000, guid: 10c02bd1c799ea447bd4b0049394f4fb, type: 2}
+  lightGraph: {fileID: -6465566751694194690, guid: 49b27b0e38ef0504db8db4cee8b01617, type: 3}
 --- !u!4 &1156902244
 Transform:
   m_ObjectHideFlags: 0
