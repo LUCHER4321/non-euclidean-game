@@ -17,13 +17,58 @@ public class Portal : MonoBehaviour
     [SerializeField]
     Portal auxiliaryPortal;
     private Dictionary<Light, Light> clonedLights;
+    private Dictionary<Light, DecalProjector> negativeDecals;
     private RenderTexture rt;
     private Dictionary<Collider, GameObject> copies;
+
+    bool DoesLightReachPortal(Light sourceLight)
+    {
+        if (sourceLight.type == LightType.Directional) return true;
+        Collider portalCollider = GetComponent<Collider>();
+        if (portalCollider == null) return true;
+        Vector3 lightPos = sourceLight.transform.position;
+        if (Vector3.Dot(lightPos - transform.position, -transform.forward) >= 0) return false;
+        Vector3 closestPoint = portalCollider.ClosestPoint(lightPos);
+        float sqrDistance = (closestPoint - lightPos).sqrMagnitude;
+        float sqrRange = sourceLight.range * sourceLight.range;
+        if (sqrDistance > sqrRange) return false;
+        if (sourceLight.type == LightType.Point) return true;
+        if (sourceLight.type == LightType.Spot)
+        {
+            float halfAngle = sourceLight.spotAngle * 0.5f;
+            Vector3 forward = sourceLight.transform.forward;
+            Vector3 dirToClosest = (closestPoint - lightPos).normalized;
+            if (Vector3.Angle(forward, dirToClosest) <= halfAngle) return true;
+            Vector3 center = portalCollider.bounds.center;
+            Vector3 dirToCenter = (center - lightPos).normalized;
+            if (Vector3.Angle(forward, dirToCenter) <= halfAngle) return true;
+            Vector3 extents = portalCollider.bounds.extents;
+            Vector3[] corners = new Vector3[8]
+            {
+                center + new Vector3(extents.x, extents.y, extents.z),
+                center + new Vector3(extents.x, extents.y, -extents.z),
+                center + new Vector3(extents.x, -extents.y, extents.z),
+                center + new Vector3(extents.x, -extents.y, -extents.z),
+                center + new Vector3(-extents.x, extents.y, extents.z),
+                center + new Vector3(-extents.x, extents.y, -extents.z),
+                center + new Vector3(-extents.x, -extents.y, extents.z),
+                center + new Vector3(-extents.x, -extents.y, -extents.z)
+            };
+            foreach (Vector3 corner in corners)
+            {
+                Vector3 dirToCorner = (corner - lightPos).normalized;
+                if (Vector3.Angle(forward, dirToCorner) <= halfAngle) return true;
+            }
+            return false;
+        }
+        return true;
+    }
 
     void Awake()
     {
         copies = new Dictionary<Collider, GameObject>();
         clonedLights = new Dictionary<Light, Light>();
+        negativeDecals = new Dictionary<Light, DecalProjector>();
         if (auxiliaryPortal != null)
         {
             auxiliaryPortal.linkedPortal = linkedPortal.auxiliaryPortal;
@@ -63,8 +108,6 @@ public class Portal : MonoBehaviour
         RotateCamera();
         TranslateCamera();
         SetCameraNear();
-        //UniversalRenderPipeline.SingleCameraRequest request = new UniversalRenderPipeline.SingleCameraRequest();
-        //RenderPipeline.SubmitRenderRequest(cam, request);
         SyncLights();
     }
 
@@ -89,7 +132,12 @@ public class Portal : MonoBehaviour
                 clonedLight.cullingMask = sourceLight.cullingMask;
                 sourceLight.renderingLayerMask = sourceLight.cullingMask;
                 clonedLight.renderingLayerMask = sourceLight.renderingLayerMask;
+                GameObject negativeDecalObj = new GameObject(sourceLight.name + " (Portal Negative Decal)");
+                negativeDecalObj.transform.SetParent(clonedLight.transform);
+                DecalProjector negativeDecal = negativeDecalObj.AddComponent<DecalProjector>();
+                negativeDecal.material = PortalST.Instance.GetNegativeDecalMaterial;
                 clonedLights.Add(sourceLight, clonedLight);
+                negativeDecals.Add(sourceLight, negativeDecal);
             }
         }
     }
@@ -97,14 +145,15 @@ public class Portal : MonoBehaviour
     void SyncLights()
     {
         if (!teleport || linkedPortal == null) return;
-
         foreach (KeyValuePair<Light, Light> kvp in clonedLights)
         {
             Light sourceLight = kvp.Key;
             Light clonedLight = kvp.Value;
-            if (sourceLight == null || !sourceLight.gameObject.activeInHierarchy)
+            DecalProjector negativeDecal = negativeDecals[sourceLight];
+            if (sourceLight == null || !sourceLight.gameObject.activeInHierarchy || !DoesLightReachPortal(sourceLight))
             {
                 clonedLight.enabled = false;
+                negativeDecal.enabled = false;
                 continue;
             }
             clonedLight.enabled = true;
@@ -116,7 +165,12 @@ public class Portal : MonoBehaviour
             clonedLight.transform.forward = outDirection;
             clonedLight.intensity = sourceLight.intensity;
             clonedLight.color = sourceLight.color;
-            clonedLight.shadowNearPlane = Vector3.Distance(sourceLight.transform.position, transform.position);
+            float dist = Vector3.Distance(sourceLight.transform.position, transform.position);
+            clonedLight.shadowNearPlane = dist;
+            negativeDecal.transform.position = clonedLight.transform.position;
+            negativeDecal.transform.rotation = clonedLight.transform.rotation;
+            float spotSize = sourceLight.type == LightType.Spot ? Mathf.Tan(sourceLight.spotAngle * 0.5f * Mathf.Deg2Rad) * dist * 2f : sourceLight.range;
+            negativeDecal.size = new Vector3(spotSize, spotSize, dist);
         }
     }
 
@@ -149,17 +203,15 @@ public class Portal : MonoBehaviour
     void SetCameraNear()
     {
         if (linkedPortal == null || cam == null || !teleport) return;
-        float dist = Mathf.Abs(Vector3.Dot(transform.position - cam.transform.position, -transform.forward));
-        float cos = Mathf.Abs(Vector3.Dot(cam.transform.forward, -transform.forward));
-        Vector3 vTemp = -transform.forward - cos * cam.transform.forward;
-        Vector3 v = vTemp.normalized;
-        float sin = Mathf.Abs(vTemp.magnitude);
-        float cosAlpha = Mathf.Cos(cam.fieldOfView * Mathf.Deg2Rad) / cam.aspect;
-        float sinAlpha = Mathf.Sin(cam.fieldOfView * Mathf.Deg2Rad) / cam.aspect;
-        float t0 = Mathf.Abs(dist / (cos * cosAlpha + sin * sinAlpha));
-        float t1 = Mathf.Abs(dist / (cos * cosAlpha - sin * sinAlpha));
-        float tMin = Mathf.Min(t0, t1);
-        cam.nearClipPlane = Mathf.Max(0.01f, tMin);
+        Vector3 portalPosition = transform.position;
+        Vector3 portalNormal = transform.forward;
+        Matrix4x4 worldToCamera = cam.worldToCameraMatrix;
+        Vector3 viewSpacePos = worldToCamera.MultiplyPoint(portalPosition);
+        Vector3 viewSpaceNormal = worldToCamera.MultiplyVector(portalNormal).normalized;
+        float d = -Vector3.Dot(viewSpaceNormal, viewSpacePos);
+        Vector4 clipPlane = new Vector4(viewSpaceNormal.x, viewSpaceNormal.y, viewSpaceNormal.z, d);
+        cam.ResetProjectionMatrix();
+        cam.projectionMatrix = cam.CalculateObliqueMatrix(clipPlane);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -230,6 +282,7 @@ public class Portal : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, cam.transform.position);
         Gizmos.color = Color.blue;
+        if (linkedPortal.clonedLights == null) return;
         foreach (Light light in linkedPortal.clonedLights.Values)
         {
             if (light != null)
