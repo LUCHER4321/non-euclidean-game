@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SubtractiveShadowColor: {r: 0, g: 0, b: 0, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -33,7 +33,7 @@ RenderSettings:
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
   m_DefaultReflectionMode: 0
-  m_DefaultReflectionResolution: 128
+  m_DefaultReflectionResolution: 2048
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
@@ -200,7 +200,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: de6aff54f840ca1449d5afb5fc0fa3a3, type: 2}
+  - {fileID: 2100000, guid: cf137b653a61f9a4780752058abda74a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2248,11 +2248,11 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 0
-  m_Color: {r: 1, g: 1, b: 0, a: 1}
-  m_Intensity: 30
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 20
   m_Range: 100
-  m_SpotAngle: 60
-  m_InnerSpotAngle: 30
+  m_SpotAngle: 45
+  m_InnerSpotAngle: 22.5
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -2336,6 +2336,7 @@ MonoBehaviour:
   inputName: _Portal_Texture
   incomingLights:
   - {fileID: 1115142165}
+  lightCookieShader: {fileID: -6465566751694194690, guid: effaed45d2bd76640bc227d70c2392eb, type: 3}
 --- !u!4 &1156902244
 Transform:
   m_ObjectHideFlags: 0
