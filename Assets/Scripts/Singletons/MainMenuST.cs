@@ -13,14 +13,8 @@ public class MainMenuST : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
+        if (Instance != null && Instance != this) Destroy(this);
+        else Instance = this;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
