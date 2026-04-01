@@ -11,22 +11,18 @@ public class Node : MonoBehaviour
     Node connectedPortalNode;
     private Dictionary<Node, float> connections;
     public Dictionary<Node, float> GetConnections { get => connections; }
+    private static List<Node> AllPortals = new List<Node>();
     public float GetHeuristicDistance(Node node)
     {
-        if (connections.ContainsKey(node)) return Mathf.Min(connections[node], Vector3.Distance(transform.position, node.transform.position));
-        float minDistFrom = float.MaxValue;
-        foreach (Node connectedNode in connections.Keys)
+        float minDistance = Vector3.Distance(transform.position, node.transform.position);
+        foreach (Node portal in AllPortals)
         {
-            float dist = Mathf.Min(connections[connectedNode], Vector3.Distance(transform.position, connectedNode.transform.position));//connections[connectedNode] + connectedNode.GetHeuristicDistance(node);
-            if (dist < minDistFrom) minDistFrom = dist;
+            float distToPortal = Vector3.Distance(transform.position, portal.transform.position);
+            float distFromExitToGoal = Vector3.Distance(portal.ConnectedPortalNode.transform.position, node.transform.position);
+            float distanceThroughPortal = distToPortal + distFromExitToGoal;
+            if (distanceThroughPortal < minDistance) minDistance = distanceThroughPortal;
         }
-        float minDistTo = float.MaxValue;
-        foreach (Node connectedNode in node.GetConnections.Keys)
-        {
-            float dist = Mathf.Min(node.GetConnections[connectedNode], Vector3.Distance(node.transform.position, connectedNode.transform.position));//node.GetConnections[connectedNode] + connectedNode.GetHeuristicDistance(this);
-            if (dist < minDistTo) minDistTo = dist;
-        }
-        return minDistFrom + minDistTo;
+        return minDistance;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,6 +30,7 @@ public class Node : MonoBehaviour
         connections = new Dictionary<Node, float>();
         foreach (Node connectedNode in connectedNodes) connections[connectedNode] = Vector3.Distance(transform.position, connectedNode.transform.position);
         if (connectedPortalNode == null) return;
+        AllPortals.Add(this);
         foreach (Node connectedNode in connectedPortalNode.connectedNodes) connections[connectedNode] = Vector3.Distance(transform.position, connectedNode.transform.position);
     }
 
