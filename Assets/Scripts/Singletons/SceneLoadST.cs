@@ -6,12 +6,19 @@ using System.Collections;
 
 public class SceneLoadST : MonoBehaviour
 {
+    public static SceneLoadST Instance { get; private set; }
     [SerializeField]
     Slider loadBar;
     [SerializeField]
     GameObject loadPanel;
     [SerializeField]
     TMP_Text loadText;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this) Destroy(this);
+        else Instance = this;
+    }
 
     public void SceneLoad(int sceneIndex)
     {
