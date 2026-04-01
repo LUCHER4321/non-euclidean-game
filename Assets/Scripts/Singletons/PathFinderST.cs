@@ -12,34 +12,50 @@ public class PathFinderST : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
+        if (Instance != null && Instance != this) Destroy(this);
+        else Instance = this;
     }
 
-    public Node[] AStar(Node start, Node end, Node[] previousNodes = null, float g = 0f)
+    public static Node[] AStar(Node start, Node end)
     {
-        if (previousNodes == null) previousNodes = emptyNodes;
-        float h = start.GetHeuristicDistance(end);
-        if (h == 0f) return new Node[] { start };
-        Node[] nextNodes = new Node[start.GetConnections.Count];
-        for (int i = 0; i < start.GetConnections.Count; i++)
+        if (start == end) return new Node[] { start };
+        List<Node> openSet = new List<Node> { start };
+        Dictionary<Node, Node> cameFrom = new Dictionary<Node, Node>();
+        Dictionary<Node, float> gScore = new Dictionary<Node, float>();
+        gScore[start] = 0f;
+        Dictionary<Node, float> fScore = new Dictionary<Node, float>();
+        fScore[start] = start.GetHeuristicDistance(end);
+        while (openSet.Count > 0)
         {
-            nextNodes[i] = (Node)start.GetConnections.Keys.ToArray().GetValue(i);
+            Node current = openSet.OrderBy(n => fScore.ContainsKey(n) ? fScore[n] : float.MaxValue).First();
+            if (current == end) return ReconstructPath(cameFrom, current);
+            openSet.Remove(current);
+            foreach (var connection in current.GetConnections)
+            {
+                Node neighbor = connection.Key;
+                float costToNeighbor = connection.Value;
+                float tentativeGScore = gScore[current] + costToNeighbor;
+                if (!gScore.ContainsKey(neighbor) || tentativeGScore < gScore[neighbor])
+                {
+                    cameFrom[neighbor] = current;
+                    gScore[neighbor] = tentativeGScore;
+                    fScore[neighbor] = tentativeGScore + neighbor.GetHeuristicDistance(end);
+                    if (!openSet.Contains(neighbor)) openSet.Add(neighbor);
+                }
+            }
         }
-        nextNodes = nextNodes.OrderBy(n => g + start.GetConnections[n] + n.GetHeuristicDistance(end)).ToArray();
-        List<Node> newPreviousNodes = new List<Node>(previousNodes) { start };
-        foreach (Node nextNode in nextNodes)
+        return emptyNodes;
+    }
+
+    private static Node[] ReconstructPath(Dictionary<Node, Node> cameFrom, Node current)
+    {
+        List<Node> totalPath = new List<Node> { current };
+        while (cameFrom.ContainsKey(current))
         {
-            if (previousNodes.Contains(nextNode)) continue;
-            Node[] path = AStar(nextNode, end, newPreviousNodes.ToArray(), g + start.GetConnections[nextNode]);
-            if (path.Length > 0) return new Node[] { start }.Concat(path).ToArray();
+            current = cameFrom[current];
+            totalPath.Add(current);
         }
-        return new Node[] { start };
+        totalPath.Reverse();
+        return totalPath.ToArray();
     }
 }
