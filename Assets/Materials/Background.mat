@@ -42,20 +42,32 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BlurSize: 0.05
+    - _CellDensity: 15
+    - _ColorMask: 15
     - _Count: 10
+    - _Cracks: 1
     - _Period: 100
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Scale: 0.01
     - _Speed: 0.1
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
     - _Strength: 2
+    - _UIMaskSoftnessX: 1
+    - _UIMaskSoftnessY: 1
     m_Colors:
-    - _Base_Color: {r: 0.4716981, g: 0.3031066, b: 0.10457454, a: 1}
+    - _Base_Color: {r: 0.25490198, g: 0.14509805, b: 0.09803922, a: 1}
     - _Bg_Color: {r: 0.25490195, g: 0.145098, b: 0.09803919, a: 1}
     - _Center: {r: -0.5, g: 0.5, b: 0, a: 0}
+    - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
     - _Direction_Angle: {r: 15, g: 10, b: 0, a: 0}
-    - _Offset: {r: 0, g: 0, b: 50, a: 0}
-    - _Velocity: {r: 0, g: 0, b: 0, a: 0}
+    - _Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _Velocity: {r: 0, g: 0, b: 1, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &2505652859980396099
