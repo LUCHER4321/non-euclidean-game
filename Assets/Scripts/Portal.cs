@@ -71,10 +71,7 @@ public class Portal : MonoBehaviour
         clonedLights = new Dictionary<Light, Light>();
         negativeDecals = new Dictionary<Light, DecalProjector>();
         negativeDecalsForPortal = new Dictionary<Light, DecalProjector>();
-        if (auxiliaryPortal != null)
-        {
-            auxiliaryPortal.linkedPortal = linkedPortal.auxiliaryPortal;
-        }
+        if (auxiliaryPortal != null) auxiliaryPortal.linkedPortal = linkedPortal.auxiliaryPortal;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -187,7 +184,8 @@ public class Portal : MonoBehaviour
             negativeDecal.transform.position = clonedLight.transform.position;
             negativeDecal.transform.rotation = clonedLight.transform.rotation;
             Collider portalCollider = linkedPortal.GetComponent<Collider>();
-            Vector3 closestPoint = portalCollider != null ? portalCollider.ClosestPoint(clonedLight.transform.position) : linkedPortal.transform.position;
+            Vector3 closestPoint0 = portalCollider != null ? portalCollider.ClosestPoint(clonedLight.transform.position) : linkedPortal.transform.position;
+            Vector3 closestPoint = closestPoint0 - Vector3.Dot(closestPoint0 - linkedPortal.transform.position, linkedPortal.transform.forward) * linkedPortal.transform.forward;
             Vector3 tp = linkedPortal.transform.position - closestPoint;
             Vector3 toPortal = tp - Vector3.Dot(tp, linkedPortal.transform.up) * linkedPortal.transform.up;
             negativeDecalForPortal.transform.position = clonedLight.transform.position - linkedPortal.transform.forward * Vector3.Dot(clonedLight.transform.position - linkedPortal.transform.position, linkedPortal.transform.forward);
@@ -195,10 +193,10 @@ public class Portal : MonoBehaviour
             float distToPortal = Vector3.Distance(clonedLight.transform.position, closestPoint);
             float spotSize = sourceLight.type == LightType.Spot ? Mathf.Tan(sourceLight.spotAngle * 0.5f * Mathf.Deg2Rad) * distToPortal * 2f : sourceLight.range;
             negativeDecal.size = new Vector3(spotSize, spotSize, distToPortal);
-            float distZ = (closestPoint - negativeDecalForPortal.transform.position).magnitude;
+            float distZ = (closestPoint - negativeDecalForPortal.transform.position).magnitude + 0.001f;
             negativeDecalForPortal.size = new Vector3(spotSize, spotSize, distZ);
-            negativeDecal.pivot = new Vector3(0, 0, distToPortal / 2f);
-            negativeDecalForPortal.pivot = new Vector3(0, 0, distZ / 2f);
+            negativeDecal.pivot = distToPortal / 2f * Vector3.forward;
+            negativeDecalForPortal.pivot = distZ / 2f * Vector3.forward;
             negativeDecal.material.SetVector("_Position", linkedPortal.transform.position);
             negativeDecal.material.SetVector("_Normal", -linkedPortal.transform.forward);
             negativeDecal.material.SetVector("_Closest", closestPoint);
@@ -313,15 +311,7 @@ public class Portal : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, cam.transform.position);
         if (linkedPortal.clonedLights == null) return;
-        foreach (Light light in linkedPortal.clonedLights.Values)
-        {
-            if (light != null && light.enabled)
-            {
-                Gizmos.color = Color.blue;
-                Gizmos.DrawLine(transform.position, light.transform.position);
-                Gizmos.color = Color.green;
-                Gizmos.DrawLine(light.transform.position, linkedPortal.transform.position);
-            }
-        }
+        Gizmos.color = Color.blue;
+        foreach (Light light in linkedPortal.clonedLights.Values) if (light != null && light.enabled) Gizmos.DrawLine(transform.position, light.transform.position);
     }
 }
