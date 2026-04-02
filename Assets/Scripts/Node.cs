@@ -18,7 +18,7 @@ public class Node : MonoBehaviour
         foreach (Node portal in AllPortals)
         {
             float distToPortal = Vector3.Distance(transform.position, portal.transform.position);
-            float distFromExitToGoal = Vector3.Distance(portal.ConnectedPortalNode.transform.position, node.transform.position);
+            float distFromExitToGoal = Vector3.Distance(portal.connectedPortalNode.transform.position, node.transform.position);
             float distanceThroughPortal = distToPortal + distFromExitToGoal;
             if (distanceThroughPortal < minDistance) minDistance = distanceThroughPortal;
         }
