@@ -2782,6 +2782,7 @@ MonoBehaviour:
   graph: {fileID: -6465566751694194690, guid: b5772350ab9aa2b42ae1999c13805e06, type: 3}
   inputName: _Portal_Texture
   incomingLights: []
+  lightGraph: {fileID: 0}
 --- !u!4 &1717201018
 Transform:
   m_ObjectHideFlags: 0
