@@ -107,7 +107,6 @@ public class Portal : MonoBehaviour
         RotateCamera();
         TranslateCamera();
         SetCameraNear();
-        SyncLights();
     }
 
     void InitializeLights()
@@ -144,62 +143,67 @@ public class Portal : MonoBehaviour
                 negativeDecalsForPortal.Add(sourceLight, negativeDecalForPortal);
             }
         }
+        StartCoroutine(SyncLights());
     }
 
-    void SyncLights()
+    IEnumerator SyncLights()
     {
-        if (!teleport || linkedPortal == null) return;
-        foreach (KeyValuePair<Light, Light> kvp in clonedLights)
+        while (true)
         {
-            Light sourceLight = kvp.Key;
-            Light clonedLight = kvp.Value;
-            DecalProjector negativeDecal = negativeDecals[sourceLight];
-            DecalProjector negativeDecalForPortal = negativeDecalsForPortal[sourceLight];
-            if (sourceLight == null || !sourceLight.gameObject.activeInHierarchy || !DoesLightReachPortal(sourceLight))
+            foreach (KeyValuePair<Light, Light> kvp in clonedLights)
             {
-                clonedLight.enabled = false;
-                negativeDecal.enabled = false;
-                negativeDecalForPortal.enabled = false;
-                continue;
+                Light sourceLight = kvp.Key;
+                Light clonedLight = kvp.Value;
+                DecalProjector negativeDecal = negativeDecals[sourceLight];
+                DecalProjector negativeDecalForPortal = negativeDecalsForPortal[sourceLight];
+                if (sourceLight == null || !sourceLight.gameObject.activeInHierarchy || !DoesLightReachPortal(sourceLight))
+                {
+                    clonedLight.enabled = false;
+                    negativeDecal.enabled = false;
+                    negativeDecalForPortal.enabled = false;
+                    continue;
+                }
+                clonedLight.enabled = true;
+                negativeDecal.enabled = true;
+                negativeDecalForPortal.enabled = true;
+                Vector3 localPos = transform.InverseTransformPoint(sourceLight.transform.position);
+                Vector3 outOrigin = linkedPortal.transform.TransformPoint(new Vector3(-localPos.x, localPos.y, -localPos.z));
+                clonedLight.transform.position = outOrigin;
+                Vector3 localDir = transform.InverseTransformDirection(sourceLight.transform.forward);
+                Vector3 outDirection = linkedPortal.transform.TransformDirection(new Vector3(-localDir.x, localDir.y, -localDir.z));
+                clonedLight.transform.forward = outDirection;
+                clonedLight.intensity = sourceLight.intensity;
+                clonedLight.color = sourceLight.color;
+                if (!Physics.Raycast(clonedLight.transform.position, linkedPortal.transform.position - clonedLight.transform.position, (linkedPortal.transform.position - clonedLight.transform.position).magnitude, sourceLight.cullingMask))
+                {
+                    negativeDecal.enabled = false;
+                    negativeDecalForPortal.enabled = false;
+                    continue;
+                }
+                float dist = Vector3.Distance(sourceLight.transform.position, transform.position);
+                clonedLight.shadowNearPlane = dist;
+                negativeDecal.transform.position = clonedLight.transform.position;
+                negativeDecal.transform.rotation = clonedLight.transform.rotation;
+                Collider portalCollider = linkedPortal.GetComponent<Collider>();
+                Vector3 closestPoint0 = portalCollider != null ? portalCollider.ClosestPoint(clonedLight.transform.position) : linkedPortal.transform.position;
+                Vector3 closestPoint = closestPoint0 - Vector3.Dot(closestPoint0 - linkedPortal.transform.position, linkedPortal.transform.forward) * linkedPortal.transform.forward;
+                Vector3 tp = linkedPortal.transform.position - closestPoint;
+                Vector3 toPortal = tp - Vector3.Dot(tp, linkedPortal.transform.up) * linkedPortal.transform.up;
+                negativeDecalForPortal.transform.position = clonedLight.transform.position - linkedPortal.transform.forward * Vector3.Dot(clonedLight.transform.position - linkedPortal.transform.position, linkedPortal.transform.forward);
+                negativeDecalForPortal.transform.forward = toPortal.normalized;
+                float distToPortal = Vector3.Distance(clonedLight.transform.position, closestPoint);
+                float spotSize = sourceLight.type == LightType.Spot ? Mathf.Tan(sourceLight.spotAngle * 0.5f * Mathf.Deg2Rad) * distToPortal * 2f : sourceLight.range;
+                negativeDecal.size = new Vector3(spotSize, spotSize, distToPortal);
+                float distZ = (closestPoint - negativeDecalForPortal.transform.position).magnitude + 0.001f;
+                negativeDecalForPortal.size = new Vector3(spotSize, spotSize, distZ);
+                negativeDecal.pivot = distToPortal / 2f * Vector3.forward;
+                negativeDecalForPortal.pivot = distZ / 2f * Vector3.forward;
+                negativeDecal.material.SetVector("_Position", linkedPortal.transform.position);
+                negativeDecal.material.SetVector("_Normal", -linkedPortal.transform.forward);
+                negativeDecal.material.SetVector("_Closest", closestPoint);
+                yield return null;
             }
-            clonedLight.enabled = true;
-            negativeDecal.enabled = true;
-            negativeDecalForPortal.enabled = true;
-            Vector3 localPos = transform.InverseTransformPoint(sourceLight.transform.position);
-            Vector3 outOrigin = linkedPortal.transform.TransformPoint(new Vector3(-localPos.x, localPos.y, -localPos.z));
-            clonedLight.transform.position = outOrigin;
-            Vector3 localDir = transform.InverseTransformDirection(sourceLight.transform.forward);
-            Vector3 outDirection = linkedPortal.transform.TransformDirection(new Vector3(-localDir.x, localDir.y, -localDir.z));
-            clonedLight.transform.forward = outDirection;
-            clonedLight.intensity = sourceLight.intensity;
-            clonedLight.color = sourceLight.color;
-            if (!Physics.Raycast(clonedLight.transform.position, linkedPortal.transform.position - clonedLight.transform.position, (linkedPortal.transform.position - clonedLight.transform.position).magnitude, sourceLight.cullingMask))
-            {
-                negativeDecal.enabled = false;
-                negativeDecalForPortal.enabled = false;
-                continue;
-            }
-            float dist = Vector3.Distance(sourceLight.transform.position, transform.position);
-            clonedLight.shadowNearPlane = dist;
-            negativeDecal.transform.position = clonedLight.transform.position;
-            negativeDecal.transform.rotation = clonedLight.transform.rotation;
-            Collider portalCollider = linkedPortal.GetComponent<Collider>();
-            Vector3 closestPoint0 = portalCollider != null ? portalCollider.ClosestPoint(clonedLight.transform.position) : linkedPortal.transform.position;
-            Vector3 closestPoint = closestPoint0 - Vector3.Dot(closestPoint0 - linkedPortal.transform.position, linkedPortal.transform.forward) * linkedPortal.transform.forward;
-            Vector3 tp = linkedPortal.transform.position - closestPoint;
-            Vector3 toPortal = tp - Vector3.Dot(tp, linkedPortal.transform.up) * linkedPortal.transform.up;
-            negativeDecalForPortal.transform.position = clonedLight.transform.position - linkedPortal.transform.forward * Vector3.Dot(clonedLight.transform.position - linkedPortal.transform.position, linkedPortal.transform.forward);
-            negativeDecalForPortal.transform.forward = toPortal.normalized;
-            float distToPortal = Vector3.Distance(clonedLight.transform.position, closestPoint);
-            float spotSize = sourceLight.type == LightType.Spot ? Mathf.Tan(sourceLight.spotAngle * 0.5f * Mathf.Deg2Rad) * distToPortal * 2f : sourceLight.range;
-            negativeDecal.size = new Vector3(spotSize, spotSize, distToPortal);
-            float distZ = (closestPoint - negativeDecalForPortal.transform.position).magnitude + 0.001f;
-            negativeDecalForPortal.size = new Vector3(spotSize, spotSize, distZ);
-            negativeDecal.pivot = distToPortal / 2f * Vector3.forward;
-            negativeDecalForPortal.pivot = distZ / 2f * Vector3.forward;
-            negativeDecal.material.SetVector("_Position", linkedPortal.transform.position);
-            negativeDecal.material.SetVector("_Normal", -linkedPortal.transform.forward);
-            negativeDecal.material.SetVector("_Closest", closestPoint);
+            yield return null;
         }
     }
 
