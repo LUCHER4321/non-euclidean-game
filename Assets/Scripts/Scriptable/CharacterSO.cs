@@ -19,6 +19,8 @@ public class CharacterSO : ScriptableObject
     float visionLength = 1000f;
     [SerializeField, Min(0f)]
     float visionAngle = 60f;
+    [SerializeField]
+    CharacterSO[] preys;
     public float GetMoveSpeed { get => moveSpeed; }
     public float GetRunSpeed { get => runSpeed; }
     public float GetJumpHeight { get => jumpHeight; }
@@ -26,4 +28,5 @@ public class CharacterSO : ScriptableObject
     public Vector2 GetLimit { get => limit; }
     public float GetVisionLength { get => visionLength; }
     public float GetVisionAngle { get => visionAngle; }
+    public CharacterSO[] GetPreys { get => preys; }
 }
