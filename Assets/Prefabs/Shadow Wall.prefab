@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8796691062266376799}
   - component: {fileID: 503954914655003164}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shadow Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 415369932319295424}
   - component: {fileID: 3127542713347871395}
   - component: {fileID: 5236862611543271494}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
