@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5836863805189335820}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 1732148952548037873}
   - component: {fileID: 4696227767413269607}
   - component: {fileID: 145057742306149074}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Quad
   m_TagString: Wall
   m_Icon: {fileID: 0}
