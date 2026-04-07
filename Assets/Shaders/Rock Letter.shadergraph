@@ -1820,8 +1820,8 @@
         "x": 0.009999999776482582,
         "y": 0.25
     },
-    "m_SliderType": 0,
-    "m_SliderPower": 3.0,
+    "m_SliderType": 1,
+    "m_SliderPower": 10.0,
     "m_EnumType": 0,
     "m_CSharpEnumString": "",
     "m_EnumNames": [
