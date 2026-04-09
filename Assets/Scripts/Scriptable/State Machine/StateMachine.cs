@@ -9,10 +9,7 @@ public class StateMachine : ScriptableObject
     public Transition[] GetTransitions(State state)
     {
         List<Transition> trs = new List<Transition>();
-        foreach (Transition t in transitions)
-        {
-            if (t.GetStartState == state) trs.Add(t);
-        }
+        foreach (Transition t in transitions) if (t.GetStartState == state) trs.Add(t);
         return trs.ToArray();
     }
 }
