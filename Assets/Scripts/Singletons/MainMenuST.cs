@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenuST : MonoBehaviour
 {
@@ -8,8 +7,6 @@ public class MainMenuST : MonoBehaviour
     GameObject mainMenu;
     [SerializeField]
     GameObject optionsMenu;
-    [SerializeField]
-    string gameSceneName;
 
     void Awake()
     {
