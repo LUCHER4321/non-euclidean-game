@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSO
   moveSpeed: 5
   runSpeed: 10
-  jumpHeight: 3
+  jumpHeight: 2
   height: 1
   limit: {x: -90, y: 90}
   visionLength: 1000
   visionAngle: 60
+  preys: []
