@@ -5,15 +5,15 @@ public class Player : Character
 {
     [Header("Player")]
     public PlayerInput playerInput;
-    [Min(0f)]
+    [Range(0f, 1f)]
     public float sensitivity = 0.5f;
     public bool inputEnabled = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = !inputEnabled;
+        Cursor.lockState = inputEnabled ? CursorLockMode.Locked : CursorLockMode.None;
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         cam.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
     }
