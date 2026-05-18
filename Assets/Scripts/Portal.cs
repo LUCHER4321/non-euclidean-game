@@ -71,7 +71,11 @@ public class Portal : MonoBehaviour
         clonedLights = new Dictionary<Light, Light>();
         negativeDecals = new Dictionary<Light, DecalProjector>();
         negativeDecalsForPortal = new Dictionary<Light, DecalProjector>();
-        if (auxiliaryPortal != null) auxiliaryPortal.linkedPortal = linkedPortal.auxiliaryPortal;
+        if (auxiliaryPortal != null)
+        {
+            auxiliaryPortal.linkedPortal = linkedPortal.auxiliaryPortal;
+            auxiliaryPortal.gameObject.SetActive(false);
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -250,6 +254,7 @@ public class Portal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!teleport || linkedPortal == null || !linkedPortal.teleport || copies.ContainsKey(other) || copies.ContainsValue(other.gameObject) || other.gameObject.name.Contains("Copy")) return;
+        auxiliaryPortal.gameObject.SetActive(true);
         Rigidbody rb = other.attachedRigidbody;
         if (rb == null) return;
         Vector3 offset = transform.InverseTransformPoint(other.transform.position);
@@ -272,6 +277,7 @@ public class Portal : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (!teleport || !copies.ContainsKey(other) || linkedPortal == null || !linkedPortal.teleport || copies.ContainsValue(other.gameObject)) return;
+        auxiliaryPortal.gameObject.SetActive(false);
         GameObject copy = copies[other];
         copies.Remove(other);
         Destroy(copy.gameObject);
@@ -314,7 +320,7 @@ public class Portal : MonoBehaviour
         if (!teleport) return;
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, cam.transform.position);
-        if (linkedPortal.clonedLights == null) return;
+        if (linkedPortal == null || linkedPortal.clonedLights == null) return;
         Gizmos.color = Color.blue;
         foreach (Light light in linkedPortal.clonedLights.Values) if (light != null && light.enabled) Gizmos.DrawLine(transform.position, light.transform.position);
     }
