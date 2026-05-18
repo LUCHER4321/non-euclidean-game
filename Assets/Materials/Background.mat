@@ -50,7 +50,7 @@ Material:
     - _Period: 100
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Scale: 0.01
+    - _Scale: 0.02
     - _Speed: 0.1
     - _Stencil: 0
     - _StencilComp: 8
