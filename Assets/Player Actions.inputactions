@@ -59,20 +59,36 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Drop",
+                    "type": "Button",
+                    "id": "2cbd403d-5d5e-46ec-945c-4e1e60b02c77",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Action",
+                    "type": "Button",
+                    "id": "2ac458bd-b2c4-4a8f-ab20-3c65304a86a6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Throw",
+                    "type": "Button",
+                    "id": "e3b387c3-9273-45bc-9920-7f87a0858706",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "4b1c3794-285c-45af-b743-2589ea6fa13c",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "NormalizeVector2,StickDeadzone",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "2D Vector",
                     "id": "d42dc5a0-34b1-4177-a47c-90113c178698",
@@ -130,17 +146,6 @@
                 },
                 {
                     "name": "",
-                    "id": "f90e9450-b716-4c1a-975c-bb12d4128554",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "70f92424-9211-49c0-8337-27b9d36d03bf",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -152,34 +157,12 @@
                 },
                 {
                     "name": "",
-                    "id": "03c3d349-9888-42dd-a737-632c175218ce",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "StickDeadzone,ScaleVector2(x=2,y=2)",
-                    "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "c3fe1d8b-4752-4ecd-8a99-d01f0a36f79a",
                     "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Look",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "58b17870-62d5-4e39-adaf-8351e9af6c40",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Run",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -213,6 +196,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d75fcce-6853-406b-b848-fa177186123e",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "def078c2-bfd6-4cca-a4b5-60b9a21d5b1a",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "43cf32d9-98c7-4cda-bb3b-fbc73e4a3b81",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
