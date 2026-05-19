@@ -163,6 +163,7 @@ MonoBehaviour:
   playerInput: {fileID: 4447391329699403942}
   sensitivity: 0.5
   inputEnabled: 1
+  currentRebind: {fileID: 0}
 --- !u!114 &4447391329699403942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +191,7 @@ MonoBehaviour:
       - m_Target: {fileID: 4408732064823203925}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: ControlsChanged
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -285,9 +286,33 @@ MonoBehaviour:
     m_ActionId: a3e767bd-875e-4806-a11a-323ab2573f2e
     m_ActionName: Menu/Back
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4408732064823203925}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: RebindAction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 9c501b7d-26d1-418c-9fc5-c634d53af573
     m_ActionName: 'Reasign Key/Reasign[/Keyboard/anyKey,/Mouse/press]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2cbd403d-5d5e-46ec-945c-4e1e60b02c77
+    m_ActionName: 'Player/Drop[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2ac458bd-b2c4-4a8f-ab20-3c65304a86a6
+    m_ActionName: 'Player/Action[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e3b387c3-9273-45bc-9920-7f87a0858706
+    m_ActionName: 'Player/Throw[/Mouse/rightButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
