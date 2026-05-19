@@ -19,16 +19,27 @@ public class OptionsMenuST : MonoBehaviour
     [Header("Fullscreen")]
     [SerializeField]
     Toggle fullscreenToggle;
-
     [SerializeField]
     TMP_Text fullscreenText;
-
     [SerializeField]
     string fullscreenOnText = "Yes", fullscreenOffText = "No";
     [Header("Audio")]
     [SerializeField]
     AudioMixer audioMixer;
+    [Header("Player")]
+    [SerializeField]
+    Slider senSlider;
+    [SerializeField]
+    TMP_Text senText;
+    [SerializeField, Range(0, 100)]
+    int sensitivity = 50, defaultSensitivity = 50;
+    [SerializeField]
+    Toggle[] invertTogs = new Toggle[2];
+    [SerializeField]
+    bool[] inverts = new bool[] { false, false };
     private Resolution[] resolutions;
+    public float GetSensitivity { get => (float)sensitivity / 100f; }
+    public bool[] GetInverts { get => inverts; }
 
     static float PercentToDB(float p)
     {
@@ -49,6 +60,9 @@ public class OptionsMenuST : MonoBehaviour
         resSlider.value = System.Array.FindIndex(resolutions, x => x.width == Screen.currentResolution.width && x.height == Screen.currentResolution.height);
         fullscreenToggle.isOn = Screen.fullScreen;
         fullscreenText.text = Screen.fullScreen ? fullscreenOnText : fullscreenOffText;
+        senSlider.value = sensitivity;
+        senText.text = $"{sensitivity}%";
+        for (int i = 0; i < invertTogs.Length; i++) invertTogs[i].isOn = inverts[i];
     }
 
     // Update is called once per frame
@@ -83,5 +97,22 @@ public class OptionsMenuST : MonoBehaviour
     {
         optionsMenu.SetActive(!open);
         controlsMenu.SetActive(open);
+    }
+
+    public void SetSensitivity()
+    {
+        sensitivity = (int)senSlider.value;
+        senText.text = $"{sensitivity}%";
+    }
+
+    public void SetDefaultSensitivity()
+    {
+        senSlider.value = defaultSensitivity;
+        SetSensitivity();
+    }
+
+    public void SetInvert(int n)
+    {
+        inverts[n] = invertTogs[n].isOn;
     }
 }
