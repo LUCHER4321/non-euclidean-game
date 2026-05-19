@@ -3,11 +3,17 @@ using UnityEngine.InputSystem;
 
 public class Player : Character
 {
+    public static Player Instance { get; private set; }
     [Header("Player")]
     public PlayerInput playerInput;
-    [Range(0f, 1f)]
-    public float sensitivity = 0.5f;
     public bool inputEnabled = true;
+    public RebindableAction currentRebind;
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this) Destroy(this);
+        else Instance = this;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -45,8 +51,11 @@ public class Player : Character
     public void PlayerLook(InputAction.CallbackContext context)
     {
         if (!inputEnabled) return;
-        Vector2 input = context.ReadValue<Vector2>();
-        input *= sensitivity;
+        Vector2 input0 = context.ReadValue<Vector2>();
+        bool[] inverts = OptionsMenuST.Instance.GetInverts;
+        float[] invertsNum = new float[2];
+        for (int i = 0; i < 2; i++) invertsNum[i] = inverts[i] ? -1 : 1;
+        Vector2 input = OptionsMenuST.Instance.GetSensitivity * new Vector2(input0.x * invertsNum[0], input0.y * invertsNum[1]);
         Look(input);
     }
 
@@ -55,10 +64,11 @@ public class Player : Character
         inputEnabled = !inputEnabled;
         Cursor.visible = !inputEnabled;
         Cursor.lockState = inputEnabled ? CursorLockMode.Locked : CursorLockMode.None;
+        playerInput.SwitchCurrentActionMap(inputEnabled ? "Player" : "Menu");
     }
 
-    public void ControlsChanged(PlayerInput pi)
+    public void ControlsChanged()
     {
-        Debug.Log("Controls changed to " + pi.currentControlScheme);
+        Debug.Log("Controls changed to " + playerInput.currentControlScheme);
     }
 }
