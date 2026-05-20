@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Audio;
+using System.Collections.Generic;
+using System.Linq;
 
 public class OptionsMenuST : MonoBehaviour
 {
@@ -22,7 +24,7 @@ public class OptionsMenuST : MonoBehaviour
     [SerializeField]
     TMP_Text fullscreenText;
     [SerializeField]
-    string fullscreenOnText = "Yes", fullscreenOffText = "No";
+    LanText fullscreenOnText, fullscreenOffText;
     [Header("Audio")]
     [SerializeField]
     AudioMixer audioMixer;
@@ -38,8 +40,15 @@ public class OptionsMenuST : MonoBehaviour
     [SerializeField]
     bool[] inverts = new bool[] { false, false };
     private Resolution[] resolutions;
+    [Header("Language")]
+    private Language[] languages;
+    [SerializeField]
+    Language language;
+    [SerializeField]
+    TMP_Dropdown lanDropdown;
     public float GetSensitivity { get => (float)sensitivity / 100f; }
     public bool[] GetInverts { get => inverts; }
+    public Language GetLanguage { get => language; }
 
     static float PercentToDB(float p)
     {
@@ -54,12 +63,15 @@ public class OptionsMenuST : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        languages = Resources.LoadAll<Language>("");
+        lanDropdown.AddOptions(new List<string>(languages.Select(x => x.GetName)));
+        lanDropdown.value = System.Array.FindIndex(lanDropdown.options.ToArray(), x => x.text == language.GetName);
         resolutions = Screen.resolutions;
         resText.text = $"{Screen.currentResolution.width}x{Screen.currentResolution.height}";
         resSlider.maxValue = resolutions.Length - 1;
         resSlider.value = System.Array.FindIndex(resolutions, x => x.width == Screen.currentResolution.width && x.height == Screen.currentResolution.height);
         fullscreenToggle.isOn = Screen.fullScreen;
-        fullscreenText.text = Screen.fullScreen ? fullscreenOnText : fullscreenOffText;
+        fullscreenText.text = (Screen.fullScreen ? fullscreenOnText : fullscreenOffText).GetText();
         senSlider.value = sensitivity;
         senText.text = $"{sensitivity}%";
         for (int i = 0; i < invertTogs.Length; i++) invertTogs[i].isOn = inverts[i];
@@ -83,7 +95,7 @@ public class OptionsMenuST : MonoBehaviour
     {
         bool isFullscreen = fullscreenToggle.isOn;
         Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, isFullscreen);
-        fullscreenText.text = isFullscreen ? fullscreenOnText : fullscreenOffText;
+        fullscreenText.text = (isFullscreen ? fullscreenOnText : fullscreenOffText).GetText();
     }
 
     public void SetVolume(VolumeSlider volumeSlider)
@@ -97,6 +109,11 @@ public class OptionsMenuST : MonoBehaviour
     {
         optionsMenu.SetActive(!open);
         controlsMenu.SetActive(open);
+    }
+
+    public void RestoreControls()
+    {
+        foreach (RebindableAction r in FindObjectsByType<RebindableAction>(FindObjectsInactive.Include, FindObjectsSortMode.None)) r.ResetToDefault();
     }
 
     public void SetSensitivity()
@@ -114,5 +131,12 @@ public class OptionsMenuST : MonoBehaviour
     public void SetInvert(int n)
     {
         inverts[n] = invertTogs[n].isOn;
+    }
+
+    public void ChangeLanguage()
+    {
+        language = languages.First(x => x.GetName == lanDropdown.options[lanDropdown.value].text);
+        foreach (MultilanguageText mlt in FindObjectsByType<MultilanguageText>(FindObjectsInactive.Include, FindObjectsSortMode.None)) mlt.ChangeLanguage();
+        SetFullscreen();
     }
 }
