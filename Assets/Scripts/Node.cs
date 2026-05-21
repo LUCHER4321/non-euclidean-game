@@ -8,7 +8,7 @@ public class Node : MonoBehaviour
     [SerializeField]
     Node[] connectedNodes;
     [SerializeField]
-    Node connectedPortalNode;
+    PortalGate connectedPortalNode;
     private Dictionary<Node, float> connections;
     public Dictionary<Node, float> GetConnections { get => connections; }
     private static List<Node> AllPortals = new List<Node>();
@@ -25,7 +25,7 @@ public class Node : MonoBehaviour
         return minDistance;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Start()
     {
         connections = new Dictionary<Node, float>();
         foreach (Node connectedNode in connectedNodes) connections[connectedNode] = Vector3.Distance(transform.position, connectedNode.transform.position);
