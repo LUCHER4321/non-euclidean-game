@@ -18,6 +18,7 @@
   <Project Path="UnityEngine.UI.csproj" />
   <Project Path="Unity.Addressables.Editor.csproj" />
   <Project Path="Unity.Collections.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Unity.VisualScripting.Core.Editor.csproj" />
   <Project Path="Unity.RenderPipelines.Universal.Editor.csproj" />
   <Project Path="Unity.RenderPipelines.Universal.2D.Runtime.csproj" />
@@ -46,7 +47,6 @@
   <Project Path="Unity.Services.Core.csproj" />
   <Project Path="Unity.Purchasing.Stores.csproj" />
   <Project Path="Unity.VisualScripting.Flow.csproj" />
-  <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Unity.PerformanceTesting.csproj" />
   <Project Path="Unity.InternalAPIEngineBridge.013.csproj" />
   <Project Path="Unity.TextMeshPro.csproj" />
