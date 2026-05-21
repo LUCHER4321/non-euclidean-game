@@ -5,9 +5,6 @@ using System.Collections.Generic;
 public class PathFinderST : MonoBehaviour
 {
     public static PathFinderST Instance { get; private set; }
-    [SerializeField]
-    Node[] nodes;
-    public Node[] GetNodes { get => nodes; }
     private static readonly Node[] emptyNodes = new Node[0];
 
     void Awake()
