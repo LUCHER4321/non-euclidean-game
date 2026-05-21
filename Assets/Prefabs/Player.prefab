@@ -161,7 +161,6 @@ MonoBehaviour:
   isRunning: 0
   characterSO: {fileID: 11400000, guid: 28722affcd973af42a8f4dc45e16fc3a, type: 2}
   playerInput: {fileID: 4447391329699403942}
-  sensitivity: 0.5
   inputEnabled: 1
   currentRebind: {fileID: 0}
 --- !u!114 &4447391329699403942
@@ -466,7 +465,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2544384203925960890, guid: d4f5abbcea0152546bbc8fd973b95f6f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.3
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 2544384203925960890, guid: d4f5abbcea0152546bbc8fd973b95f6f, type: 3}
       propertyPath: m_LocalPosition.y
