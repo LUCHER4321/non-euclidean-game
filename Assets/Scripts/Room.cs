@@ -3,7 +3,8 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     [SerializeField]
-    Transform[] portalSpawns;
+    PortalGate[] portalGates;
+    public PortalGate[] GetPortalGates { get => portalGates; }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
