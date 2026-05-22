@@ -43,36 +43,77 @@ public class RoomST : MonoBehaviour
 
     }
 
+    private bool IsCompatible(PortalGate a, PortalGate b)
+    {
+        if (a.type == PortalGateType.HORIZONTAL && b.type == PortalGateType.HORIZONTAL) return true;
+        if (a.type == PortalGateType.UP && b.type == PortalGateType.DOWN) return true;
+        if (a.type == PortalGateType.DOWN && b.type == PortalGateType.UP) return true;
+        return false;
+    }
+
+    private void Shuffle<T>(List<T> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            T temp = list[i];
+            int randomIndex = Random.Range(i, list.Count);
+            list[i] = list[randomIndex];
+            list[randomIndex] = temp;
+        }
+    }
+
     public void GenerateRandomPortalPairs()
     {
         if (rooms == null || rooms.Length == 0) return;
-        int totalGates = 0;
-        foreach (Room room in rooms) totalGates += room.GetPortalGates.Length;
-        if (totalGates % 2 != 0 || totalGates < 2 * (rooms.Length - 1)) return;
-        List<Room> sortedRooms = rooms.OrderByDescending(r => r.GetPortalGates.Length).ToList();
+        int horizontalCount = 0;
+        int upCount = 0;
+        int downCount = 0;
+        //int totalGates = 0;
+        foreach (Room room in rooms)
+        {
+            PortalGate[] gates = room.GetPortalGates;
+            foreach (PortalGate gate in gates)
+            {
+                if (gate.type == PortalGateType.HORIZONTAL) horizontalCount++;
+                else if (gate.type == PortalGateType.UP) upCount++;
+                else if (gate.type == PortalGateType.DOWN) downCount++;
+            }
+        }
+        if (horizontalCount % 2 != 0 || upCount != downCount) return;
         List<PortalPair> createdPairs = new List<PortalPair>();
-        List<PortalGate> availableConnectedGates = new List<PortalGate>(sortedRooms[0].GetPortalGates);
-        for (int i = 1; i < sortedRooms.Count; i++)
+        Dictionary<Room, List<PortalGate>> availablePortals = new Dictionary<Room, List<PortalGate>>();
+        foreach (Room r in rooms) availablePortals[r] = new List<PortalGate>(r.GetPortalGates);
+        List<Room> connectedRooms = new List<Room>();
+        List<Room> unconnectedRooms = new List<Room>(rooms);
+        Room startRoom = unconnectedRooms[0];
+        connectedRooms.Add(startRoom);
+        unconnectedRooms.Remove(startRoom);
+        while (unconnectedRooms.Count > 0)
         {
-            Room nextRoom = sortedRooms[i];
-            int randomConnectedIndex = Random.Range(0, availableConnectedGates.Count);
-            PortalGate gateFromConnected = availableConnectedGates[randomConnectedIndex];
-            availableConnectedGates.RemoveAt(randomConnectedIndex);
-            List<PortalGate> nextRoomGates = new List<PortalGate>(nextRoom.GetPortalGates);
-            int randomNextIndex = Random.Range(0, nextRoomGates.Count);
-            PortalGate gateFromNextRoom = nextRoomGates[randomNextIndex];
-            nextRoomGates.RemoveAt(randomNextIndex);
-            createdPairs.Add(new PortalPair(gateFromConnected, gateFromNextRoom));
-            availableConnectedGates.AddRange(nextRoomGates);
+            var possibleConnections = new List<(Room cRoom, PortalGate cGate, Room uRoom, PortalGate uGate)>();
+            foreach (Room cRoom in connectedRooms) foreach (PortalGate cGate in availablePortals[cRoom]) foreach (Room uRoom in unconnectedRooms) foreach (PortalGate uGate in availablePortals[uRoom]) if (IsCompatible(cGate, uGate)) possibleConnections.Add((cRoom, cGate, uRoom, uGate));
+            if (possibleConnections.Count == 0) return;
+            var chosen = possibleConnections[Random.Range(0, possibleConnections.Count)];
+            createdPairs.Add(new PortalPair(chosen.cGate, chosen.uGate));
+            availablePortals[chosen.cRoom].Remove(chosen.cGate);
+            availablePortals[chosen.uRoom].Remove(chosen.uGate);
+            connectedRooms.Add(chosen.uRoom);
+            unconnectedRooms.Remove(chosen.uRoom);
         }
-        for (int i = 0; i < availableConnectedGates.Count; i++)
+        List<PortalGate> leftoverHorizontal = new List<PortalGate>();
+        List<PortalGate> leftoverUp = new List<PortalGate>();
+        List<PortalGate> leftoverDown = new List<PortalGate>();
+        foreach (Room r in rooms) foreach (PortalGate gate in availablePortals[r])
         {
-            PortalGate temp = availableConnectedGates[i];
-            int randomIndex = Random.Range(i, availableConnectedGates.Count);
-            availableConnectedGates[i] = availableConnectedGates[randomIndex];
-            availableConnectedGates[randomIndex] = temp;
+            if (gate.type == PortalGateType.HORIZONTAL) leftoverHorizontal.Add(gate);
+            else if (gate.type == PortalGateType.UP) leftoverUp.Add(gate);
+            else if (gate.type == PortalGateType.DOWN) leftoverDown.Add(gate);
         }
-        for (int i = 0; i < availableConnectedGates.Count; i += 2) createdPairs.Add(new PortalPair(availableConnectedGates[i], availableConnectedGates[i + 1]));
+        Shuffle(leftoverHorizontal);
+        Shuffle(leftoverUp);
+        Shuffle(leftoverDown);
+        for (int i = 0; i < leftoverHorizontal.Count; i += 2) createdPairs.Add(new PortalPair(leftoverHorizontal[i], leftoverHorizontal[i + 1]));
+        for (int i = 0; i < leftoverUp.Count; i++) createdPairs.Add(new PortalPair(leftoverUp[i], leftoverDown[i]));
         portalPairs = createdPairs.ToArray();
         foreach (PortalPair pair in portalPairs)
         {
@@ -84,7 +125,7 @@ public class RoomST : MonoBehaviour
                 pg[i].connectedPortalNode = pg[1 - i];
                 portals[i].transform.parent = pg[i].transform;
                 portals[i].transform.localPosition = Vector3.zero;
-                portals[i].transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+                portals[i].transform.localRotation = Quaternion.identity;
             }
             for (int i = 0; i < 2; i++) pg[i].Start();
         }
