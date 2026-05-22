@@ -7,8 +7,7 @@ public class Node : MonoBehaviour
 {
     [SerializeField]
     Node[] connectedNodes;
-    [SerializeField]
-    PortalGate connectedPortalNode;
+    public PortalGate connectedPortalNode;
     private Dictionary<Node, float> connections;
     public Dictionary<Node, float> GetConnections { get => connections; }
     private static List<Node> AllPortals = new List<Node>();
@@ -30,7 +29,7 @@ public class Node : MonoBehaviour
         connections = new Dictionary<Node, float>();
         foreach (Node connectedNode in connectedNodes) connections[connectedNode] = Vector3.Distance(transform.position, connectedNode.transform.position);
         if (connectedPortalNode == null) return;
-        AllPortals.Add(this);
+        if (!AllPortals.Contains(this)) AllPortals.Add(this);
         foreach (Node connectedNode in connectedPortalNode.connectedNodes) connections[connectedNode] = Vector3.Distance(transform.position, connectedNode.transform.position);
     }
 
