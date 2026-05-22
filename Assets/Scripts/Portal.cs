@@ -258,18 +258,13 @@ public class Portal : MonoBehaviour
         Rigidbody rb = other.attachedRigidbody;
         if (rb == null) return;
         Vector3 offset = transform.InverseTransformPoint(other.transform.position);
+        if (other.GetComponent<Collider>() == null || other.GetComponent<Rigidbody>() == null) return;
         GameObject copy = Instantiate(other.gameObject, linkedPortal.transform.TransformPoint(new Vector3(-offset.x, offset.y, -offset.z)), linkedPortal.transform.rotation * Quaternion.Inverse(transform.rotation) * other.transform.rotation);
         copy.name = other.gameObject.name + " Copy";
         copy.GetComponent<Collider>().enabled = false;
         copy.GetComponent<Rigidbody>().useGravity = false;
-        foreach (AudioListener listener in copy.GetComponentsInChildren<AudioListener>())
-        {
-            listener.enabled = false;
-        }
-        foreach (Camera camera in copy.GetComponentsInChildren<Camera>())
-        {
-            camera.enabled = false;
-        }
+        foreach (AudioListener listener in copy.GetComponentsInChildren<AudioListener>()) listener.enabled = false;
+        foreach (Camera camera in copy.GetComponentsInChildren<Camera>()) camera.enabled = false;
         copies.Add(other, copy);
         StartCoroutine(MoveCopy(other));
     }
