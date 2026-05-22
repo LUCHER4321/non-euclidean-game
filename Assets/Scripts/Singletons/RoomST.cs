@@ -21,6 +21,8 @@ public class RoomST : MonoBehaviour
     Room[] rooms;
     [SerializeField]
     PortalPair[] portalPairs;
+    [SerializeField]
+    GameObject portalPairPrefab;
     public Room[] GetRooms { get => rooms; }
 
     void Awake()
@@ -72,5 +74,19 @@ public class RoomST : MonoBehaviour
         }
         for (int i = 0; i < availableConnectedGates.Count; i += 2) createdPairs.Add(new PortalPair(availableConnectedGates[i], availableConnectedGates[i + 1]));
         portalPairs = createdPairs.ToArray();
+        foreach (PortalPair pair in portalPairs)
+        {
+            GameObject pp = Instantiate(portalPairPrefab, Vector3.zero, Quaternion.identity);
+            PortalGate[] pg = new PortalGate[2] { pair.pg0, pair.pg1 };
+            Transform[] portals = new Transform[2] { pp.transform.GetChild(0), pp.transform.GetChild(1) };
+            for (int i = 0; i < 2; i++)
+            {
+                pg[i].connectedPortalNode = pg[1 - i];
+                portals[i].transform.parent = pg[i].transform;
+                portals[i].transform.localPosition = Vector3.zero;
+                portals[i].transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+            }
+            for (int i = 0; i < 2; i++) pg[i].Start();
+        }
     }
 }
