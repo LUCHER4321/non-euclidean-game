@@ -22,6 +22,12 @@ public class Portal : MonoBehaviour
     private RenderTexture rt;
     private Dictionary<Collider, GameObject> copies;
 
+    bool IsInBounds(Transform trs)
+    {
+        Collider portalCollider = GetComponent<Collider>();
+        return portalCollider != null && portalCollider.bounds.Contains(trs.position);
+    }
+
     bool DoesLightReachPortal(Light sourceLight)
     {
         if (sourceLight.type == LightType.Directional) return true;
@@ -71,11 +77,7 @@ public class Portal : MonoBehaviour
         clonedLights = new Dictionary<Light, Light>();
         negativeDecals = new Dictionary<Light, DecalProjector>();
         negativeDecalsForPortal = new Dictionary<Light, DecalProjector>();
-        if (auxiliaryPortal != null)
-        {
-            auxiliaryPortal.linkedPortal = linkedPortal.auxiliaryPortal;
-            auxiliaryPortal.gameObject.SetActive(false);
-        }
+        if (auxiliaryPortal != null) auxiliaryPortal.linkedPortal = linkedPortal.auxiliaryPortal;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -160,7 +162,7 @@ public class Portal : MonoBehaviour
                 Light clonedLight = kvp.Value;
                 DecalProjector negativeDecal = negativeDecals[sourceLight];
                 DecalProjector negativeDecalForPortal = negativeDecalsForPortal[sourceLight];
-                if (sourceLight == null || !sourceLight.gameObject.activeInHierarchy || !DoesLightReachPortal(sourceLight))
+                if (sourceLight == null || !sourceLight.gameObject.activeInHierarchy || (!DoesLightReachPortal(sourceLight) && (!auxiliaryPortal.gameObject.activeInHierarchy || !auxiliaryPortal.IsInBounds(sourceLight.transform))))
                 {
                     clonedLight.enabled = false;
                     negativeDecal.enabled = false;
@@ -254,7 +256,6 @@ public class Portal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!teleport || linkedPortal == null || !linkedPortal.teleport || copies.ContainsKey(other) || copies.ContainsValue(other.gameObject) || other.gameObject.name.Contains("Copy")) return;
-        auxiliaryPortal.gameObject.SetActive(true);
         Rigidbody rb = other.attachedRigidbody;
         if (rb == null) return;
         Vector3 offset = transform.InverseTransformPoint(other.transform.position);
@@ -272,7 +273,6 @@ public class Portal : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (!teleport || !copies.ContainsKey(other) || linkedPortal == null || !linkedPortal.teleport || copies.ContainsValue(other.gameObject)) return;
-        auxiliaryPortal.gameObject.SetActive(false);
         GameObject copy = copies[other];
         copies.Remove(other);
         Destroy(copy.gameObject);
