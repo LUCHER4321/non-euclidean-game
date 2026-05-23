@@ -6,7 +6,7 @@ public class Player : Character
     public static Player Instance { get; private set; }
     [Header("Player")]
     public PlayerInput playerInput;
-    public bool inputEnabled = true;
+    public bool inventory = false;
     public RebindableAction currentRebind;
 
     void Awake()
@@ -18,10 +18,14 @@ public class Player : Character
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Cursor.visible = !inputEnabled;
-        Cursor.lockState = inputEnabled ? CursorLockMode.Locked : CursorLockMode.None;
-        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        cam.transform.localRotation = Quaternion.Euler(0f, 0f, 0f);
+        Cursor.visible = inventory;
+        Cursor.lockState = inventory ? CursorLockMode.None : CursorLockMode.Locked;
+        if (RoomST.Instance != null)
+        {
+            transform.position = RoomST.Instance.GetRandomSpawnPoint();
+            transform.rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+        }
+        cam.transform.localRotation = Quaternion.identity;
     }
 
     // Update is called once per frame
@@ -32,25 +36,25 @@ public class Player : Character
 
     public void Run(InputAction.CallbackContext context)
     {
-        if (!inputEnabled) return;
+        if (inventory) return;
         isRunning = !context.canceled;
     }
 
     public void PlayerMove(Vector2 input)
     {
-        if (!inputEnabled) return;
+        if (inventory) return;
         Move(input.normalized);
     }
 
     public void PlayerJump()
     {
-        if (!inputEnabled) return;
+        if (inventory) return;
         Jump();
     }
 
     public void PlayerLook(InputAction.CallbackContext context)
     {
-        if (!inputEnabled) return;
+        if (inventory) return;
         Vector2 input0 = context.ReadValue<Vector2>();
         bool[] inverts = OptionsMenuST.Instance.GetInverts;
         float[] invertsNum = new float[2];
@@ -61,10 +65,9 @@ public class Player : Character
 
     public void ToggleInput()
     {
-        inputEnabled = !inputEnabled;
-        Cursor.visible = !inputEnabled;
-        Cursor.lockState = inputEnabled ? CursorLockMode.Locked : CursorLockMode.None;
-        playerInput.SwitchCurrentActionMap(inputEnabled ? "Player" : "Menu");
+        inventory = !inventory;
+        Cursor.visible = inventory;
+        Cursor.lockState = inventory ? CursorLockMode.None : CursorLockMode.Locked;
     }
 
     public void ControlsChanged()
