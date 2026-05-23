@@ -25,6 +25,51 @@ public class RoomST : MonoBehaviour
     GameObject portalPairPrefab;
     public Room[] GetRooms { get => rooms; }
 
+    public Vector3 GetRandomSpawnPoint()
+    {
+        if (rooms == null || rooms.Length == 0) return Vector3.zero;
+        List<(MeshFilter spawn, float area)> spawnAreas = new List<(MeshFilter, float)>();
+        float totalArea = 0f;
+        foreach (Room room in rooms)
+        {
+            if (room.GetSpawns == null) continue;
+            foreach (MeshFilter spawn in room.GetSpawns)
+            {
+                if (spawn == null || spawn.sharedMesh == null) continue;
+                Vector3 localSize = spawn.sharedMesh.bounds.size;
+                Vector3 scale = spawn.transform.lossyScale;
+                float w = localSize.x * scale.x;
+                float h = localSize.y * scale.y;
+                float d = localSize.z * scale.z;
+                float area = Mathf.Abs(w * h) + Mathf.Abs(w * d) + Mathf.Abs(h * d);
+                if (area > 0)
+                {
+                    spawnAreas.Add((spawn, area));
+                    totalArea += area;
+                }
+            }
+        }
+        if (spawnAreas.Count == 0) return Vector3.zero;
+        float randomValue = Random.Range(0f, totalArea);
+        MeshFilter selectedSpawn = spawnAreas[0].spawn;
+        foreach (var sa in spawnAreas)
+        {
+            randomValue -= sa.area;
+            if (randomValue <= 0f)
+            {
+                selectedSpawn = sa.spawn;
+                break;
+            }
+        }
+        Bounds bounds = selectedSpawn.sharedMesh.bounds;
+        Vector3 randomLocalPoint = new Vector3(
+            Random.Range(bounds.min.x, bounds.max.x),
+            Random.Range(bounds.min.y, bounds.max.y),
+            Random.Range(bounds.min.z, bounds.max.z)
+        );
+        return selectedSpawn.transform.TransformPoint(randomLocalPoint);
+    }
+
     void Awake()
     {
         if (Instance != null && Instance != this) Destroy(this);
