@@ -257,15 +257,24 @@ public class Portal : MonoBehaviour
     {
         if (!teleport || linkedPortal == null || !linkedPortal.teleport || copies.ContainsKey(other) || copies.ContainsValue(other.gameObject) || other.gameObject.name.Contains("Copy")) return;
         Rigidbody rb = other.attachedRigidbody;
-        if (rb == null) return;
+        if (other == null || rb == null)
+        {
+            Transform replacement = other.transform.parent;
+            if (replacement != null)
+            {
+                while (replacement != null && replacement.GetComponent<Collider>() == null) replacement = replacement.parent;
+                OnTriggerEnter(replacement.GetComponent<Collider>());
+            }
+            return;
+        }
         Vector3 offset = transform.InverseTransformPoint(other.transform.position);
-        if (other.GetComponent<Collider>() == null || other.GetComponent<Rigidbody>() == null) return;
         GameObject copy = Instantiate(other.gameObject, linkedPortal.transform.TransformPoint(new Vector3(-offset.x, offset.y, -offset.z)), linkedPortal.transform.rotation * Quaternion.Inverse(transform.rotation) * other.transform.rotation);
         copy.name = other.gameObject.name + " Copy";
         copy.GetComponent<Collider>().enabled = false;
         copy.GetComponent<Rigidbody>().useGravity = false;
         foreach (AudioListener listener in copy.GetComponentsInChildren<AudioListener>()) listener.enabled = false;
         foreach (Camera camera in copy.GetComponentsInChildren<Camera>()) camera.enabled = false;
+        foreach (Light light in copy.GetComponentsInChildren<Light>()) light.enabled = false;
         copies.Add(other, copy);
         StartCoroutine(MoveCopy(other));
     }
@@ -278,7 +287,8 @@ public class Portal : MonoBehaviour
         Destroy(copy.gameObject);
         Vector3 offset = transform.InverseTransformPoint(other.transform.position);
         Vector3 targetPosition = linkedPortal.transform.TransformPoint(new Vector3(-offset.x, offset.y, -offset.z));
-        Quaternion targetRotation = linkedPortal.transform.rotation * Quaternion.Inverse(transform.rotation) * other.transform.rotation * Quaternion.Euler(0, 180, 0);
+        Quaternion portalRotationMapping = linkedPortal.transform.rotation * Quaternion.Euler(0, 180, 0) * Quaternion.Inverse(transform.rotation);
+        Quaternion targetRotation = portalRotationMapping * other.transform.rotation;
         bool portalSide = Vector3.Dot(other.transform.position - transform.position, transform.forward) < 0;
         if (portalSide)
         {
@@ -287,7 +297,7 @@ public class Portal : MonoBehaviour
             Rigidbody rb = other.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                Quaternion relativeRot = linkedPortal.transform.rotation * Quaternion.Inverse(transform.rotation) * Quaternion.Euler(0, 180, 0);
+                Quaternion relativeRot = linkedPortal.transform.rotation * Quaternion.Euler(0, 180, 0) * Quaternion.Inverse(transform.rotation);
                 rb.linearVelocity = relativeRot * rb.linearVelocity;
                 rb.angularVelocity = relativeRot * rb.angularVelocity;
             }
@@ -300,10 +310,26 @@ public class Portal : MonoBehaviour
         {
             Vector3 offset = transform.InverseTransformPoint(other.transform.position);
             Vector3 targetPosition = linkedPortal.transform.TransformPoint(new Vector3(-offset.x, offset.y, -offset.z));
-            Quaternion targetRotation = linkedPortal.transform.rotation * Quaternion.Inverse(transform.rotation) * other.transform.rotation * Quaternion.Euler(0, 180, 0);
+            Quaternion portalRotationMapping = linkedPortal.transform.rotation * Quaternion.Euler(0, 180, 0) * Quaternion.Inverse(transform.rotation);
+            Quaternion targetRotation = portalRotationMapping * other.transform.rotation;
             copies[other].transform.position = targetPosition;
             copies[other].transform.rotation = targetRotation;
+            KeepLocals(other.transform, copies[other].transform);
             yield return null;
+        }
+    }
+
+    void KeepLocals(Transform other, Transform copy)
+    {
+        if (other.childCount == 0 || copy.childCount == 0) return;
+        for (int i = 0; i < other.childCount; i++)
+        {
+            Transform child = other.GetChild(i);
+            Transform copyChild = copy.GetChild(i);
+            copyChild.localRotation = child.localRotation;
+            copyChild.localPosition = child.localPosition;
+            copyChild.localScale = child.localScale;
+            KeepLocals(child, copyChild);
         }
     }
 
