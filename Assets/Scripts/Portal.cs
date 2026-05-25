@@ -21,6 +21,7 @@ public class Portal : MonoBehaviour
     private Dictionary<Light, DecalProjector> negativeDecalsForPortal;
     private RenderTexture rt;
     private Dictionary<Collider, GameObject> copies;
+    private HashSet<Collider> newObjects = new HashSet<Collider>();
 
     bool IsInBounds(Transform trs)
     {
@@ -255,18 +256,20 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!teleport || linkedPortal == null || !linkedPortal.teleport || copies.ContainsKey(other) || copies.ContainsValue(other.gameObject) || other.gameObject.name.Contains("Copy")) return;
-        Rigidbody rb = other.attachedRigidbody;
-        if (other == null || rb == null)
+        if (!teleport || linkedPortal == null || !linkedPortal.teleport || copies.ContainsKey(other) || copies.ContainsValue(other.gameObject) || other.gameObject.name.Contains("Copy") || newObjects.Contains(other)) return;
+        linkedPortal.RegisterArrival(other);
+        if (other.GetComponent<Collider>() == null || other.GetComponent<Rigidbody>() == null)
         {
             Transform replacement = other.transform.parent;
             if (replacement != null)
             {
-                while (replacement != null && replacement.GetComponent<Collider>() == null) replacement = replacement.parent;
+                while (replacement.parent != null) replacement = replacement.parent;
                 OnTriggerEnter(replacement.GetComponent<Collider>());
             }
             return;
         }
+        Rigidbody rb = other.attachedRigidbody;
+        if (rb == null) return;
         Vector3 offset = transform.InverseTransformPoint(other.transform.position);
         GameObject copy = Instantiate(other.gameObject, linkedPortal.transform.TransformPoint(new Vector3(-offset.x, offset.y, -offset.z)), linkedPortal.transform.rotation * Quaternion.Inverse(transform.rotation) * other.transform.rotation);
         copy.name = other.gameObject.name + " Copy";
@@ -282,6 +285,7 @@ public class Portal : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (!teleport || !copies.ContainsKey(other) || linkedPortal == null || !linkedPortal.teleport || copies.ContainsValue(other.gameObject)) return;
+        if (newObjects.Contains(other)) newObjects.Remove(other);
         GameObject copy = copies[other];
         copies.Remove(other);
         Destroy(copy.gameObject);
@@ -331,6 +335,11 @@ public class Portal : MonoBehaviour
             copyChild.localScale = child.localScale;
             KeepLocals(child, copyChild);
         }
+    }
+
+    void RegisterArrival(Collider other)
+    {
+        newObjects.Add(other);
     }
 
     /// <summary>
