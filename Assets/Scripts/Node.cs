@@ -24,7 +24,7 @@ public class Node : MonoBehaviour
         return minDistance;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public void Start()
+    protected virtual void Start()
     {
         connections = new Dictionary<Node, float>();
         foreach (Node connectedNode in connectedNodes) connections[connectedNode] = Vector3.Distance(transform.position, connectedNode.transform.position);
