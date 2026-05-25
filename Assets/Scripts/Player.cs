@@ -8,6 +8,8 @@ public class Player : Character
     public PlayerInput playerInput;
     public bool inventory = false;
     public RebindableAction currentRebind;
+    [SerializeField]
+    Material damageEffect;
 
     void Awake()
     {
@@ -18,6 +20,7 @@ public class Player : Character
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        base.Start();
         Cursor.visible = inventory;
         Cursor.lockState = inventory ? CursorLockMode.None : CursorLockMode.Locked;
         if (RoomST.Instance != null)
@@ -32,6 +35,13 @@ public class Player : Character
     void Update()
     {
         PlayerMove(playerInput.actions["Move"].ReadValue<Vector2>());
+        UpdateHealth();
+    }
+
+    void UpdateHealth()
+    {
+        float healthPercent = health / characterSO.GetMaxHealth;
+        damageEffect.SetFloat("_Health", healthPercent);
     }
 
     public void Run(InputAction.CallbackContext context)
