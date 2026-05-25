@@ -172,7 +172,7 @@ public class RoomST : MonoBehaviour
                 portals[i].transform.localPosition = Vector3.zero;
                 portals[i].transform.localRotation = Quaternion.identity;
             }
-            for (int i = 0; i < 2; i++) pg[i].Start();
+            for (int i = 0; i < 2; i++) pg[i].PStart();
             Destroy(pp);
         }
     }
