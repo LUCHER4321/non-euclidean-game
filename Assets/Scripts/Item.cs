@@ -1,0 +1,68 @@
+using UnityEngine;
+using System.Collections.Generic;
+
+public class Item : MonoBehaviour
+{
+    public ItemSO itemData;
+    public int currentStack = 1;
+    public Vector2Int gridPosition;
+    public int currentFoldIndex = 0;
+    public int currentRotation = 0;
+    public bool isFlipped = false;
+
+    public List<Vector2Int> GetOccupiedCells(Vector2Int originPosition)
+    {
+        List<Vector2Int> calculatedCells = new List<Vector2Int>();
+        ItemShape currentShape = itemData.GetFoldingConfigurations[currentFoldIndex];
+        foreach (Vector2Int cell in currentShape.cells)
+        {
+            Vector2Int modifiedCell = cell;
+            if (isFlipped) modifiedCell.x = -modifiedCell.x;
+            switch (currentRotation % 4)
+            {
+                case 0:
+                    break;
+                case 1:
+                    modifiedCell = new Vector2Int(modifiedCell.y, -modifiedCell.x);
+                    break;
+                case 2:
+                    modifiedCell = new Vector2Int(-modifiedCell.x, -modifiedCell.y);
+                    break;
+                case 3:
+                    modifiedCell = new Vector2Int(-modifiedCell.y, modifiedCell.x);
+                    break;
+            }
+            calculatedCells.Add(originPosition + modifiedCell);
+        }
+        return calculatedCells;
+    }
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+
+    public void CycleFoldOrFlipState()
+    {
+        if (isFlipped)
+        {
+            currentFoldIndex += 1;
+            currentFoldIndex %= itemData.GetFoldingConfigurations.Length;
+            isFlipped = false;
+        }
+        else isFlipped = true;
+    }
+
+    public void RotateItem(int n)
+    {
+        currentRotation = (currentRotation + n) % 4;
+        while (currentRotation < 0) currentRotation += 4;
+    }
+}
