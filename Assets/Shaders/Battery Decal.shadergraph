@@ -1926,7 +1926,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "d8725231d98643f68e87a9b084aab7ea",
     "m_Id": 0,
-    "m_DisplayName": "Mark Thicness",
+    "m_DisplayName": "Mark Thickness",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -2247,10 +2247,10 @@
     "m_Guid": {
         "m_GuidSerialized": "309be261-1d7c-45df-a705-1d1a7a9f6536"
     },
-    "m_Name": "Mark Thicness",
+    "m_Name": "Mark Thickness",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Mark Thicness",
-    "m_DefaultReferenceName": "_Mark_Thicness",
+    "m_RefNameGeneratedByDisplayName": "Mark Thickness",
+    "m_DefaultReferenceName": "_Mark_Thickness",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
