@@ -10,6 +10,8 @@ public class Player : Character
     public RebindableAction currentRebind;
     [SerializeField]
     Material damageEffect;
+    [SerializeField]
+    InventoryUI inventoryUI;
 
     void Awake()
     {
@@ -76,6 +78,7 @@ public class Player : Character
     public void ToggleInput()
     {
         inventory = !inventory;
+        inventoryUI.gameObject.SetActive(inventory);
         Cursor.visible = inventory;
         Cursor.lockState = inventory ? CursorLockMode.None : CursorLockMode.Locked;
     }
