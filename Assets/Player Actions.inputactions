@@ -43,6 +43,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Pick Item",
+                    "type": "Button",
+                    "id": "7d477b33-a2e8-4845-ad77-623f7234d21b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Inventory",
                     "type": "Button",
                     "id": "ebd40c63-a808-4047-8dfa-2c46796ee7a9",
@@ -271,6 +280,17 @@
                     "action": "Mouse Position",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d671cd99-fb6c-4890-864c-2ea82fb8b910",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pick Item",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -306,41 +326,7 @@
                     "initialStateCheck": false
                 }
             ],
-            "bindings": [
-                {
-                    "name": "",
-                    "id": "91ec11f6-a736-45be-a9b0-fbb338973507",
-                    "path": "<Gamepad>/dpad",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b3c7e3d4-30b1-4c40-b0d1-f74ca2059110",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Select",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "91e09dcb-b154-4a9e-8699-7f823ef73a16",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Back",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                }
-            ]
+            "bindings": []
         },
         {
             "name": "Rebind Action",
