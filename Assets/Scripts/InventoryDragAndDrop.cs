@@ -35,30 +35,9 @@ public class InventoryDragAndDrop : InventoryUI
         }
     }
 
-    private void OnEnable()
+    public void OnClick(InputAction.CallbackContext context)
     {
-        clickAction.action.Enable();
-        rightClickAction.action.Enable();
-        scrollAction.action.Enable();
-        pointerPositionAction.action.Enable();
-        clickAction.action.performed += OnClick;
-        rightClickAction.action.performed += OnRightClick;
-        scrollAction.action.performed += OnScroll;
-    }
-
-    private void OnDisable()
-    {
-        clickAction.action.performed -= OnClick;
-        rightClickAction.action.performed -= OnRightClick;
-        scrollAction.action.performed -= OnScroll;
-        clickAction.action.Disable();
-        rightClickAction.action.Disable();
-        scrollAction.action.Disable();
-        pointerPositionAction.action.Disable();
-    }
-
-    private void OnClick(InputAction.CallbackContext context)
-    {
+        if (!Player.Instance.inventory) return;
         Vector2 pointerPos = pointerPositionAction.action.ReadValue<Vector2>();
         Vector2Int gridPos = GetGridPositionFromMouse(pointerPos);
         if (currentlyDraggingItem == null)
@@ -77,13 +56,15 @@ public class InventoryDragAndDrop : InventoryUI
         }
     }
 
-    private void OnRightClick(InputAction.CallbackContext context)
+    public void OnRightClick(InputAction.CallbackContext context)
     {
+        if (!Player.Instance.inventory) return;
         if (currentlyDraggingItem != null) currentlyDraggingItem.CycleFoldOrFlipState();
     }
 
-    private void OnScroll(InputAction.CallbackContext context)
+    public void OnScroll(InputAction.CallbackContext context)
     {
+        if (!Player.Instance.inventory) return;
         if (currentlyDraggingItem != null)
         {
             float scrollValue = context.ReadValue<Vector2>().y;
