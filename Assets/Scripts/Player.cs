@@ -87,4 +87,18 @@ public class Player : Character
     {
         Debug.Log("Controls changed to " + playerInput.currentControlScheme);
     }
+
+    public void OnItemAction(InputAction.CallbackContext context)
+    {
+        if (inventory) return;
+        if (currentItem == null) return;
+        if (!context.performed) HandleAction(context.started, ItemAction.Action);
+    }
+
+    public void OnItemThrow(InputAction.CallbackContext context)
+    {
+        if (inventory) return;
+        if (currentItem == null) return;
+        if (!context.performed) HandleAction(context.started, ItemAction.Throw);
+    }
 }
