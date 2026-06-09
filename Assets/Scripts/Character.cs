@@ -1,5 +1,12 @@
 using System;
 using UnityEngine;
+using System.Collections;
+
+public enum ItemAction
+{
+    Action,
+    Throw
+}
 
 public class Character : MonoBehaviour
 {
@@ -10,6 +17,9 @@ public class Character : MonoBehaviour
     public CharacterSO characterSO;
     [Header("Combat")]
     public float health;
+    public IItem currentItem;
+    private Coroutine actionCoroutine;
+    private Coroutine throwCoroutine;
 
     public bool CanSee(GameObject target)
     {
@@ -61,5 +71,35 @@ public class Character : MonoBehaviour
         float newPitch = currentPitch - delta.y;
         newPitch = Mathf.Clamp(newPitch, characterSO.GetLimit.x, characterSO.GetLimit.y);
         cam.transform.localRotation = Quaternion.Euler(newPitch, 0f, 0f);
+    }
+
+    public void HandleAction(bool isPressing, ItemAction action = ItemAction.Action)
+    {
+        if (currentItem == null) return;
+        if (isPressing)
+        {
+            if (actionCoroutine != null) StopCoroutine(action == ItemAction.Action ? actionCoroutine : throwCoroutine);
+            Coroutine routine = StartCoroutine(ActionRoutine(action));
+            if (action == ItemAction.Action) actionCoroutine = routine;
+            else throwCoroutine = routine;
+        }
+        else
+        {
+            if (actionCoroutine != null) StopCoroutine(action == ItemAction.Action ? actionCoroutine : throwCoroutine);
+            if (action == ItemAction.Action) currentItem.Action(false);
+            else currentItem.Throw(false);
+        }
+    }
+
+    private IEnumerator ActionRoutine(ItemAction action = ItemAction.Action)
+    {
+        while (true)
+        {
+            if (currentItem == null) yield break;
+            if (!currentItem.CanUse()) yield break;
+            if (action == ItemAction.Action) currentItem.Action(true);
+            else currentItem.Throw(true);
+            yield return null;
+        }
     }
 }
