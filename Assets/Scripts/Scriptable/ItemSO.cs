@@ -15,7 +15,10 @@ public class ItemSO : ScriptableObject
     int maxStack = 1;
     [SerializeField]
     ItemShape[] foldingConfigurations;
+    [SerializeField]
+    GameObject prefab;
     public string GetItemName { get => itemName.GetText(); }
     public int GetMaxStack { get => maxStack; }
     public ItemShape[] GetFoldingConfigurations { get => foldingConfigurations; }
+    public GameObject GetPrefab { get => prefab; }
 }
