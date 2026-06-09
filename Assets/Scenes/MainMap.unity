@@ -752,6 +752,7 @@ MonoBehaviour:
   inputName: _Portal_Texture
   incomingLights:
   - {fileID: 1362078225}
+  - {fileID: 1362078226}
   lightGraph: {fileID: -6465566751694194690, guid: 49b27b0e38ef0504db8db4cee8b01617, type: 3}
 --- !u!4 &596961659
 Transform:
@@ -1540,23 +1541,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1903345616700622197, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1903345616700622197, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1903345616700622197, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2209841541354768416, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: 2209841541354768416, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2377657113806871500, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_fontSize
@@ -1568,11 +1569,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3013579767378064680, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: 3013579767378064680, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4514975042202156083, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_Pivot.x
@@ -1676,15 +1677,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6927055144945635384, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: 6927055144945635384, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6927055144945635384, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: 7533044822312302990, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1696,15 +1697,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8150666563803359566, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: 8150666563803359566, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8150666563803359566, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.63
       objectReference: {fileID: 0}
     - target: {fileID: 8371928053681197727, guid: 8d6a4a2eacd0d434885ae2736e7eea83, type: 3}
       propertyPath: m_fontSize
@@ -2032,6 +2033,11 @@ PrefabInstance:
 --- !u!108 &1362078225 stripped
 Light:
   m_CorrespondingSourceObject: {fileID: 353265391239683496, guid: 741c69be78ed8074f8235002947ffce5, type: 3}
+  m_PrefabInstance: {fileID: 1362078224}
+  m_PrefabAsset: {fileID: 0}
+--- !u!108 &1362078226 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 182036477255262096, guid: 741c69be78ed8074f8235002947ffce5, type: 3}
   m_PrefabInstance: {fileID: 1362078224}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1375987485
