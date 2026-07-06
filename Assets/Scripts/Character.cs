@@ -17,9 +17,22 @@ public class Character : MonoBehaviour
     public CharacterSO characterSO;
     [Header("Combat")]
     public float health;
-    public IItem currentItem;
+    public Item currentItem { get => hands[currentHandIndex].item; }
+    public Hand[] hands;
     private Coroutine actionCoroutine;
     private Coroutine throwCoroutine;
+    private int currentHandIndex = 0;
+
+    public static int ModFunc(int a, int b)
+    {
+        return a < 0 ? ModFunc(a + b, b) : a % b; 
+    }
+
+    [System.Serializable]
+    public struct Hand{
+        public Transform transform;
+        public Item item;
+    }
 
     public bool CanSee(GameObject target)
     {
@@ -71,6 +84,11 @@ public class Character : MonoBehaviour
         float newPitch = currentPitch - delta.y;
         newPitch = Mathf.Clamp(newPitch, characterSO.GetLimit.x, characterSO.GetLimit.y);
         cam.transform.localRotation = Quaternion.Euler(newPitch, 0f, 0f);
+    }
+
+    public void SwitchHand(int n)
+    {
+        currentHandIndex = ModFunc(currentHandIndex + n, hands.Length);
     }
 
     public void HandleAction(bool isPressing, ItemAction action = ItemAction.Action)
