@@ -413,6 +413,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2544384203925960890}
+  - component: {fileID: 5618744683183564727}
   m_Layer: 0
   m_Name: Lantern
   m_TagString: Untagged
@@ -438,6 +439,30 @@ Transform:
   - {fileID: 3987048345634353468}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5618744683183564727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3691398562991401091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6403334ad7e07549a9daf4741f3d71d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Lantern
+  itemData: {fileID: 0}
+  currentStack: 1
+  gridPosition: {x: 0, y: 0}
+  currentFoldIndex: 0
+  currentRotation: 0
+  isFlipped: 0
+  lanternLight: {fileID: 3063480394252247193}
+  maxEnergy: 100
+  energy: 95
+  energyTime: 3600
+  turnedOn: 1
+  battery: {fileID: 2100000, guid: 133656574dc8c074db14586448fa89a4, type: 2}
 --- !u!1 &3800847663421229776
 GameObject:
   m_ObjectHideFlags: 0
