@@ -163,7 +163,7 @@ public class Portal : MonoBehaviour
                 Light clonedLight = kvp.Value;
                 DecalProjector negativeDecal = negativeDecals[sourceLight];
                 DecalProjector negativeDecalForPortal = negativeDecalsForPortal[sourceLight];
-                if (sourceLight == null || !sourceLight.gameObject.activeInHierarchy || (!DoesLightReachPortal(sourceLight) && (!auxiliaryPortal.gameObject.activeInHierarchy || !auxiliaryPortal.IsInBounds(sourceLight.transform))))
+                if (sourceLight == null || !sourceLight.enabled || !sourceLight.gameObject.activeInHierarchy || (!DoesLightReachPortal(sourceLight) && (!auxiliaryPortal.gameObject.activeInHierarchy || !auxiliaryPortal.IsInBounds(sourceLight.transform))))
                 {
                     clonedLight.enabled = false;
                     negativeDecal.enabled = false;
