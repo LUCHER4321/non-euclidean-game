@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ffad310293d0ec44a84314d2f62747a, type: 3}
+  m_Name: Lantern
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSO
+  itemName: {fileID: 11400000, guid: eaff572b119d42548982e63b6249c7f7, type: 2}
+  maxStack: 1
+  foldingConfigurations: []
+  prefab: {fileID: 3691398562991401091, guid: d4f5abbcea0152546bbc8fd973b95f6f, type: 3}
