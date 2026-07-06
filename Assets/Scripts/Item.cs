@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Item : MonoBehaviour
+public abstract class Item : MonoBehaviour
 {
     public ItemSO itemData;
     public int currentStack = 1;
@@ -9,6 +9,10 @@ public class Item : MonoBehaviour
     public int currentFoldIndex = 0;
     public int currentRotation = 0;
     public bool isFlipped = false;
+    public abstract void Action(bool pressing);
+    public abstract void Throw(bool pressing);
+    public abstract bool CanUse();
+    public abstract void Reload();
 
     public List<Vector2Int> GetOccupiedCells(Vector2Int originPosition)
     {
@@ -64,5 +68,13 @@ public class Item : MonoBehaviour
     {
         currentRotation = (currentRotation + n) % 4;
         while (currentRotation < 0) currentRotation += 4;
+    }
+    
+    public void Equip(Character.Hand hand)
+    {
+        transform.SetParent(hand.transform);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+        hand.item = this;
     }
 }
