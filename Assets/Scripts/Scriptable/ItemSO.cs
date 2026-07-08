@@ -4,6 +4,7 @@ using UnityEngine;
 public struct ItemShape
 {
     public Vector2Int[] cells;
+    public Texture2D icon;
 }
 
 [CreateAssetMenu(fileName = "ItemSO", menuName = "Scriptable Objects/ItemSO")]
