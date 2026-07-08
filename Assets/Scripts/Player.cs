@@ -78,9 +78,14 @@ public class Player : Character
     public void ToggleInput()
     {
         inventory = !inventory;
-        inventoryUI.gameObject.SetActive(inventory);
-        Cursor.visible = inventory;
-        Cursor.lockState = inventory ? CursorLockMode.None : CursorLockMode.Locked;
+    inventoryUI.gameObject.SetActive(inventory);
+    Cursor.visible = inventory;
+    Cursor.lockState = inventory ? CursorLockMode.None : CursorLockMode.Locked;
+    if (inventory)
+    {
+        InventoryDragAndDrop dragAndDrop = inventoryUI as InventoryDragAndDrop;
+        if (dragAndDrop != null) dragAndDrop.UpdateAllHandSlots();
+    }
     }
 
     public void ControlsChanged()
