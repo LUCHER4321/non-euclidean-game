@@ -1,14 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(RectTransform))]
 public class InventoryUI : InventoryGrid
 {
     [Header("Colors Settings")]
-    [SerializeField]
-    Color color0 = new Color(0.2f, 0.2f, 0.2f, 0.6f);
-    [SerializeField]
-    Color color1 = new Color(0.3f, 0.3f, 0.3f, 0.6f);
+    [SerializeField] Color color0 = new Color(0.2f, 0.2f, 0.2f, 0.6f);
+    [SerializeField] Color color1 = new Color(0.3f, 0.3f, 0.3f, 0.6f);
+    [Header("UI Prefabs")]
+    [SerializeField] ItemUI itemUIPrefab;
+
+    private Dictionary<Item, ItemUI> itemUIDictionary = new Dictionary<Item, ItemUI>();
 
     public Vector2Int GetGridPositionFromMouse(Vector2 screenPosition)
     {
@@ -19,6 +22,13 @@ public class InventoryUI : InventoryGrid
         int x = Mathf.FloorToInt(normalizedX * width);
         int y = Mathf.FloorToInt((1.0f - normalizedY) * height);
         return new Vector2Int(x, y);
+    }
+
+    public new bool PlaceItem(Item item, Vector2Int origin)
+    {
+        bool success = base.PlaceItem(item, origin);
+        if (success) CreateOrUpdateItemUI(item);
+        return success;
     }
 
     protected virtual void Awake()
@@ -69,5 +79,25 @@ public class InventoryUI : InventoryGrid
                 else cellImage.color = color1;
             }
         }
+    }
+
+    public new void RemoveItem(Item item)
+    {
+        base.RemoveItem(item);
+        if (itemUIDictionary.TryGetValue(item, out ItemUI ui))
+        {
+            Destroy(ui.gameObject);
+            itemUIDictionary.Remove(item);
+        }
+    }
+
+    public void CreateOrUpdateItemUI(Item item)
+    {
+        if (!itemUIDictionary.TryGetValue(item, out ItemUI ui))
+        {
+            ui = Instantiate(itemUIPrefab, transform);
+            itemUIDictionary.Add(item, ui);
+        }
+        ui.Setup(item, width, height);
     }
 }
