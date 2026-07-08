@@ -10,6 +10,7 @@ public class InventoryUI : InventoryGrid
     [SerializeField] Color color1 = new Color(0.3f, 0.3f, 0.3f, 0.6f);
     [Header("UI Prefabs")]
     [SerializeField] ItemUI itemUIPrefab;
+    public static Vector2 baseCellSize = new Vector2(64f, 64f);
 
     private Dictionary<Item, ItemUI> itemUIDictionary = new Dictionary<Item, ItemUI>();
 
@@ -75,6 +76,7 @@ public class InventoryUI : InventoryGrid
                 cellRect.anchorMax = new Vector2(maxX, maxY);
                 cellRect.offsetMin = Vector2.zero;
                 cellRect.offsetMax = Vector2.zero;
+                baseCellSize = new Vector2(cellRect.rect.width, cellRect.rect.height);
                 if ((x + y) % 2 == 0) cellImage.color = color0;
                 else cellImage.color = color1;
             }
