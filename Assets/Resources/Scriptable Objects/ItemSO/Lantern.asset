@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   itemName: {fileID: 11400000, guid: eaff572b119d42548982e63b6249c7f7, type: 2}
   maxStack: 1
-  foldingConfigurations: []
+  foldingConfigurations:
+  - cells:
+    - {x: 0, y: 0}
+    - {x: 0, y: -1}
+    icon: {fileID: 2800000, guid: 43b3d2b1d639d3a4fa1e4c1119514fac, type: 3}
   prefab: {fileID: 3691398562991401091, guid: d4f5abbcea0152546bbc8fd973b95f6f, type: 3}
