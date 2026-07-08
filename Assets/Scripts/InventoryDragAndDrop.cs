@@ -86,7 +86,7 @@ public class InventoryDragAndDrop : InventoryUI
 
     public void OnScroll(InputAction.CallbackContext context)
     {
-        if (!Player.Instance.inventory) return;
+        if (!Player.Instance.inventory || !context.performed) return;
         if (currentlyDraggingItem != null)
         {
             float scrollValue = context.ReadValue<Vector2>().y;
