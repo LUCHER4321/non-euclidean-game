@@ -36,15 +36,18 @@ public class HandSlotUI : MonoBehaviour
     public void UpdateSlotDisplay(Item item)
     {
         if (iconDisplay == null) return;
+        
         if (item != null && item.itemData != null)
         {
             ItemShape shape = item.itemData.GetFoldingConfigurations[item.currentFoldIndex];
-            Texture2D iconTexture = shape.icon;
-            iconDisplay.texture = iconTexture;
+            iconDisplay.texture = shape.icon;
             iconDisplay.enabled = true;
-            float ratio = item.AspectRatio();
-            if (ratio > 1f) iconDisplay.rectTransform.localScale = new Vector3(1f, 1f / ratio, 1f);
-            else iconDisplay.rectTransform.localScale = new Vector3(ratio, 1f, 1f);
+            Vector2Int cellSize = item.GetItemCellSize();
+            float targetWidth = cellSize.x * InventoryUI.baseCellSize.x;
+            float targetHeight = cellSize.y * InventoryUI.baseCellSize.y;
+            iconDisplay.rectTransform.sizeDelta = new Vector2(targetWidth, targetHeight);
+            iconDisplay.rectTransform.localScale = Vector3.one;
+            iconDisplay.rectTransform.localRotation = Quaternion.Euler(0, 0, -90f * item.currentRotation);
         }
         else
         {
