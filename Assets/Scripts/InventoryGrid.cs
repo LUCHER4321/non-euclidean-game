@@ -40,6 +40,7 @@ public class InventoryGrid : MonoBehaviour
             }
             grid[cell.x, cell.y] = item;
         }
+        if (item.gameObject != null) item.gameObject.SetActive(false);
         return true;
     }
 
