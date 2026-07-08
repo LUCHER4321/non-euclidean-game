@@ -1,65 +1,87 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using System.Collections;
 
 public class InventoryDragAndDrop : InventoryUI
 {
     [Header("Input Actions")]
-    [SerializeField]
-    InputActionReference clickAction;
-    [SerializeField]
-    InputActionReference rightClickAction;
-    [SerializeField]
-    InputActionReference scrollAction;
-    [SerializeField]
-    InputActionReference pointerPositionAction;
+    [SerializeField] InputActionReference pointerPositionAction;
+    [Header("UI Hands")]
+    [SerializeField] HandSlotUI[] handSlots;
+    [Header("UI Dragging")]
+    [SerializeField] RawImage dragIconDisplay;
     private Item currentlyDraggingItem;
+    private Coroutine dragCoroutine;
 
     void Awake()
     {
         base.Awake();
+        if (dragIconDisplay != null) dragIconDisplay.enabled = false;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         base.Start();
+        UpdateAllHandSlots();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (currentlyDraggingItem != null)
-        {
-            Vector2 pointerPos = pointerPositionAction.action.ReadValue<Vector2>();
-            currentlyDraggingItem.transform.position = pointerPos;
-        }
+        
+    }
+
+    void OnEnable()
+    {
+        UpdateAllHandSlots();
+        if (currentlyDraggingItem != null) StartDragging(currentlyDraggingItem);
+    }
+    
+    void OnDisable()
+    {
+        if (dragCoroutine != null) StopCoroutine(dragCoroutine);
+        if (dragIconDisplay != null) dragIconDisplay.enabled = false;
     }
 
     public void OnClick(InputAction.CallbackContext context)
     {
         if (!Player.Instance.inventory) return;
         Vector2 pointerPos = pointerPositionAction.action.ReadValue<Vector2>();
+        foreach (HandSlotUI slot in handSlots)
+        {
+            if (slot.IsMouseOver(pointerPos))
+            {
+                HandleHandSlotClick(slot.handIndex);
+                return;
+            }
+        }
         Vector2Int gridPos = GetGridPositionFromMouse(pointerPos);
         if (currentlyDraggingItem == null)
         {
             Item itemToPick = GetItemAt(gridPos);
             if (itemToPick != null)
             {
-                currentlyDraggingItem = itemToPick;
                 RemoveItem(itemToPick);
+                StartDragging(itemToPick);
             }
         }
         else if (CanPlaceItem(currentlyDraggingItem, gridPos))
         {
             PlaceItem(currentlyDraggingItem, gridPos);
-            currentlyDraggingItem = null;
+            StopDragging();
         }
     }
 
     public void OnRightClick(InputAction.CallbackContext context)
     {
         if (!Player.Instance.inventory) return;
-        if (currentlyDraggingItem != null) currentlyDraggingItem.CycleFoldOrFlipState();
+        if (currentlyDraggingItem != null) 
+        {
+            currentlyDraggingItem.CycleFoldOrFlipState();
+            UpdateDragVisuals();
+        }
     }
 
     public void OnScroll(InputAction.CallbackContext context)
@@ -70,6 +92,102 @@ public class InventoryDragAndDrop : InventoryUI
             float scrollValue = context.ReadValue<Vector2>().y;
             if (scrollValue > 0) currentlyDraggingItem.RotateItem(1);
             else if (scrollValue < 0) currentlyDraggingItem.RotateItem(-1);
+            UpdateDragVisuals();
         }
+    }
+
+    void HandleHandSlotClick(int handIndex)
+    {
+        Item currentItemInHand = Player.Instance.hands[handIndex].item;
+        if (currentlyDraggingItem != null)
+        {
+            if (currentItemInHand == null)
+            {
+                Player.Instance.SetHandItem(handIndex, currentlyDraggingItem);
+                StopDragging();
+            }
+            else
+            {
+                Item tempItem = currentItemInHand;
+                Player.Instance.SetHandItem(handIndex, currentlyDraggingItem);
+                StartDragging(tempItem);
+            }
+        }
+        else if (currentItemInHand != null)
+        {
+            Player.Instance.SetHandItem(handIndex, null);
+            StartDragging(currentItemInHand);
+        }
+        UpdateAllHandSlots();
+    }
+
+    public void UpdateAllHandSlots()
+    {
+        if (Player.Instance == null || Player.Instance.hands == null) return;
+        foreach (HandSlotUI slot in handSlots)
+        {
+            Item itemInHand = Player.Instance.hands[slot.handIndex].item;
+            slot.UpdateSlotDisplay(itemInHand);
+        }
+    }
+
+    void StartDragging(Item item)
+    {
+        currentlyDraggingItem = item;
+        if (dragIconDisplay != null)
+        {
+            dragIconDisplay.enabled = true;
+            UpdateDragVisuals();
+        }
+
+        if (dragCoroutine != null) StopCoroutine(dragCoroutine);
+        dragCoroutine = StartCoroutine(FollowMouseRoutine());
+    }
+
+    void StopDragging()
+    {
+        currentlyDraggingItem = null;
+        if (dragIconDisplay != null)
+        {
+            dragIconDisplay.texture = null;
+            dragIconDisplay.enabled = false;
+        }
+
+        if (dragCoroutine != null)
+        {
+            StopCoroutine(dragCoroutine);
+            dragCoroutine = null;
+        }
+    }
+
+    IEnumerator FollowMouseRoutine()
+    {
+        // Mientras tengamos un ítem seleccionado, este bucle moverá la imagen al cursor en cada frame
+        while (currentlyDraggingItem != null)
+        {
+            if (pointerPositionAction != null && dragIconDisplay != null)
+            {
+                Vector2 pointerPos = pointerPositionAction.action.ReadValue<Vector2>();
+                dragIconDisplay.rectTransform.position = pointerPos;
+            }
+            yield return null; // Espera al siguiente fotograma antes de repetir el bucle
+        }
+
+        // Por seguridad, apagamos la imagen si el bucle termina por cualquier motivo
+        if (dragIconDisplay != null) dragIconDisplay.enabled = false;
+    }
+
+    void UpdateDragVisuals()
+    {
+        if (dragIconDisplay == null || currentlyDraggingItem == null || currentlyDraggingItem.itemData == null) return;
+        ItemShape shape = currentlyDraggingItem.itemData.GetFoldingConfigurations[currentlyDraggingItem.currentFoldIndex];
+        dragIconDisplay.texture = shape.icon;
+        dragIconDisplay.rectTransform.localRotation = Quaternion.Euler(0, 0, -90f * currentlyDraggingItem.currentRotation);
+        Vector3 scale = Vector3.one;
+        if (currentlyDraggingItem.isFlipped) scale.x = -1f;
+        float ratio = currentlyDraggingItem.AspectRatio();
+        if (ratio > 1f) scale.y /= ratio;
+        else scale.x *= ratio;
+        dragIconDisplay.rectTransform.localScale = scale;
     }
 }
