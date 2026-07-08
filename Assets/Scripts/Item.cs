@@ -41,6 +41,20 @@ public abstract class Item : MonoBehaviour
         return calculatedCells;
     }
 
+    public float AspectRatio()
+    {
+        ItemShape currentShape = itemData.GetFoldingConfigurations[currentFoldIndex];
+        int width0 = 0, width1 = 0, height0 = 0, height1 = 0;
+        foreach (Vector2Int cell in currentShape.cells)
+        {
+            if (cell.x < width0) width0 = cell.x;
+            if (cell.x > width1) width1 = cell.x;
+            if (cell.y < height0) height0 = cell.y;
+            if (cell.y > height1) height1 = cell.y;
+        }
+        return (float)(width1 - width0 + 1) / (height1 - height0 + 1);
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -66,8 +80,7 @@ public abstract class Item : MonoBehaviour
 
     public void RotateItem(int n)
     {
-        currentRotation = (currentRotation + n) % 4;
-        while (currentRotation < 0) currentRotation += 4;
+        currentRotation = Character.ModFunc(currentRotation + n, 4);
     }
     
     public void Equip(Character.Hand hand)
