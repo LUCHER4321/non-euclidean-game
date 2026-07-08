@@ -162,7 +162,6 @@ public class InventoryDragAndDrop : InventoryUI
 
     IEnumerator FollowMouseRoutine()
     {
-        // Mientras tengamos un ítem seleccionado, este bucle moverá la imagen al cursor en cada frame
         while (currentlyDraggingItem != null)
         {
             if (pointerPositionAction != null && dragIconDisplay != null)
@@ -170,10 +169,8 @@ public class InventoryDragAndDrop : InventoryUI
                 Vector2 pointerPos = pointerPositionAction.action.ReadValue<Vector2>();
                 dragIconDisplay.rectTransform.position = pointerPos;
             }
-            yield return null; // Espera al siguiente fotograma antes de repetir el bucle
+            yield return null;
         }
-
-        // Por seguridad, apagamos la imagen si el bucle termina por cualquier motivo
         if (dragIconDisplay != null) dragIconDisplay.enabled = false;
     }
 
@@ -183,11 +180,11 @@ public class InventoryDragAndDrop : InventoryUI
         ItemShape shape = currentlyDraggingItem.itemData.GetFoldingConfigurations[currentlyDraggingItem.currentFoldIndex];
         dragIconDisplay.texture = shape.icon;
         dragIconDisplay.rectTransform.localRotation = Quaternion.Euler(0, 0, -90f * currentlyDraggingItem.currentRotation);
-        Vector3 scale = Vector3.one;
-        if (currentlyDraggingItem.isFlipped) scale.x = -1f;
-        float ratio = currentlyDraggingItem.AspectRatio();
-        if (ratio > 1f) scale.y /= ratio;
-        else scale.x *= ratio;
-        dragIconDisplay.rectTransform.localScale = scale;
+        Vector2Int cellSize = currentlyDraggingItem.GetItemCellSize();
+        float targetWidth = cellSize.x * baseCellSize.x;
+        float targetHeight = cellSize.y * baseCellSize.y;
+        dragIconDisplay.rectTransform.sizeDelta = new Vector2(targetWidth, targetHeight);
+        float scaleX = currentlyDraggingItem.isFlipped ? -1f : 1f;
+        dragIconDisplay.rectTransform.localScale = new Vector3(scaleX, 1f, 1f);
     }
 }
