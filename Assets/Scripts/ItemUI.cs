@@ -45,8 +45,13 @@ public class ItemUI : MonoBehaviour
         float anchorMaxX = (float)(maxX + 1) / gridWidth;
         float anchorMinY = (float)(gridHeight - 1 - maxY) / gridHeight;
         float anchorMaxY = (float)(gridHeight - minY) / gridHeight;
-        rectTransform.anchorMin = new Vector2(anchorMinX, anchorMinY);
-        rectTransform.anchorMax = new Vector2(anchorMaxX, anchorMaxY);
+        float centerX = (anchorMinX + anchorMaxX) / 2f;
+        float centerY = (anchorMinY + anchorMaxY) / 2f;
+        Vector2Int rawSize = item.GetItemCellSize();
+        float spanX = (float)rawSize.x / gridWidth;
+        float spanY = (float)rawSize.y / gridHeight;
+        rectTransform.anchorMin = new Vector2(centerX - (spanX / 2f), centerY - (spanY / 2f));
+        rectTransform.anchorMax = new Vector2(centerX + (spanX / 2f), centerY + (spanY / 2f));
         rectTransform.offsetMin = Vector2.zero;
         rectTransform.offsetMax = Vector2.zero;
         rectTransform.localRotation = Quaternion.Euler(0, 0, -90f * item.currentRotation);
