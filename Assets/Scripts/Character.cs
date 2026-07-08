@@ -91,6 +91,19 @@ public class Character : MonoBehaviour
         currentHandIndex = ModFunc(currentHandIndex + n, hands.Length);
     }
 
+    public void SetHandItem(int index, Item item)
+    {
+        if (index < 0 || index >= hands.Length) return;
+        Item item0 = hands[index].item;
+        hands[index].item = item;
+        if (item0 != null && item0 != item) item0.gameObject.SetActive(false);
+        if (item != null) 
+        {
+            item.Equip(hands[index]);
+            item.gameObject.SetActive(true);
+        }
+    }
+
     public void HandleAction(bool isPressing, ItemAction action = ItemAction.Action)
     {
         if (currentItem == null) return;
