@@ -90,7 +90,13 @@ public abstract class Item : MonoBehaviour
         }
         int rawWidth = width1 - width0 + 1;
         int rawHeight = height1 - height0 + 1;
-        if (currentRotation % 2 != 0) return new Vector2Int(rawHeight, rawWidth);
         return new Vector2Int(rawWidth, rawHeight);
+    }
+    
+    public Vector2Int GetRotatedItemCellSize()
+    {
+        Vector2Int baseSize = GetItemCellSize();
+        if (currentRotation % 2 != 0) return new Vector2Int(baseSize.y, baseSize.x);
+        return baseSize;
     }
 }
