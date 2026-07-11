@@ -8,15 +8,17 @@ public class Player : Character
     public PlayerInput playerInput;
     public bool inventory = false;
     public RebindableAction currentRebind;
-    [SerializeField]
-    Material damageEffect;
-    [SerializeField]
-    InventoryUI inventoryUI;
+    [SerializeField] Material damageEffect;
+    [SerializeField] InventoryUI inventoryUI;
+    [SerializeField] float fps;
+    private int healthPropertyID;
+    private float lastHealth = -1f;
 
     void Awake()
     {
         if (Instance != null && Instance != this) Destroy(this);
         else Instance = this;
+        healthPropertyID = Shader.PropertyToID("_Health");
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -37,13 +39,15 @@ public class Player : Character
     void Update()
     {
         PlayerMove(playerInput.actions["Move"].ReadValue<Vector2>());
-        UpdateHealth();
+        if (health != lastHealth) UpdateHealth();
+        fps = 1f / Time.unscaledDeltaTime;
     }
 
     void UpdateHealth()
     {
         float healthPercent = health / characterSO.GetMaxHealth;
-        damageEffect.SetFloat("_Health", healthPercent);
+        damageEffect.SetFloat(healthPropertyID, healthPercent);
+        lastHealth = health;
     }
 
     public void Run(InputAction.CallbackContext context)
