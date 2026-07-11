@@ -8,35 +8,31 @@ using System;
 public class Portal : MonoBehaviour
 {
     [Header("Basic Properties")]
-    [SerializeField]
-    public Camera cam;
-    [SerializeField]
-    bool teleport = true;
+    [SerializeField] public Camera cam;
+    [SerializeField] bool teleport = true;
     [Header("Portal Relationships")]
     public Portal linkedPortal;
-    [SerializeField]
-    Portal auxiliaryPortal;
+    [SerializeField] Portal auxiliaryPortal;
     private Dictionary<Light, Light> clonedLights;
     private Dictionary<Light, DecalProjector> negativeDecals;
     private Dictionary<Light, DecalProjector> negativeDecalsForPortal;
     private RenderTexture rt;
     private Dictionary<Collider, GameObject> copies;
     private HashSet<Collider> newObjects = new HashSet<Collider>();
+    public Collider PortalCollider { get; private set; }
 
     bool IsInBounds(Transform trs)
     {
-        Collider portalCollider = GetComponent<Collider>();
-        return portalCollider != null && portalCollider.bounds.Contains(trs.position);
+        return PortalCollider != null && PortalCollider.bounds.Contains(trs.position);
     }
 
     bool DoesLightReachPortal(Light sourceLight)
     {
         if (sourceLight.type == LightType.Directional) return true;
-        Collider portalCollider = GetComponent<Collider>();
-        if (portalCollider == null) return true;
+        if (PortalCollider == null) return true;
         Vector3 lightPos = sourceLight.transform.position;
         if (Vector3.Dot(lightPos - transform.position, -transform.forward) >= 0) return false;
-        Vector3 closestPoint = portalCollider.ClosestPoint(lightPos);
+        Vector3 closestPoint = PortalCollider.ClosestPoint(lightPos);
         float sqrDistance = (closestPoint - lightPos).sqrMagnitude;
         float sqrRange = sourceLight.range * sourceLight.range;
         if (sqrDistance > sqrRange) return false;
@@ -47,10 +43,10 @@ public class Portal : MonoBehaviour
             Vector3 forward = sourceLight.transform.forward;
             Vector3 dirToClosest = (closestPoint - lightPos).normalized;
             if (Vector3.Angle(forward, dirToClosest) <= halfAngle && !Physics.Raycast(lightPos, dirToClosest, (closestPoint - lightPos).magnitude, sourceLight.cullingMask)) return true;
-            Vector3 center = portalCollider.bounds.center;
+            Vector3 center = PortalCollider.bounds.center;
             Vector3 dirToCenter = (center - lightPos).normalized;
             if (Vector3.Angle(forward, dirToCenter) <= halfAngle && !Physics.Raycast(lightPos, dirToCenter, (center - lightPos).magnitude, sourceLight.cullingMask)) return true;
-            Vector3 extents = portalCollider.bounds.extents;
+            Vector3 extents = PortalCollider.bounds.extents;
             Vector3[] corners = new Vector3[8]
             {
                 center + new Vector3(extents.x, extents.y, extents.z),
@@ -78,6 +74,7 @@ public class Portal : MonoBehaviour
         clonedLights = new Dictionary<Light, Light>();
         negativeDecals = new Dictionary<Light, DecalProjector>();
         negativeDecalsForPortal = new Dictionary<Light, DecalProjector>();
+        PortalCollider = GetComponent<Collider>();
         if (auxiliaryPortal != null) auxiliaryPortal.linkedPortal = linkedPortal.auxiliaryPortal;
     }
 
@@ -191,8 +188,8 @@ public class Portal : MonoBehaviour
                 clonedLight.shadowNearPlane = dist;
                 negativeDecal.transform.position = clonedLight.transform.position;
                 negativeDecal.transform.rotation = clonedLight.transform.rotation;
-                Collider portalCollider = linkedPortal.GetComponent<Collider>();
-                Vector3 closestPoint0 = portalCollider != null ? portalCollider.ClosestPoint(clonedLight.transform.position) : linkedPortal.transform.position;
+                Collider linkedPortalCol = linkedPortal.PortalCollider;
+                Vector3 closestPoint0 = linkedPortalCol != null ? linkedPortalCol.ClosestPoint(clonedLight.transform.position) : linkedPortal.transform.position;
                 Vector3 closestPoint = closestPoint0 - Vector3.Dot(closestPoint0 - linkedPortal.transform.position, linkedPortal.transform.forward) * linkedPortal.transform.forward;
                 Vector3 tp = linkedPortal.transform.position - closestPoint;
                 Vector3 toPortal = tp - Vector3.Dot(tp, linkedPortal.transform.up) * linkedPortal.transform.up;
@@ -208,7 +205,6 @@ public class Portal : MonoBehaviour
                 negativeDecal.material.SetVector("_Position", linkedPortal.transform.position);
                 negativeDecal.material.SetVector("_Normal", -linkedPortal.transform.forward);
                 negativeDecal.material.SetVector("_Closest", closestPoint);
-                yield return null;
             }
             yield return null;
         }
