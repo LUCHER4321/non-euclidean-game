@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class Lantern : Item
 {
@@ -10,20 +11,35 @@ public class Lantern : Item
     bool turnedOn;
     [SerializeField]
     Material battery;
+    private int batteryPropertyID;
+    private Coroutine drainCoroutine;
 
     public override bool CanUse() {
         return energy > 0;
     }
 
     public override void Action(bool pressing)
-    {
-        if(!pressing) turnedOn = !turnedOn;
-        lanternLight.enabled = turnedOn;
+    {if (!pressing) 
+        {
+            turnedOn = !turnedOn;
+            if (turnedOn && CanUse())
+            {
+                lanternLight.enabled = true;
+                if (drainCoroutine != null) StopCoroutine(drainCoroutine);
+                drainCoroutine = StartCoroutine(DrainEnergyRoutine());
+            }
+            else TurnOffLantern();
+        }
     }
 
     public override void Throw(bool pressing){}
 
     public override void Reload(){}
+
+    void Awake()
+    {
+        batteryPropertyID = Shader.PropertyToID("_Battery");
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,12 +50,28 @@ public class Lantern : Item
     // Update is called once per frame
     void Update()
     {
-        if(energy <= 0)
+
+    }
+
+    private IEnumerator DrainEnergyRoutine()
+    {
+        while (turnedOn && energy > 0)
         {
-            turnedOn = false;
-            lanternLight.enabled = false;
+            energy -= Time.deltaTime * maxEnergy / energyTime;
+            battery.SetFloat(batteryPropertyID, energy / maxEnergy);
+            yield return null;
         }
-        if(turnedOn) energy -= Time.deltaTime * maxEnergy / energyTime;
-        battery.SetFloat("_Battery", energy / maxEnergy);
+        if (energy <= 0) TurnOffLantern();
+    }
+
+    private void TurnOffLantern()
+    {
+        turnedOn = false;
+        lanternLight.enabled = false;
+        if (drainCoroutine != null)
+        {
+            StopCoroutine(drainCoroutine);
+            drainCoroutine = null;
+        }
     }
 }
