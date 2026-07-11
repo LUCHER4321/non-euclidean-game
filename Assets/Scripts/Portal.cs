@@ -270,8 +270,10 @@ public class Portal : MonoBehaviour
         }
         Rigidbody rb = other.attachedRigidbody;
         if (rb == null) return;
-        Vector3 offset = transform.InverseTransformPoint(other.transform.position);
-        GameObject copy = Instantiate(other.gameObject, linkedPortal.transform.TransformPoint(new Vector3(-offset.x, offset.y, -offset.z)), linkedPortal.transform.rotation * Quaternion.Inverse(transform.rotation) * other.transform.rotation);
+        Quaternion portalRotationMapping = linkedPortal.transform.rotation * Quaternion.Euler(0, 180, 0) * Quaternion.Inverse(transform.rotation);
+        Vector3 offset = other.transform.position - transform.position;
+        Vector3 targetPosition = linkedPortal.transform.position + (portalRotationMapping * offset);
+        GameObject copy = Instantiate(other.gameObject, targetPosition, portalRotationMapping * other.transform.rotation);
         copy.name = other.gameObject.name + " Copy";
         copy.GetComponent<Collider>().enabled = false;
         copy.GetComponent<Rigidbody>().useGravity = false;
@@ -289,9 +291,9 @@ public class Portal : MonoBehaviour
         GameObject copy = copies[other];
         copies.Remove(other);
         Destroy(copy.gameObject);
-        Vector3 offset = transform.InverseTransformPoint(other.transform.position);
-        Vector3 targetPosition = linkedPortal.transform.TransformPoint(new Vector3(-offset.x, offset.y, -offset.z));
         Quaternion portalRotationMapping = linkedPortal.transform.rotation * Quaternion.Euler(0, 180, 0) * Quaternion.Inverse(transform.rotation);
+        Vector3 offset = other.transform.position - transform.position;
+        Vector3 targetPosition = linkedPortal.transform.position + (portalRotationMapping * offset);
         Quaternion targetRotation = portalRotationMapping * other.transform.rotation;
         bool portalSide = Vector3.Dot(other.transform.position - transform.position, transform.forward) < 0;
         if (portalSide)
@@ -301,9 +303,8 @@ public class Portal : MonoBehaviour
             Rigidbody rb = other.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                Quaternion relativeRot = linkedPortal.transform.rotation * Quaternion.Euler(0, 180, 0) * Quaternion.Inverse(transform.rotation);
-                rb.linearVelocity = relativeRot * rb.linearVelocity;
-                rb.angularVelocity = relativeRot * rb.angularVelocity;
+                rb.linearVelocity = portalRotationMapping * rb.linearVelocity;
+                rb.angularVelocity = portalRotationMapping * rb.angularVelocity;
             }
         }
     }
@@ -312,9 +313,9 @@ public class Portal : MonoBehaviour
     {
         while (copies.ContainsKey(other) && copies[other] != null)
         {
-            Vector3 offset = transform.InverseTransformPoint(other.transform.position);
-            Vector3 targetPosition = linkedPortal.transform.TransformPoint(new Vector3(-offset.x, offset.y, -offset.z));
             Quaternion portalRotationMapping = linkedPortal.transform.rotation * Quaternion.Euler(0, 180, 0) * Quaternion.Inverse(transform.rotation);
+            Vector3 offset = other.transform.position - transform.position;
+            Vector3 targetPosition = linkedPortal.transform.position + (portalRotationMapping * offset);
             Quaternion targetRotation = portalRotationMapping * other.transform.rotation;
             copies[other].transform.position = targetPosition;
             copies[other].transform.rotation = targetRotation;
