@@ -352,6 +352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Portal
   cam: {fileID: 1069835590771987643}
   teleport: 1
+  artificialShadows: 0
   linkedPortal: {fileID: 0}
   auxiliaryPortal: {fileID: 4468895682058998473}
 --- !u!1 &1483454583638331840
@@ -461,6 +462,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Portal
   cam: {fileID: 8806990800540218228}
   teleport: 0
+  artificialShadows: 0
   linkedPortal: {fileID: 0}
   auxiliaryPortal: {fileID: 0}
 --- !u!65 &3060117398834219402
