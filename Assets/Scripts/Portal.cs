@@ -10,6 +10,7 @@ public class Portal : MonoBehaviour
     [Header("Basic Properties")]
     [SerializeField] public Camera cam;
     [SerializeField] bool teleport = true;
+    [SerializeField] bool artificialShadows = true;
     [Header("Portal Relationships")]
     public Portal linkedPortal;
     [SerializeField] Portal auxiliaryPortal;
@@ -20,6 +21,8 @@ public class Portal : MonoBehaviour
     private Dictionary<Collider, GameObject> copies;
     private HashSet<Collider> newObjects = new HashSet<Collider>();
     public Collider PortalCollider { get; private set; }
+    private Vector3[] portalCorners = new Vector3[8];
+    private Collider portalCollider;
 
     bool IsInBounds(Transform trs)
     {
@@ -33,39 +36,49 @@ public class Portal : MonoBehaviour
         Vector3 lightPos = sourceLight.transform.position;
         if (Vector3.Dot(lightPos - transform.position, -transform.forward) >= 0) return false;
         Vector3 closestPoint = PortalCollider.ClosestPoint(lightPos);
-        float sqrDistance = (closestPoint - lightPos).sqrMagnitude;
+        Vector3 offsetToClosest = closestPoint - lightPos;
+        float sqrDistance = offsetToClosest.sqrMagnitude;
         float sqrRange = sourceLight.range * sourceLight.range;
         if (sqrDistance > sqrRange) return false;
         if (sourceLight.type == LightType.Point) return true;
         if (sourceLight.type == LightType.Spot)
         {
-            float halfAngle = sourceLight.spotAngle * 0.5f;
             Vector3 forward = sourceLight.transform.forward;
-            Vector3 dirToClosest = (closestPoint - lightPos).normalized;
-            if (Vector3.Angle(forward, dirToClosest) <= halfAngle && !Physics.Raycast(lightPos, dirToClosest, (closestPoint - lightPos).magnitude, sourceLight.cullingMask)) return true;
-            Vector3 center = PortalCollider.bounds.center;
-            Vector3 dirToCenter = (center - lightPos).normalized;
-            if (Vector3.Angle(forward, dirToCenter) <= halfAngle && !Physics.Raycast(lightPos, dirToCenter, (center - lightPos).magnitude, sourceLight.cullingMask)) return true;
-            Vector3 extents = PortalCollider.bounds.extents;
-            Vector3[] corners = new Vector3[8]
+            int mask = sourceLight.cullingMask;
+            float minDot = Mathf.Cos(sourceLight.spotAngle * 0.5f * Mathf.Deg2Rad);
+            Vector3 dirToClosest = offsetToClosest.normalized;
+            if (Vector3.Dot(forward, dirToClosest) >= minDot && !Physics.Raycast(lightPos, dirToClosest, offsetToClosest.magnitude, mask)) return true;
+            Bounds bounds = PortalCollider.bounds;
+            Vector3 center = bounds.center;
+            Vector3 offsetToCenter = center - lightPos;
+            Vector3 dirToCenter = offsetToCenter.normalized;
+            if (Vector3.Dot(forward, dirToCenter) >= minDot && !Physics.Raycast(lightPos, dirToCenter, offsetToCenter.magnitude, mask)) return true;
+            Vector3 ext = bounds.extents;
+            portalCorners[0] = center + new Vector3(ext.x, ext.y, ext.z);
+            portalCorners[1] = center + new Vector3(ext.x, ext.y, -ext.z);
+            portalCorners[2] = center + new Vector3(ext.x, -ext.y, ext.z);
+            portalCorners[3] = center + new Vector3(ext.x, -ext.y, -ext.z);
+            portalCorners[4] = center + new Vector3(-ext.x, ext.y, ext.z);
+            portalCorners[5] = center + new Vector3(-ext.x, ext.y, -ext.z);
+            portalCorners[6] = center + new Vector3(-ext.x, -ext.y, ext.z);
+            portalCorners[7] = center + new Vector3(-ext.x, -ext.y, -ext.z);
+            for (int i = 0; i < 8; i++)
             {
-                center + new Vector3(extents.x, extents.y, extents.z),
-                center + new Vector3(extents.x, extents.y, -extents.z),
-                center + new Vector3(extents.x, -extents.y, extents.z),
-                center + new Vector3(extents.x, -extents.y, -extents.z),
-                center + new Vector3(-extents.x, extents.y, extents.z),
-                center + new Vector3(-extents.x, extents.y, -extents.z),
-                center + new Vector3(-extents.x, -extents.y, extents.z),
-                center + new Vector3(-extents.x, -extents.y, -extents.z)
-            };
-            foreach (Vector3 corner in corners)
-            {
-                Vector3 dirToCorner = (corner - lightPos).normalized;
-                if (Vector3.Angle(forward, dirToCorner) <= halfAngle && !Physics.Raycast(lightPos, dirToCorner, (corner - lightPos).magnitude, sourceLight.cullingMask)) return true;
+                Vector3 corner = portalCorners[i];
+                Vector3 offsetToCorner = corner - lightPos;
+                Vector3 dirToCorner = offsetToCorner.normalized;
+                if (Vector3.Dot(forward, dirToCorner) >= minDot && !Physics.Raycast(lightPos, dirToCorner, offsetToCorner.magnitude, mask)) return true;
             }
             return false;
         }
         return true;
+    }
+
+    bool IsVisibleFrom(Camera camera)
+    {
+        if (camera == null || portalCollider == null) return false;
+        Plane[] frustumPlanes = GeometryUtility.CalculateFrustumPlanes(camera);
+        return GeometryUtility.TestPlanesAABB(frustumPlanes, portalCollider.bounds);
     }
 
     void Awake()
@@ -81,6 +94,7 @@ public class Portal : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        portalCollider = GetComponent<Collider>();
         if (linkedPortal == null)
         {
             Portal[] portals = FindObjectsByType<Portal>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
@@ -106,7 +120,7 @@ public class Portal : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (linkedPortal == null || cam == null || Camera.main == null) return;
+        if (linkedPortal == null || cam == null || Camera.main == null || !IsVisibleFrom(Camera.main)) return;
         cam.aspect = Camera.main.aspect;
         RotateCamera();
         TranslateCamera();
@@ -144,7 +158,9 @@ public class Portal : MonoBehaviour
                 negativeDecalForPortal.material = negativeDecal.material;
                 clonedLights.Add(sourceLight, clonedLight);
                 negativeDecals.Add(sourceLight, negativeDecal);
+                negativeDecal.enabled = false;
                 negativeDecalsForPortal.Add(sourceLight, negativeDecalForPortal);
+                negativeDecalForPortal.enabled = false;
             }
         }
         StartCoroutine(SyncLights());
@@ -154,6 +170,11 @@ public class Portal : MonoBehaviour
     {
         while (true)
         {
+            if(Camera.main == null || !IsVisibleFrom(Camera.main))
+            {
+                yield return null;
+                continue;
+            }
             foreach (KeyValuePair<Light, Light> kvp in clonedLights)
             {
                 Light sourceLight = kvp.Key;
@@ -163,13 +184,14 @@ public class Portal : MonoBehaviour
                 if (sourceLight == null || !sourceLight.enabled || !sourceLight.gameObject.activeInHierarchy || (!DoesLightReachPortal(sourceLight) && (!auxiliaryPortal.gameObject.activeInHierarchy || !auxiliaryPortal.IsInBounds(sourceLight.transform))))
                 {
                     clonedLight.enabled = false;
-                    negativeDecal.enabled = false;
-                    negativeDecalForPortal.enabled = false;
+                    if (artificialShadows)
+                    {
+                        negativeDecal.enabled = false;
+                        negativeDecalForPortal.enabled = false;
+                    }
                     continue;
                 }
                 clonedLight.enabled = true;
-                negativeDecal.enabled = true;
-                negativeDecalForPortal.enabled = true;
                 Vector3 localPos = transform.InverseTransformPoint(sourceLight.transform.position);
                 Vector3 outOrigin = linkedPortal.transform.TransformPoint(new Vector3(-localPos.x, localPos.y, -localPos.z));
                 clonedLight.transform.position = outOrigin;
@@ -178,12 +200,15 @@ public class Portal : MonoBehaviour
                 clonedLight.transform.forward = outDirection;
                 clonedLight.intensity = sourceLight.intensity;
                 clonedLight.color = sourceLight.color;
+                if(!artificialShadows) continue;
                 if (!Physics.Raycast(clonedLight.transform.position, linkedPortal.transform.position - clonedLight.transform.position, (linkedPortal.transform.position - clonedLight.transform.position).magnitude, sourceLight.cullingMask))
                 {
                     negativeDecal.enabled = false;
                     negativeDecalForPortal.enabled = false;
                     continue;
                 }
+                negativeDecal.enabled = true;
+                negativeDecalForPortal.enabled = true;
                 float dist = Vector3.Distance(sourceLight.transform.position, transform.position);
                 clonedLight.shadowNearPlane = dist;
                 negativeDecal.transform.position = clonedLight.transform.position;
