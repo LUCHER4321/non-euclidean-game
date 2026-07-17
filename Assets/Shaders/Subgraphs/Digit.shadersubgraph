@@ -2204,7 +2204,7 @@
         "preventRotation": false
     },
     "m_Path": "Sub Graphs",
-    "m_GraphPrecision": 1,
+    "m_GraphPrecision": 2,
     "m_PreviewMode": 1,
     "m_OutputNode": {
         "m_Id": "4999483360eb4f8da2bc5fafe5199190"
@@ -2237,7 +2237,7 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -2366,7 +2366,7 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -2597,7 +2597,7 @@
     "synonyms": [
         "square"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -2844,7 +2844,7 @@
     "synonyms": [
         "square"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -2933,7 +2933,7 @@
     "synonyms": [
         "fmod"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -3104,7 +3104,7 @@
         "vec2",
         "float2"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -3289,7 +3289,7 @@
         "pan",
         "scale"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -3396,7 +3396,7 @@
         "vec2",
         "float2"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -3676,7 +3676,7 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -3721,7 +3721,7 @@
         "vec2",
         "float2"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -3819,7 +3819,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -3940,7 +3940,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -3987,7 +3987,7 @@
     "synonyms": [
         "square"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -4612,7 +4612,7 @@
     "synonyms": [
         "square"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -4699,7 +4699,7 @@
         "vec2",
         "float2"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -4767,7 +4767,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -4833,7 +4833,7 @@
         "pan",
         "scale"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -4963,7 +4963,7 @@
         "greater than",
         "less than"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -5009,7 +5009,7 @@
         "pan",
         "scale"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -5107,7 +5107,7 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -5221,7 +5221,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -5254,7 +5254,7 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -5332,7 +5332,7 @@
         "sum",
         "plus"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -5375,7 +5375,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -5420,7 +5420,7 @@
         "pan",
         "scale"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -5541,7 +5541,7 @@
         "greater than",
         "less than"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -5682,7 +5682,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -5727,7 +5727,7 @@
         "pan",
         "scale"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -5964,7 +5964,7 @@
         "pan",
         "scale"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -6063,7 +6063,7 @@
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
-    "m_Precision": 0,
+    "m_Precision": 2,
     "overrideHLSLDeclaration": true,
     "hlslDeclarationOverride": 3,
     "m_Hidden": false,
@@ -6277,7 +6277,7 @@
         "pan",
         "scale"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -6368,7 +6368,7 @@
         "sum",
         "plus"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -6412,7 +6412,7 @@
         "vec2",
         "float2"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -6549,7 +6549,7 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -6669,7 +6669,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -6712,7 +6712,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -6755,7 +6755,7 @@
         "greater than",
         "less than"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -6833,7 +6833,7 @@
     "synonyms": [
         "sqrt"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -6876,7 +6876,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -7024,7 +7024,7 @@
         "greater than",
         "less than"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -7162,7 +7162,7 @@
         "sum",
         "plus"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -7205,7 +7205,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -7373,7 +7373,7 @@
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
-    "m_Precision": 0,
+    "m_Precision": 2,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
@@ -7468,7 +7468,7 @@
     "synonyms": [
         "square"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -7559,7 +7559,7 @@
         "sum",
         "plus"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -7619,7 +7619,7 @@
         "pan",
         "scale"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -7712,7 +7712,7 @@
         "pan",
         "scale"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -7819,7 +7819,7 @@
         "minus",
         "take away"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -7901,7 +7901,7 @@
         "sum",
         "plus"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -8010,7 +8010,7 @@
         "greater than",
         "less than"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -8419,7 +8419,7 @@
         "greater than",
         "less than"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -8463,7 +8463,7 @@
         "greater than",
         "less than"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -8531,7 +8531,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -8573,7 +8573,7 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -8880,7 +8880,7 @@
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
-    "m_Precision": 0,
+    "m_Precision": 2,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
@@ -9018,7 +9018,7 @@
         "vec2",
         "float2"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -9131,7 +9131,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -9201,7 +9201,7 @@
         "if",
         "else"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -9244,7 +9244,7 @@
         "sum",
         "plus"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -9287,7 +9287,7 @@
         "sum",
         "plus"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -9345,7 +9345,7 @@
         "sum",
         "plus"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -9430,7 +9430,7 @@
     "synonyms": [
         "square"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -9525,7 +9525,7 @@
     "synonyms": [
         "square"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -9635,7 +9635,7 @@
     "synonyms": [
         "fmod"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -9716,7 +9716,7 @@
         "greater than",
         "less than"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -9865,7 +9865,7 @@
         "coords",
         "coordinates"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -10038,7 +10038,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -10080,7 +10080,7 @@
         "division",
         "divided by"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -10157,7 +10157,7 @@
     "synonyms": [
         "fmod"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -10230,7 +10230,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -10274,7 +10274,7 @@
         "vec2",
         "float2"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -10339,7 +10339,7 @@
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_DismissedVersion": 0,
-    "m_Precision": 0,
+    "m_Precision": 2,
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
@@ -10605,7 +10605,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -10672,7 +10672,7 @@
         "greater than",
         "less than"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -10716,7 +10716,7 @@
         "sum",
         "plus"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -10763,7 +10763,7 @@
     "synonyms": [
         "square"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -11307,7 +11307,7 @@
     "synonyms": [
         "square"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -11351,7 +11351,7 @@
         "vec2",
         "float2"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -11710,7 +11710,7 @@
         "sum",
         "plus"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -11803,7 +11803,7 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -11897,7 +11897,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -11983,7 +11983,7 @@
     "synonyms": [
         "square"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -12026,7 +12026,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -12070,7 +12070,7 @@
         "vec2",
         "float2"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -12362,7 +12362,7 @@
         "times",
         "x"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -12405,7 +12405,7 @@
         "sum",
         "plus"
     ],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
@@ -12599,7 +12599,7 @@
         }
     ],
     "synonyms": [],
-    "m_Precision": 0,
+    "m_Precision": 2,
     "m_PreviewExpanded": true,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
