@@ -24,6 +24,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BakedNoise:
+        m_Texture: {fileID: 11700000, guid: cd196417329899d4babaead2a3275bd4, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseColor_c5efbbd427a341a4859c6c3639ce803a_BaseTexture_1083609365_Texture2D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
