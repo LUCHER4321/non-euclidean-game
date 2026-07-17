@@ -21,8 +21,7 @@ public class Portal : MonoBehaviour
     private Dictionary<Collider, GameObject> copies;
     private HashSet<Collider> newObjects = new HashSet<Collider>();
     public Collider PortalCollider { get; private set; }
-    private Vector3[] portalCorners = new Vector3[8];
-    private Collider portalCollider;
+    private Vector3[] localCorners = new Vector3[8];
 
     bool IsInBounds(Transform trs)
     {
@@ -46,28 +45,19 @@ public class Portal : MonoBehaviour
             Vector3 forward = sourceLight.transform.forward;
             int mask = sourceLight.cullingMask;
             float minDot = Mathf.Cos(sourceLight.spotAngle * 0.5f * Mathf.Deg2Rad);
-            Vector3 dirToClosest = offsetToClosest.normalized;
-            if (Vector3.Dot(forward, dirToClosest) >= minDot && !Physics.Raycast(lightPos, dirToClosest, offsetToClosest.magnitude, mask)) return true;
-            Bounds bounds = PortalCollider.bounds;
-            Vector3 center = bounds.center;
-            Vector3 offsetToCenter = center - lightPos;
-            Vector3 dirToCenter = offsetToCenter.normalized;
-            if (Vector3.Dot(forward, dirToCenter) >= minDot && !Physics.Raycast(lightPos, dirToCenter, offsetToCenter.magnitude, mask)) return true;
-            Vector3 ext = bounds.extents;
-            portalCorners[0] = center + new Vector3(ext.x, ext.y, ext.z);
-            portalCorners[1] = center + new Vector3(ext.x, ext.y, -ext.z);
-            portalCorners[2] = center + new Vector3(ext.x, -ext.y, ext.z);
-            portalCorners[3] = center + new Vector3(ext.x, -ext.y, -ext.z);
-            portalCorners[4] = center + new Vector3(-ext.x, ext.y, ext.z);
-            portalCorners[5] = center + new Vector3(-ext.x, ext.y, -ext.z);
-            portalCorners[6] = center + new Vector3(-ext.x, -ext.y, ext.z);
-            portalCorners[7] = center + new Vector3(-ext.x, -ext.y, -ext.z);
-            for (int i = 0; i < 8; i++)
+            bool CheckPointReach(Vector3 targetPoint)
             {
-                Vector3 corner = portalCorners[i];
-                Vector3 offsetToCorner = corner - lightPos;
-                Vector3 dirToCorner = offsetToCorner.normalized;
-                if (Vector3.Dot(forward, dirToCorner) >= minDot && !Physics.Raycast(lightPos, dirToCorner, offsetToCorner.magnitude, mask)) return true;
+                Vector3 offset = targetPoint - lightPos;
+                Vector3 dir = offset.normalized;
+                if (Vector3.Dot(forward, dir) >= minDot && !Physics.Raycast(lightPos, dir, offset.magnitude, mask)) return true;
+                return false;
+            }
+            if (CheckPointReach(closestPoint)) return true;
+            if (CheckPointReach(PortalCollider.bounds.center)) return true;
+            foreach (Vector3 localCorner in localCorners)
+            {
+                Vector3 worldCorner = transform.TransformPoint(localCorner);
+                if (CheckPointReach(worldCorner)) return true;
             }
             return false;
         }
@@ -76,9 +66,9 @@ public class Portal : MonoBehaviour
 
     bool IsVisibleFrom(Camera camera)
     {
-        if (camera == null || portalCollider == null) return false;
+        if (camera == null || PortalCollider == null) return false;
         Plane[] frustumPlanes = GeometryUtility.CalculateFrustumPlanes(camera);
-        return GeometryUtility.TestPlanesAABB(frustumPlanes, portalCollider.bounds);
+        return GeometryUtility.TestPlanesAABB(frustumPlanes, PortalCollider.bounds);
     }
 
     void Awake()
@@ -89,12 +79,12 @@ public class Portal : MonoBehaviour
         negativeDecalsForPortal = new Dictionary<Light, DecalProjector>();
         PortalCollider = GetComponent<Collider>();
         if (auxiliaryPortal != null) auxiliaryPortal.linkedPortal = linkedPortal.auxiliaryPortal;
+        CalculateLocalCorners();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        portalCollider = GetComponent<Collider>();
         if (linkedPortal == null)
         {
             Portal[] portals = FindObjectsByType<Portal>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
@@ -120,11 +110,48 @@ public class Portal : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (linkedPortal == null || cam == null || Camera.main == null || !IsVisibleFrom(Camera.main)) return;
+        bool shouldRender = linkedPortal != null && linkedPortal.cam != null && Camera.main != null && linkedPortal.IsVisibleFrom(Camera.main);
+        if (!shouldRender)
+        {
+            if (cam != null && cam.enabled) cam.enabled = false;
+            return;
+        }
+        if (!cam.enabled) cam.enabled = true;
         cam.aspect = Camera.main.aspect;
         RotateCamera();
         TranslateCamera();
         SetCameraNear();
+    }
+
+    void CalculateLocalCorners()
+    {
+        if (PortalCollider is BoxCollider box)
+        {
+            Vector3 c = box.center;
+            Vector3 e = box.size * 0.5f;
+            localCorners[0] = c + new Vector3( e.x,  e.y,  e.z);
+            localCorners[1] = c + new Vector3( e.x,  e.y, -e.z);
+            localCorners[2] = c + new Vector3( e.x, -e.y,  e.z);
+            localCorners[3] = c + new Vector3( e.x, -e.y, -e.z);
+            localCorners[4] = c + new Vector3(-e.x,  e.y,  e.z);
+            localCorners[5] = c + new Vector3(-e.x,  e.y, -e.z);
+            localCorners[6] = c + new Vector3(-e.x, -e.y,  e.z);
+            localCorners[7] = c + new Vector3(-e.x, -e.y, -e.z);
+        }
+        else if (PortalCollider != null)
+        {
+            Bounds bounds = PortalCollider.bounds;
+            Vector3 ext = bounds.extents;
+            Vector3 center = bounds.center;
+            localCorners[0] = transform.InverseTransformPoint(center + new Vector3( ext.x,  ext.y,  ext.z));
+            localCorners[1] = transform.InverseTransformPoint(center + new Vector3( ext.x,  ext.y, -ext.z));
+            localCorners[2] = transform.InverseTransformPoint(center + new Vector3( ext.x, -ext.y,  ext.z));
+            localCorners[3] = transform.InverseTransformPoint(center + new Vector3( ext.x, -ext.y, -ext.z));
+            localCorners[4] = transform.InverseTransformPoint(center + new Vector3(-ext.x,  ext.y,  ext.z));
+            localCorners[5] = transform.InverseTransformPoint(center + new Vector3(-ext.x,  ext.y, -ext.z));
+            localCorners[6] = transform.InverseTransformPoint(center + new Vector3(-ext.x, -ext.y,  ext.z));
+            localCorners[7] = transform.InverseTransformPoint(center + new Vector3(-ext.x, -ext.y, -ext.z));
+        }
     }
 
     void InitializeLights()
