@@ -10,12 +10,18 @@ public class VolumeSlider : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        UpdateVolumeText(slider.value);
+        slider.onValueChanged.AddListener(UpdateVolumeText);
     }
 
     // Update is called once per frame
     void Update()
     {
-        volumeText.text = $"{Mathf.RoundToInt(slider.value)}%";
+        
+    }
+
+    private void UpdateVolumeText(float value)
+    {
+        volumeText.text = $"{Mathf.RoundToInt(value)}%";
     }
 }
