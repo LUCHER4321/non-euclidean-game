@@ -2077,6 +2077,56 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a8bc4b5408d5a4cb98bb40c2945211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
+--- !u!1 &1234550733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1234550735}
+  - component: {fileID: 1234550734}
+  m_Layer: 0
+  m_Name: Baker
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1234550734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234550733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1ed3a86e7a635f4abc320c6d1148d42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Bake3DNoise
+  period: {x: 4, y: 4, z: 4}
+  axis: {x: 0, y: 1, z: 0}
+  rotationAngle: 90
+  noiseScale: 3.5
+  epsilon: 0.01
+  noiseTex: {fileID: 11700000, guid: cd196417329899d4babaead2a3275bd4, type: 2}
+--- !u!4 &1234550735
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234550733}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1246381213
 GameObject:
   m_ObjectHideFlags: 0
@@ -2616,7 +2666,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5973323720590741759, guid: 741c69be78ed8074f8235002947ffce5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5973323720590741759, guid: 741c69be78ed8074f8235002947ffce5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2624,7 +2674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5973323720590741759, guid: 741c69be78ed8074f8235002947ffce5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5973323720590741759, guid: 741c69be78ed8074f8235002947ffce5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4275,3 +4325,4 @@ SceneRoots:
   - {fileID: 59027449}
   - {fileID: 596961659}
   - {fileID: 335704864}
+  - {fileID: 1234550735}
