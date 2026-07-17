@@ -13,6 +13,7 @@ public class Player : Character
     [SerializeField] float fps;
     private int healthPropertyID;
     private float lastHealth = -1f;
+    private InputAction moveAction;
 
     void Awake()
     {
@@ -33,12 +34,13 @@ public class Player : Character
             transform.rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
         }
         cam.transform.localRotation = Quaternion.identity;
+        moveAction = playerInput.actions["Move"];
     }
 
     // Update is called once per frame
     void Update()
     {
-        PlayerMove(playerInput.actions["Move"].ReadValue<Vector2>());
+        PlayerMove(moveAction.ReadValue<Vector2>());
         if (health != lastHealth) UpdateHealth();
         fps = 1f / Time.unscaledDeltaTime;
     }
@@ -73,9 +75,9 @@ public class Player : Character
         if (inventory) return;
         Vector2 input0 = context.ReadValue<Vector2>();
         bool[] inverts = OptionsMenuST.Instance.GetInverts;
-        float[] invertsNum = new float[2];
-        for (int i = 0; i < 2; i++) invertsNum[i] = inverts[i] ? -1 : 1;
-        Vector2 input = OptionsMenuST.Instance.GetSensitivity * new Vector2(input0.x * invertsNum[0], input0.y * invertsNum[1]);
+        float invertX = inverts[0] ? -1f : 1f;
+        float invertY = inverts[1] ? -1f : 1f;
+        Vector2 input = OptionsMenuST.Instance.GetSensitivity * new Vector2(input0.x * invertX, input0.y * invertY);
         Look(input);
     }
 
