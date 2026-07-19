@@ -20,6 +20,7 @@ public class Portal : MonoBehaviour
     private RenderTexture rt;
     private Dictionary<Collider, GameObject> copies;
     private HashSet<Collider> newObjects = new HashSet<Collider>();
+    private Dictionary<Collider, bool> portalEntrySides = new Dictionary<Collider, bool>();
     public Collider PortalCollider { get; private set; }
     private Vector3[] localCorners = new Vector3[8];
 
@@ -66,9 +67,32 @@ public class Portal : MonoBehaviour
 
     bool IsVisibleFrom(Camera camera)
     {
-        if (camera == null || PortalCollider == null) return false;
+        if (camera == null || PortalCollider == null || camera.farClipPlane < Vector3.Distance(camera.transform.position, PortalCollider.ClosestPoint(camera.transform.position))) return false;
         Plane[] frustumPlanes = GeometryUtility.CalculateFrustumPlanes(camera);
         return GeometryUtility.TestPlanesAABB(frustumPlanes, PortalCollider.bounds);
+    }
+
+    bool IsOnPortalSide(Collider other)
+    {
+        if (other == null) return false;
+        return Vector3.Dot(other.transform.position - transform.position, transform.forward) < 0f;
+    }
+
+    public Ray RedirectRay(Vector3 hitPoint, Vector3 incomingDirection)
+    {
+        if (!teleport || linkedPortal == null) return new Ray(hitPoint, incomingDirection);
+        Vector3 localHitPoint = transform.InverseTransformPoint(hitPoint);
+        Vector3 outOrigin = linkedPortal.transform.TransformPoint(new Vector3(-localHitPoint.x, localHitPoint.y, -localHitPoint.z));
+        Vector3 localDirection = transform.InverseTransformDirection(incomingDirection);
+        Vector3 outDirection = linkedPortal.transform.TransformDirection(new Vector3(-localDirection.x, localDirection.y, -localDirection.z));
+        return new Ray(outOrigin, outDirection);
+    }
+
+    static Transform FirstParent(Transform t)
+    {
+        if(t == null) return null;
+        if(t.parent == null) return t;
+        return FirstParent(t.parent);
     }
 
     void Awake()
@@ -175,6 +199,7 @@ public class Portal : MonoBehaviour
                 clonedLight.cullingMask = sourceLight.cullingMask;
                 sourceLight.renderingLayerMask = sourceLight.cullingMask;
                 clonedLight.renderingLayerMask = sourceLight.renderingLayerMask;
+                clonedLight.bounceIntensity = sourceLight.bounceIntensity;
                 GameObject negativeDecalObj = new GameObject(sourceLight.name + " (Portal Negative Decal)");
                 GameObject negativeDecalForPortalObj = new GameObject(sourceLight.name + " (Portal Negative Decal For Portal)");
                 negativeDecalObj.transform.SetParent(clonedLight.transform);
@@ -199,6 +224,19 @@ public class Portal : MonoBehaviour
         {
             if(Camera.main == null || !IsVisibleFrom(Camera.main))
             {
+                foreach(KeyValuePair<Light, Light> kvp in clonedLights)
+                {
+                    Light sourceLight = kvp.Key;
+                    Light clonedLight = kvp.Value;
+                    clonedLight.enabled = false;
+                    if (artificialShadows)
+                    {
+                        DecalProjector negativeDecal = negativeDecals[sourceLight];
+                        DecalProjector negativeDecalForPortal = negativeDecalsForPortal[sourceLight];
+                        negativeDecal.enabled = false;
+                        negativeDecalForPortal.enabled = false;
+                    }
+                }
                 yield return null;
                 continue;
             }
@@ -208,7 +246,7 @@ public class Portal : MonoBehaviour
                 Light clonedLight = kvp.Value;
                 DecalProjector negativeDecal = negativeDecals[sourceLight];
                 DecalProjector negativeDecalForPortal = negativeDecalsForPortal[sourceLight];
-                if (sourceLight == null || !sourceLight.enabled || !sourceLight.gameObject.activeInHierarchy || (!DoesLightReachPortal(sourceLight) && (!auxiliaryPortal.gameObject.activeInHierarchy || !auxiliaryPortal.IsInBounds(sourceLight.transform))))
+                if (sourceLight == null || !sourceLight.enabled || !sourceLight.gameObject.activeInHierarchy || (!DoesLightReachPortal(sourceLight) && !auxiliaryPortal.IsInBounds(sourceLight.transform)))
                 {
                     clonedLight.enabled = false;
                     if (artificialShadows)
@@ -262,16 +300,6 @@ public class Portal : MonoBehaviour
         }
     }
 
-    public Ray RedirectRay(Vector3 hitPoint, Vector3 incomingDirection)
-    {
-        if (!teleport || linkedPortal == null) return new Ray(hitPoint, incomingDirection);
-        Vector3 localHitPoint = transform.InverseTransformPoint(hitPoint);
-        Vector3 outOrigin = linkedPortal.transform.TransformPoint(new Vector3(-localHitPoint.x, localHitPoint.y, -localHitPoint.z));
-        Vector3 localDirection = transform.InverseTransformDirection(incomingDirection);
-        Vector3 outDirection = linkedPortal.transform.TransformDirection(new Vector3(-localDirection.x, localDirection.y, -localDirection.z));
-        return new Ray(outOrigin, outDirection);
-    }
-
     void RotateCamera()
     {
         if (linkedPortal == null || linkedPortal.cam == null || !teleport) return;
@@ -304,18 +332,23 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!teleport || linkedPortal == null || !linkedPortal.teleport || copies.ContainsKey(other) || copies.ContainsValue(other.gameObject) || other.gameObject.name.Contains("Copy") || newObjects.Contains(other)) return;
-        linkedPortal.RegisterArrival(other);
-        if (other.GetComponent<Collider>() == null || other.GetComponent<Rigidbody>() == null)
+        if (newObjects.Contains(other))
         {
-            Transform replacement = other.transform.parent;
-            if (replacement != null)
-            {
-                while (replacement.parent != null) replacement = replacement.parent;
-                OnTriggerEnter(replacement.GetComponent<Collider>());
-            }
+            newObjects.Remove(other);
             return;
         }
+        if (!teleport || linkedPortal == null || !linkedPortal.teleport || copies.ContainsKey(other) || copies.ContainsValue(other.gameObject) || other.gameObject.name.Contains("Copy")) return;
+        if (other.transform.parent != null)
+        {
+            Collider parentCollider = FirstParent(other.transform).GetComponent<Collider>();
+            if (parentCollider != null)
+            {
+                OnTriggerEnter(parentCollider);
+                return;
+            }
+        }
+        portalEntrySides[other] = IsOnPortalSide(other);
+        linkedPortal.RegisterArrival(other);
         Rigidbody rb = other.attachedRigidbody;
         if (rb == null) return;
         Quaternion portalRotationMapping = linkedPortal.transform.rotation * Quaternion.Euler(0, 180, 0) * Quaternion.Inverse(transform.rotation);
@@ -335,6 +368,15 @@ public class Portal : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (!teleport || !copies.ContainsKey(other) || linkedPortal == null || !linkedPortal.teleport || copies.ContainsValue(other.gameObject)) return;
+        if (other.transform.parent != null)
+        {
+            Collider parentCollider = FirstParent(other.transform).GetComponent<Collider>();
+            if (parentCollider != null)
+            {
+                OnTriggerExit(parentCollider);
+                return;
+            }
+        }
         if (newObjects.Contains(other)) newObjects.Remove(other);
         GameObject copy = copies[other];
         copies.Remove(other);
@@ -343,8 +385,10 @@ public class Portal : MonoBehaviour
         Vector3 offset = other.transform.position - transform.position;
         Vector3 targetPosition = linkedPortal.transform.position + (portalRotationMapping * offset);
         Quaternion targetRotation = portalRotationMapping * other.transform.rotation;
-        bool portalSide = Vector3.Dot(other.transform.position - transform.position, transform.forward) < 0;
-        if (portalSide)
+        bool currentPortalSide = IsOnPortalSide(other);
+        bool shouldTeleport = !portalEntrySides.TryGetValue(other, out bool enteredPortalSide) || enteredPortalSide != currentPortalSide;
+        portalEntrySides.Remove(other);
+        if (shouldTeleport)
         {
             other.transform.position = targetPosition;
             other.transform.rotation = targetRotation;
@@ -390,10 +434,7 @@ public class Portal : MonoBehaviour
     {
         newObjects.Add(other);
     }
-
-    /// <summary>
-    /// Callback to draw gizmos that are pickable and always drawn.
-    /// </summary>
+    
     void OnDrawGizmos()
     {
         if (!teleport) return;
