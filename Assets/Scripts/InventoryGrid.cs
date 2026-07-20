@@ -6,6 +6,8 @@ public class InventoryGrid : MonoBehaviour
     [Header("Measures")]
     public int width = 10;
     public int height = 8;
+    [HideInInspector]
+    public Character owner;
     private Item[,] grid;
 
     public bool CanPlaceItem(Item item, Vector2Int origin)
@@ -27,6 +29,7 @@ public class InventoryGrid : MonoBehaviour
     public bool PlaceItem(Item item, Vector2Int origin)
     {
         if (!CanPlaceItem(item, origin)) return false;
+        item.owner = owner;
         List<Vector2Int> targetCells = item.GetOccupiedCells(origin);
         item.gridPosition = origin;
         foreach (Vector2Int cell in targetCells)
@@ -71,5 +74,6 @@ public class InventoryGrid : MonoBehaviour
     {
         List<Vector2Int> occupiedCells = item.GetOccupiedCells(item.gridPosition);
         foreach (Vector2Int cell in occupiedCells) if (grid[cell.x, cell.y] == item) grid[cell.x, cell.y] = null;
+        item.owner = null;
     }
 }
