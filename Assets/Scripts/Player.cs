@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class Player : Character
 {
@@ -10,7 +11,12 @@ public class Player : Character
     public RebindableAction currentRebind;
     [SerializeField] Material damageEffect;
     [SerializeField] InventoryUI inventoryUI;
+    [Header("FPS")]
+    [SerializeField] TMP_Text fpsText;
+    [SerializeField] LanText fpsLanText;
     [SerializeField] float fps;
+    [Range(0f, 1f)]
+    [SerializeField] float fpsSmoothing = 0.1f;
     private int healthPropertyID;
     private float lastHealth = -1f;
     private InputAction moveAction;
@@ -20,6 +26,8 @@ public class Player : Character
         if (Instance != null && Instance != this) Destroy(this);
         else Instance = this;
         healthPropertyID = Shader.PropertyToID("_Health");
+        fps = 1f / Time.unscaledDeltaTime;
+        inventoryGrid = inventoryUI;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -42,7 +50,15 @@ public class Player : Character
     {
         PlayerMove(moveAction.ReadValue<Vector2>());
         if (health != lastHealth) UpdateHealth();
-        fps = 1f / Time.unscaledDeltaTime;
+        UpdateFPS();
+    }
+
+    void UpdateFPS()
+    {
+        int lastFPS = Mathf.CeilToInt(fps);
+        float currentFPS = 1f / Time.unscaledDeltaTime;
+        fps = Mathf.Lerp(fps, currentFPS, fpsSmoothing);
+        if(fpsText != null && lastFPS != Mathf.CeilToInt(fps)) fpsText.text = $"{fpsLanText.GetText()}: {Mathf.CeilToInt(fps)}";
     }
 
     void UpdateHealth()
