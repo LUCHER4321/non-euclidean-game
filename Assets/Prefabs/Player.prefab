@@ -163,16 +163,21 @@ MonoBehaviour:
   characterSO: {fileID: 11400000, guid: 28722affcd973af42a8f4dc45e16fc3a, type: 2}
   health: 100
   hands:
-  - transform: {fileID: 3814406817099282194}
+  - character: {fileID: 4408732064823203925}
+    transform: {fileID: 3814406817099282194}
     item: {fileID: 7178012907677276806}
-  - transform: {fileID: 7455768691747369034}
+  - character: {fileID: 4408732064823203925}
+    transform: {fileID: 7455768691747369034}
     item: {fileID: 0}
   playerInput: {fileID: 4447391329699403942}
   inventory: 0
   currentRebind: {fileID: 0}
   damageEffect: {fileID: 2100000, guid: 7a0e53893abe3f940a5eff83bd9b2e4c, type: 2}
   inventoryUI: {fileID: 0}
+  fpsText: {fileID: 0}
+  fpsLanText: {fileID: 11400000, guid: 068e7c2773e0acd4b9f7e9fd4d11d344, type: 2}
   fps: 0
+  fpsSmoothing: 0.1
 --- !u!114 &4447391329699403942
 MonoBehaviour:
   m_ObjectHideFlags: 0
