@@ -19,6 +19,7 @@ public class Character : MonoBehaviour
     public float health;
     public Item currentItem { get => hands[currentHandIndex].item; }
     public Hand[] hands;
+    protected InventoryGrid inventoryGrid;
     private Coroutine actionCoroutine;
     private Coroutine throwCoroutine;
     private int currentHandIndex = 0;
@@ -30,6 +31,7 @@ public class Character : MonoBehaviour
 
     [System.Serializable]
     public struct Hand{
+        public Character character;
         public Transform transform;
         public Item item;
     }
@@ -51,6 +53,9 @@ public class Character : MonoBehaviour
     protected virtual void Start()
     {
         health = characterSO.GetMaxHealth;
+        for(int i = 0; i < hands.Length; i++) hands[i].character = this;
+        if(inventoryGrid == null) inventoryGrid = gameObject.AddComponent<InventoryGrid>();
+        inventoryGrid.owner = this;
     }
 
     // Update is called once per frame
