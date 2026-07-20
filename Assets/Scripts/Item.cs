@@ -9,6 +9,7 @@ public abstract class Item : MonoBehaviour
     public int currentFoldIndex = 0;
     public int currentRotation = 0;
     public bool isFlipped = false;
+    public Character owner;
     public abstract void Action(bool pressing);
     public abstract void Throw(bool pressing);
     public abstract bool CanUse();
@@ -75,6 +76,7 @@ public abstract class Item : MonoBehaviour
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
         hand.item = this;
+        owner = hand.character;
     }
 
     public Vector2Int GetItemCellSize()
