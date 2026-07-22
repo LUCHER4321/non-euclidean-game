@@ -10,10 +10,11 @@ public abstract class Item : MonoBehaviour
     public int currentRotation = 0;
     public bool isFlipped = false;
     public Character owner;
+    public float reloadQuantity = 1f;
     public abstract void Action(bool pressing);
     public abstract void Throw(bool pressing);
     public abstract bool CanUse();
-    public abstract void Reload();
+    public abstract bool HandleReload(Item item);
 
     public List<Vector2Int> GetOccupiedCells(Vector2Int originPosition)
     {
@@ -40,6 +41,14 @@ public abstract class Item : MonoBehaviour
             calculatedCells.Add(originPosition + modifiedCell);
         }
         return calculatedCells;
+    }
+
+    public bool CanReload(out Item reloadItem){
+        if(itemData.GetReloadItem == null || owner == null || owner.inventoryGrid == null) {
+            reloadItem = null;
+            return false;
+        }
+        return owner.inventoryGrid.HasItem(itemData.GetReloadItem, out reloadItem);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -77,6 +86,17 @@ public abstract class Item : MonoBehaviour
         transform.localRotation = Quaternion.identity;
         hand.item = this;
         owner = hand.character;
+    }
+
+    public void Reload()
+    {
+        Item reloadItem;
+        if(!CanReload(out reloadItem)) return;
+        if(!HandleReload(reloadItem)) return;
+        reloadItem.currentStack -= 1;
+        if(reloadItem.currentStack > 0) return;
+        owner.inventoryGrid.RemoveItem(reloadItem);
+        Destroy(reloadItem.gameObject);
     }
 
     public Vector2Int GetItemCellSize()
