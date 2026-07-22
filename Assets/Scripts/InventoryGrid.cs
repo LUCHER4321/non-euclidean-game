@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 public class InventoryGrid : MonoBehaviour
 {
@@ -45,6 +46,18 @@ public class InventoryGrid : MonoBehaviour
         }
         if (item.gameObject != null) item.gameObject.SetActive(false);
         return true;
+    }
+
+    public bool HasItem(ItemSO itemSO, out Item item)
+    {
+        item = SearchItem(itemSO);
+        return item != null;
+    }
+
+    Item SearchItem(ItemSO itemSO)
+    {
+        foreach(Item item in grid) if(item != null && item.itemData == itemSO) return item;
+        return null;
     }
 
     public Item GetItemAt(Vector2Int pos)
