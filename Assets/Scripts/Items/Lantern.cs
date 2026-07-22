@@ -19,7 +19,8 @@ public class Lantern : Item
     }
 
     public override void Action(bool pressing)
-    {if (!pressing) 
+    {
+        if (!pressing) 
         {
             turnedOn = !turnedOn;
             if (turnedOn && CanUse())
@@ -34,7 +35,12 @@ public class Lantern : Item
 
     public override void Throw(bool pressing){}
 
-    public override void Reload(){}
+    public override bool HandleReload(Item item)
+    {
+        energy += item.reloadQuantity;
+        if(energy > maxEnergy) energy = maxEnergy;
+        return true;
+    }
 
     void Awake()
     {
