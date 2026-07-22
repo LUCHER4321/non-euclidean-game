@@ -10,16 +10,14 @@ public struct ItemShape
 [CreateAssetMenu(fileName = "ItemSO", menuName = "Scriptable Objects/ItemSO")]
 public class ItemSO : ScriptableObject
 {
-    [SerializeField]
-    LanText itemName;
-    [SerializeField]
-    int maxStack = 1;
-    [SerializeField]
-    ItemShape[] foldingConfigurations;
-    [SerializeField]
-    GameObject prefab;
+    [SerializeField] LanText itemName;
+    [SerializeField] int maxStack = 1;
+    [SerializeField] ItemShape[] foldingConfigurations;
+    [SerializeField] GameObject prefab;
+    [SerializeField] ItemSO reloadItem;
     public string GetItemName { get => itemName.GetText(); }
     public int GetMaxStack { get => maxStack; }
     public ItemShape[] GetFoldingConfigurations { get => foldingConfigurations; }
     public GameObject GetPrefab { get => prefab; }
+    public ItemSO GetReloadItem { get => reloadItem; }
 }
