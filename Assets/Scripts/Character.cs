@@ -19,7 +19,7 @@ public class Character : MonoBehaviour
     public float health;
     public Item currentItem { get => hands[currentHandIndex].item; }
     public Hand[] hands;
-    protected InventoryGrid inventoryGrid;
+    [HideInInspector] public InventoryGrid inventoryGrid;
     private Coroutine actionCoroutine;
     private Coroutine throwCoroutine;
     private int currentHandIndex = 0;
