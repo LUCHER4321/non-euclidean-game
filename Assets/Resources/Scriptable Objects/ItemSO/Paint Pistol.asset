@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ffad310293d0ec44a84314d2f62747a, type: 3}
+  m_Name: Paint Pistol
+  m_EditorClassIdentifier: Assembly-CSharp::ItemSO
+  itemName: {fileID: 11400000, guid: 9100a91a651a0d74782a8b11a56fce15, type: 2}
+  maxStack: 1
+  foldingConfigurations:
+  - cells:
+    - {x: 0, y: 0}
+    - {x: 0, y: -1}
+    - {x: 0, y: -2}
+    icon: {fileID: 0}
+  - cells:
+    - {x: 1, y: 0}
+    - {x: 0, y: -1}
+    - {x: 0, y: -2}
+    icon: {fileID: 0}
+  - cells:
+    - {x: 1, y: 0}
+    - {x: 0, y: 0}
+    - {x: 0, y: -1}
+    icon: {fileID: 0}
+  - cells:
+    - {x: 0, y: 0}
+    - {x: 0, y: -1}
+    - {x: 1, y: -2}
+    icon: {fileID: 0}
+  - cells:
+    - {x: 2, y: 0}
+    - {x: 1, y: -1}
+    - {x: 0, y: -2}
+    icon: {fileID: 0}
+  - cells:
+    - {x: 1, y: 0}
+    - {x: 0, y: 0}
+    - {x: 1, y: -1}
+    icon: {fileID: 0}
+  - cells:
+    - {x: 2, y: 0}
+    - {x: 1, y: 0}
+    - {x: 0, y: -1}
+    icon: {fileID: 0}
+  prefab: {fileID: 8620672460971826237, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+  reloadItem: {fileID: 0}
