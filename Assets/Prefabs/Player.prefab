@@ -126,7 +126,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1171460690714858821}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 75
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -169,6 +169,7 @@ MonoBehaviour:
   - character: {fileID: 4408732064823203925}
     transform: {fileID: 7455768691747369034}
     item: {fileID: 0}
+  inventoryGrid: {fileID: 0}
   playerInput: {fileID: 4447391329699403942}
   inventory: 0
   currentRebind: {fileID: 0}
@@ -333,6 +334,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InventoryDragAndDrop, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2ac458bd-b2c4-4a8f-ab20-3c65304a86a6
     m_ActionName: 'Player/Action[/Mouse/leftButton]'
   - m_PersistentCalls:
@@ -349,6 +362,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InventoryDragAndDrop, Assembly-CSharp
+        m_MethodName: OnRightClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: e3b387c3-9273-45bc-9920-7f87a0858706
     m_ActionName: 'Player/Throw[/Mouse/rightButton]'
   - m_PersistentCalls:
@@ -356,7 +381,31 @@ MonoBehaviour:
     m_ActionId: 7d477b33-a2e8-4845-ad77-623f7234d21b
     m_ActionName: 'Player/Pick Item[/Keyboard/f]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: InventoryDragAndDrop, Assembly-CSharp
+        m_MethodName: OnScroll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 4408732064823203925}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: PlayerSwitchHand
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 78f6e286-20f0-4531-a693-33eeb5fcd232
     m_ActionName: 'Player/Rotate Item[/Mouse/scroll]'
   - m_PersistentCalls:
@@ -535,7 +584,8 @@ Transform:
   m_LocalPosition: {x: 0.5, y: -0.5, z: 1.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 8038021039397285412}
   m_Father: {fileID: 8790069816746576348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1943906107449111182
@@ -749,6 +799,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lantern
       objectReference: {fileID: 0}
+    - target: {fileID: 6062167766472166843, guid: d4f5abbcea0152546bbc8fd973b95f6f, type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -770,3 +824,69 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6403334ad7e07549a9daf4741f3d71d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Lantern
+--- !u!1001 &5461258593082792845
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7455768691747369034}
+    m_Modifications:
+    - target: {fileID: 2613917702696990121, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613917702696990121, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613917702696990121, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613917702696990121, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613917702696990121, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613917702696990121, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613917702696990121, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613917702696990121, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613917702696990121, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613917702696990121, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3632347805428035885, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 8620672460971826237, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+      propertyPath: m_Name
+      value: Paint Pistol
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+--- !u!4 &8038021039397285412 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2613917702696990121, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+  m_PrefabInstance: {fileID: 5461258593082792845}
+  m_PrefabAsset: {fileID: 0}
