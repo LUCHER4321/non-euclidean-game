@@ -43,8 +43,10 @@ public abstract class Item : MonoBehaviour
         return calculatedCells;
     }
 
-    public bool CanReload(out Item reloadItem){
-        if(itemData.GetReloadItem == null || owner == null || owner.inventoryGrid == null) {
+    public bool CanReload(out Item reloadItem)
+    {
+        if (itemData.GetReloadItem == null || owner == null || owner.inventoryGrid == null)
+        {
             reloadItem = null;
             return false;
         }
@@ -65,7 +67,7 @@ public abstract class Item : MonoBehaviour
 
     public void CycleFoldOrFlipState()
     {
-        if (isFlipped)
+        if (isFlipped || itemData.GetFoldingConfigurations[currentFoldIndex].Symmetrical())
         {
             currentFoldIndex += 1;
             currentFoldIndex %= itemData.GetFoldingConfigurations.Length;
@@ -78,7 +80,7 @@ public abstract class Item : MonoBehaviour
     {
         currentRotation = Character.ModFunc(currentRotation + n, 4);
     }
-    
+
     public void Equip(Character.Hand hand)
     {
         transform.SetParent(hand.transform);
@@ -91,12 +93,83 @@ public abstract class Item : MonoBehaviour
     public void Reload()
     {
         Item reloadItem;
-        if(!CanReload(out reloadItem)) return;
-        if(!HandleReload(reloadItem)) return;
+        if (!CanReload(out reloadItem)) return;
+        if (!HandleReload(reloadItem)) return;
         reloadItem.currentStack -= 1;
-        if(reloadItem.currentStack > 0) return;
+        if (reloadItem.currentStack > 0) return;
         owner.inventoryGrid.RemoveItem(reloadItem);
         Destroy(reloadItem.gameObject);
+    }
+
+    public void Pick(Character character)
+    {
+        Rigidbody rb = GetComponent<Rigidbody>();
+        for (int i = 0; i < character.hands.Length; i++)
+        {
+            if (character.hands[i].item == null)
+            {
+                character.hands[i].item = this;
+                if (rb != null) rb.constraints = RigidbodyConstraints.FreezeAll;
+                return;
+            }
+        }
+        if (character.inventoryGrid == null) return;
+        Item itemInGrid;
+        if (character.inventoryGrid.HasItem(itemData, out itemInGrid) && itemInGrid.currentStack < itemInGrid.itemData.GetMaxStack)
+        {
+            itemInGrid.currentStack += currentStack;
+            if (itemInGrid.currentStack > itemInGrid.itemData.GetMaxStack)
+            {
+                currentStack = itemInGrid.currentStack - itemInGrid.itemData.GetMaxStack;
+                itemInGrid.currentStack = itemInGrid.itemData.GetMaxStack;
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+        }
+        for (int x = 0; x < character.inventoryGrid.width; x++)
+        {
+            for (int y = 0; y < character.inventoryGrid.height; y++)
+            {
+                Vector2Int origin = new Vector2Int(x, y);
+                if (character.inventoryGrid.PlaceItem(this, origin))
+                {
+                    if (rb != null) rb.constraints = RigidbodyConstraints.FreezeAll;
+                    return;
+                }
+            }
+        }
+    }
+
+    public void Drop()
+    {
+        gameObject.SetActive(true);
+        transform.SetParent(null);
+        bool wasInHands = false;
+        if (owner != null)
+        {
+            for (int i = 0; i < owner.hands.Length; i++)
+            {
+                if (owner.hands[i].item == this)
+                {
+                    owner.hands[i].item = null;
+                    wasInHands = true;
+                    break;
+                }
+            }
+        }
+        if (!wasInHands && owner != null) owner.inventoryGrid.RemoveItem(this);
+        owner = null;
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null) rb.constraints = RigidbodyConstraints.None;
+        for (int i = 1; i < currentStack; i++)
+        {
+            GameObject newItem = Instantiate(gameObject, transform.position, transform.rotation);
+            Item newItemComponent = newItem.GetComponent<Item>();
+            if (newItemComponent != null) newItemComponent.currentStack = 1;
+        }
     }
 
     public Vector2Int GetItemCellSize()
@@ -114,7 +187,7 @@ public abstract class Item : MonoBehaviour
         int rawHeight = height1 - height0 + 1;
         return new Vector2Int(rawWidth, rawHeight);
     }
-    
+
     public Vector2Int GetRotatedItemCellSize()
     {
         Vector2Int baseSize = GetItemCellSize();
