@@ -26,11 +26,12 @@ public class Character : MonoBehaviour
 
     public static int ModFunc(int a, int b)
     {
-        return a < 0 ? ModFunc(a + b, b) : a % b; 
+        return a < 0 ? ModFunc(a + b, b) : a % b;
     }
 
     [System.Serializable]
-    public struct Hand{
+    public struct Hand
+    {
         public Character character;
         public Transform transform;
         public Item item;
@@ -53,8 +54,8 @@ public class Character : MonoBehaviour
     protected virtual void Start()
     {
         health = characterSO.GetMaxHealth;
-        for(int i = 0; i < hands.Length; i++) hands[i].character = this;
-        if(inventoryGrid == null) inventoryGrid = gameObject.AddComponent<InventoryGrid>();
+        for (int i = 0; i < hands.Length; i++) hands[i].character = this;
+        if (inventoryGrid == null) inventoryGrid = gameObject.AddComponent<InventoryGrid>();
         inventoryGrid.owner = this;
     }
 
@@ -102,7 +103,7 @@ public class Character : MonoBehaviour
         Item item0 = hands[index].item;
         hands[index].item = item;
         if (item0 != null && item0 != item) item0.gameObject.SetActive(false);
-        if (item != null) 
+        if (item != null)
         {
             item.Equip(hands[index]);
             item.gameObject.SetActive(true);
@@ -125,6 +126,26 @@ public class Character : MonoBehaviour
             if (action == ItemAction.Action) currentItem.Action(false);
             else currentItem.Throw(false);
         }
+    }
+
+    public void PickItem(Item item)
+    {
+        item.Pick(this);
+    }
+
+    public void DropItem(Item item)
+    {
+        if (item.owner == this) item.Drop();
+    }
+
+    public void DropCurrentItem()
+    {
+        if (currentItem != null) DropItem(currentItem);
+    }
+
+    public void Reload()
+    {
+        if (currentItem != null) currentItem.Reload();
     }
 
     private IEnumerator ActionRoutine(ItemAction action = ItemAction.Action)
