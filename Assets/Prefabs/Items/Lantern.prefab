@@ -414,6 +414,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2544384203925960890}
   - component: {fileID: 5618744683183564727}
+  - component: {fileID: 6062167766472166843}
   m_Layer: 0
   m_Name: Lantern
   m_TagString: Untagged
@@ -457,12 +458,41 @@ MonoBehaviour:
   currentFoldIndex: 0
   currentRotation: 0
   isFlipped: 0
+  owner: {fileID: 0}
+  reloadQuantity: 1
   lanternLight: {fileID: 3063480394252247193}
   maxEnergy: 100
-  energy: 95
+  energy: 105
   energyTime: 3600
   turnedOn: 1
   battery: {fileID: 2100000, guid: 133656574dc8c074db14586448fa89a4, type: 2}
+--- !u!54 &6062167766472166843
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3691398562991401091}
+  serializedVersion: 5
+  m_Mass: 0.15
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &3800847663421229776
 GameObject:
   m_ObjectHideFlags: 0
