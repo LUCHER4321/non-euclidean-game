@@ -3,24 +3,21 @@ using System.Collections;
 
 public class Lantern : Item
 {
-    [SerializeField]
-    Light lanternLight;
-    [SerializeField]
-    float maxEnergy = 100, energy = 100, energyTime = 3600;
-    [SerializeField]
-    bool turnedOn;
-    [SerializeField]
-    Material battery;
+    [SerializeField] Light lanternLight;
+    [SerializeField] float maxEnergy = 100, energy = 100, energyTime = 3600;
+    [SerializeField] bool turnedOn;
+    [SerializeField] Material battery;
     private int batteryPropertyID;
     private Coroutine drainCoroutine;
 
-    public override bool CanUse() {
+    public override bool CanUse()
+    {
         return energy > 0;
     }
 
     public override void Action(bool pressing)
     {
-        if (!pressing) 
+        if (!pressing)
         {
             turnedOn = !turnedOn;
             if (turnedOn && CanUse())
@@ -33,12 +30,13 @@ public class Lantern : Item
         }
     }
 
-    public override void Throw(bool pressing){}
+    public override void Throw(bool pressing) { }
 
     public override bool HandleReload(Item item)
     {
+        if (energy >= maxEnergy) return false;
         energy += item.reloadQuantity;
-        if(energy > maxEnergy) energy = maxEnergy;
+        UpdateMaterial();
         return true;
     }
 
@@ -50,7 +48,7 @@ public class Lantern : Item
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -64,7 +62,7 @@ public class Lantern : Item
         while (turnedOn && energy > 0)
         {
             energy -= Time.deltaTime * maxEnergy / energyTime;
-            battery.SetFloat(batteryPropertyID, energy / maxEnergy);
+            UpdateMaterial();
             yield return null;
         }
         if (energy <= 0) TurnOffLantern();
@@ -79,5 +77,10 @@ public class Lantern : Item
             StopCoroutine(drainCoroutine);
             drainCoroutine = null;
         }
+    }
+
+    void UpdateMaterial()
+    {
+        battery.SetFloat(batteryPropertyID, Mathf.Clamp(energy / maxEnergy, 0, 1));
     }
 }
