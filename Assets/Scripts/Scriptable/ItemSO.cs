@@ -5,6 +5,13 @@ public struct ItemShape
 {
     public Vector2Int[] cells;
     public Texture2D icon;
+
+    public bool Symmetrical()
+    {
+        if (cells.Length <= 1) return true;
+        foreach (Vector2Int cell in cells) if (cell.x != cells[0].x && cell.y != cells[0].y) return false;
+        return true;
+    }
 }
 
 [CreateAssetMenu(fileName = "ItemSO", menuName = "Scriptable Objects/ItemSO")]
