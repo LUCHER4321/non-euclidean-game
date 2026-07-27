@@ -97,17 +97,24 @@ public class Player : Character
         Look(input);
     }
 
+    public void PlayerSwitchHand(InputAction.CallbackContext context)
+    {
+        if (inventory || !context.performed) return;
+        int n = context.ReadValue<Vector2>().y > 0f ? 1 : -1;
+        SwitchHand(n);
+    }
+
     public void ToggleInput()
     {
         inventory = !inventory;
-    inventoryUI.gameObject.SetActive(inventory);
-    Cursor.visible = inventory;
-    Cursor.lockState = inventory ? CursorLockMode.None : CursorLockMode.Locked;
-    if (inventory)
-    {
-        InventoryDragAndDrop dragAndDrop = inventoryUI as InventoryDragAndDrop;
-        if (dragAndDrop != null) dragAndDrop.UpdateAllHandSlots();
-    }
+        inventoryUI.gameObject.SetActive(inventory);
+        Cursor.visible = inventory;
+        Cursor.lockState = inventory ? CursorLockMode.None : CursorLockMode.Locked;
+        if (inventory)
+        {
+            InventoryDragAndDrop dragAndDrop = inventoryUI as InventoryDragAndDrop;
+            if (dragAndDrop != null) dragAndDrop.UpdateAllHandSlots();
+        }
     }
 
     public void ControlsChanged()
