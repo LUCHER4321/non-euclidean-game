@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class PaintPistol : Item
 {
-    [SerializeField] int paintAmount = 100, maxPaintAmount = 100;
-    [SerializeField] Color paintColor = Color.red;
-    [SerializeField] Material hopper;
-
+    [SerializeField] private int paintAmount = 100;
+    [SerializeField] private int maxPaintAmount = 100;
+    [SerializeField] private Color paintColor = Color.red;
+    [SerializeField] private Material hopper;
     private int hopperPropertyID;
 
     public override bool CanUse()
