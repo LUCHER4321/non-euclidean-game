@@ -168,7 +168,7 @@ MonoBehaviour:
     item: {fileID: 7178012907677276806}
   - character: {fileID: 4408732064823203925}
     transform: {fileID: 7455768691747369034}
-    item: {fileID: 0}
+    item: {fileID: 2227311645291040836}
   inventoryGrid: {fileID: 0}
   playerInput: {fileID: 4447391329699403942}
   inventory: 0
@@ -885,6 +885,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+--- !u!114 &2227311645291040836 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6134828355080817609, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
+  m_PrefabInstance: {fileID: 5461258593082792845}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d88d13cadee43d34881413c27c92b7c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PaintPistol
 --- !u!4 &8038021039397285412 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2613917702696990121, guid: fd8b5ec34e6346a4596449375468f1fb, type: 3}
