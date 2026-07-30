@@ -1,12 +1,14 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Rendering.Universal;
 
 public class Lantern : Item
 {
     [SerializeField] Light lanternLight;
     [SerializeField] float maxEnergy = 100, energy = 100, energyTime = 3600;
     [SerializeField] bool turnedOn;
-    [SerializeField] Material battery;
+    [SerializeField] DecalProjector battery;
+    private Material batteryMaterial;
     private int batteryPropertyID;
     private Coroutine drainCoroutine;
 
@@ -40,15 +42,16 @@ public class Lantern : Item
         return true;
     }
 
-    void Awake()
-    {
-        batteryPropertyID = Shader.PropertyToID("_Battery");
-    }
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        batteryPropertyID = Shader.PropertyToID("_Battery");
+        if (battery != null)
+        {
+            batteryMaterial = new Material(battery.material);
+            battery.material = batteryMaterial;
+        }
+        UpdateMaterial();
     }
 
     // Update is called once per frame
@@ -81,6 +84,6 @@ public class Lantern : Item
 
     void UpdateMaterial()
     {
-        battery.SetFloat(batteryPropertyID, Mathf.Clamp(energy / maxEnergy, 0, 1));
+        batteryMaterial.SetFloat(batteryPropertyID, Mathf.Clamp(energy / maxEnergy, 0, 1));
     }
 }
