@@ -465,7 +465,7 @@ MonoBehaviour:
   energy: 105
   energyTime: 3600
   turnedOn: 1
-  battery: {fileID: 2100000, guid: 133656574dc8c074db14586448fa89a4, type: 2}
+  battery: {fileID: 2380663952586559779}
 --- !u!54 &6062167766472166843
 Rigidbody:
   m_ObjectHideFlags: 0
