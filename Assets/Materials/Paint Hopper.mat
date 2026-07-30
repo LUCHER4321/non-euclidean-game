@@ -55,7 +55,7 @@ Material:
     - _Hopper_Y_Scale: 0.18
     - _InFactor: 0.7
     - _Metallic: 0
-    - _Paint: 0.5
+    - _Paint: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Smoothness: 0
