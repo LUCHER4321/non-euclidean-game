@@ -1049,7 +1049,9 @@ MonoBehaviour:
   owner: {fileID: 0}
   reloadQuantity: 1
   maxPaintAmount: 100
+  range: 50
+  epsilon: 0.01
   paintColor:
     color: {r: 1, g: 0, b: 0, a: 1}
-    quantity: 100
+    quantity: 50
   hopper: {fileID: 2598574888560787572}
