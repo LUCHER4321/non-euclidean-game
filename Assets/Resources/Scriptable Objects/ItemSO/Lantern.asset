@@ -17,7 +17,7 @@ MonoBehaviour:
   foldingConfigurations:
   - cells:
     - {x: 0, y: 0}
-    - {x: 0, y: -1}
+    - {x: 0, y: 1}
     icon: {fileID: 2800000, guid: 43b3d2b1d639d3a4fa1e4c1119514fac, type: 3}
   prefab: {fileID: 3691398562991401091, guid: d4f5abbcea0152546bbc8fd973b95f6f, type: 3}
   reloadItem: {fileID: 11400000, guid: 65ef896b20e15a04fb9cc58d04708bce, type: 2}
