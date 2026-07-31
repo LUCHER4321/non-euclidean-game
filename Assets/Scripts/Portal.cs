@@ -85,7 +85,7 @@ public class Portal : MonoBehaviour
 
     public Ray RedirectRay(Vector3 hitPoint, Vector3 incomingDirection)
     {
-        if ((!teleport || linkedPortal == null) && !auxiliaryPortal.IsInBounds(hitPoint)) return new Ray(hitPoint, incomingDirection);
+        if (linkedPortal == null || (!teleport && (auxiliaryPortal == null || !auxiliaryPortal.IsInBounds(hitPoint)))) return new Ray(hitPoint, incomingDirection);
         Vector3 localHitPoint = transform.InverseTransformPoint(hitPoint);
         Vector3 outOrigin = linkedPortal.transform.TransformPoint(new Vector3(-localHitPoint.x, localHitPoint.y, -localHitPoint.z));
         Vector3 localDirection = transform.InverseTransformDirection(incomingDirection);
@@ -115,7 +115,7 @@ public class Portal : MonoBehaviour
     public static bool IsInPortal(Vector3 position, out Portal closestPortal)
     {
         closestPortal = ClosestPortal(position);
-        if (closestPortal == null) return false;
+        if (closestPortal == null || closestPortal.auxiliaryPortal == null) return false;
         return closestPortal.auxiliaryPortal.IsInBounds(position);
     }
 
