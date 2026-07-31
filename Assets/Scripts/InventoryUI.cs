@@ -10,6 +10,7 @@ public class InventoryUI : InventoryGrid
     [SerializeField] Color color1 = new Color(0.3f, 0.3f, 0.3f, 0.6f);
     [Header("UI Prefabs")]
     [SerializeField] ItemUI itemUIPrefab;
+    [SerializeField] Transform cells;
     public static Vector2 baseCellSize = new Vector2(64f, 64f);
 
     private Dictionary<Item, ItemUI> itemUIDictionary = new Dictionary<Item, ItemUI>();
@@ -65,7 +66,7 @@ public class InventoryUI : InventoryGrid
             for (int y = 0; y < height; y++)
             {
                 GameObject cellObj = new GameObject($"Cell_{x}_{y}", typeof(RectTransform), typeof(Image));
-                cellObj.transform.SetParent(transform, false);
+                cellObj.transform.SetParent(cells != null ? cells : transform, false);
                 RectTransform cellRect = cellObj.GetComponent<RectTransform>();
                 Image cellImage = cellObj.GetComponent<Image>();
                 float minX = (float)x / (float)width;
