@@ -20,7 +20,7 @@ public class PaintPistol : Item
             this.quantity = quantity;
         }
 
-        public PaintColor(params PaintColor[] paints)
+        private PaintColor(params PaintColor[] paints)
         {
             if (paints.Length == 0)
             {
@@ -50,6 +50,27 @@ public class PaintPistol : Item
             color = new Color(rgb.x, rgb.y, rgb.z, totalAlpha);
             quantity = totalQuantity;
         }
+
+        private PaintColor(PaintColor paintColor, int factor)
+        {
+            color = paintColor.color;
+            quantity = paintColor.quantity * factor;
+        }
+
+        public static PaintColor operator +(PaintColor a, PaintColor b)
+        {
+            return new PaintColor(a, b);
+        }
+
+        public static PaintColor operator *(PaintColor paint, int factor)
+        {
+            return new PaintColor(paint, factor);
+        }
+
+        public static PaintColor operator *(int factor, PaintColor paint)
+        {
+            return new PaintColor(paint, factor);
+        }
     }
 
     public override bool CanUse()
@@ -73,7 +94,7 @@ public class PaintPistol : Item
             q = maxPaintAmount;
             b = false;
         }
-        paintColor = new PaintColor(paintColor, new PaintColor(pb.paintColor, q - paintColor.quantity));
+        paintColor += new PaintColor(pb.paintColor, q - paintColor.quantity);
         UpdateMaterial();
         return b;
     }
