@@ -15,6 +15,6 @@ MonoBehaviour:
   context: 
   translations:
   - lan: {fileID: 11400000, guid: d6fed4237bdd17b4cb6c80d11e991160, type: 2}
-    text: FPS
+    text: 'FPS: {0}'
   - lan: {fileID: 11400000, guid: 055ed4ae7bc5f5144b4e7aeadcbc51b7, type: 2}
-    text: FPS
+    text: 'FPS: {0}'
