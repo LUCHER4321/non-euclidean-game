@@ -55,8 +55,9 @@ MonoBehaviour:
   width: 10
   height: 8
   owner: {fileID: 0}
-  color0: {r: 0.2, g: 0.2, b: 0.2, a: 0.6}
-  color1: {r: 0.3, g: 0.3, b: 0.3, a: 0.6}
+  baseColors:
+  - {r: 0.2, g: 0.2, b: 0.2, a: 0.6}
+  - {r: 0.29803923, g: 0.29803923, b: 0.29803923, a: 0.6}
   itemUIPrefab: {fileID: 341878463146427129, guid: 55ca9ecb70bac2a4a9630ac9fe236796, type: 3}
   cells: {fileID: 7690853669849415519}
   pointerPositionAction: {fileID: 7308622621025932809, guid: d3963ad18a6e3984cb1dfa09a6c10b71, type: 3}
