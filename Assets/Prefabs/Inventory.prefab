@@ -31,6 +31,7 @@ RectTransform:
   m_Children:
   - {fileID: 619135291826360532}
   - {fileID: 5534915139079023832}
+  - {fileID: 7690853669849415519}
   - {fileID: 4995023076300052234}
   m_Father: {fileID: 6358460501486957532}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -57,6 +58,7 @@ MonoBehaviour:
   color0: {r: 0.2, g: 0.2, b: 0.2, a: 0.6}
   color1: {r: 0.3, g: 0.3, b: 0.3, a: 0.6}
   itemUIPrefab: {fileID: 341878463146427129, guid: 55ca9ecb70bac2a4a9630ac9fe236796, type: 3}
+  cells: {fileID: 7690853669849415519}
   pointerPositionAction: {fileID: 7308622621025932809, guid: d3963ad18a6e3984cb1dfa09a6c10b71, type: 3}
   handSlots:
   - {fileID: 8243165124735905782}
@@ -222,6 +224,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HandSlotUI
   handIndex: 1
   iconDisplay: {fileID: 7007160577575844693}
+--- !u!1 &3487548897224121550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7690853669849415519}
+  m_Layer: 5
+  m_Name: Cells
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7690853669849415519
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3487548897224121550}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1664440720152283499}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3566981050193853834
 GameObject:
   m_ObjectHideFlags: 0
