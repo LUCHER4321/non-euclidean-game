@@ -1285,6 +1285,7 @@ GameObject:
   - component: {fileID: 596961660}
   - component: {fileID: 596961661}
   - component: {fileID: 596961662}
+  - component: {fileID: 596961663}
   m_Layer: 0
   m_Name: Singletons
   m_TagString: Untagged
@@ -1402,6 +1403,20 @@ MonoBehaviour:
   inverts: 0000
   language: {fileID: 11400000, guid: d6fed4237bdd17b4cb6c80d11e991160, type: 2}
   lanDropdown: {fileID: 1271606168}
+--- !u!114 &596961663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 596961657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feabd4e1952af354ea85b4d76e8b91eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ItemST
+  paintDecal: {fileID: 2100000, guid: 8bee5cc96e2eb734b861e3636f41bdb7, type: 2}
+  paintDecalPrefab: {fileID: 6917854598007045790, guid: f9f6e4fec7320bb4e969accd4a0f4f1f, type: 3}
 --- !u!1 &619200060
 GameObject:
   m_ObjectHideFlags: 0
