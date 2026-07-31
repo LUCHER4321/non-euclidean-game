@@ -11,6 +11,19 @@ public class InventoryDragAndDrop : InventoryUI
     [SerializeField] HandSlotUI[] handSlots;
     [Header("UI Dragging")]
     [SerializeField] RawImage dragIconDisplay;
+    [Header("UI Colors")]
+    [SerializeField]
+    Color[] availableColors = new Color[]
+    {
+        new Color(0f, 0.2f, 0f, 1f),
+        new Color(0f, 0.3f, 0f, 1f)
+    };
+    [SerializeField]
+    Color[] unavailableColors = new Color[]
+    {
+        new Color(0.2f, 0f, 0f, 1f),
+        new Color(0.3f, 0f, 0f, 1f)
+    };
     private Item currentlyDraggingItem;
     private Coroutine dragCoroutine;
 
@@ -162,16 +175,30 @@ public class InventoryDragAndDrop : InventoryUI
 
     IEnumerator FollowMouseRoutine()
     {
+        Vector2Int lastGridPos = new Vector2Int(-999, -999);
+        int lastRotation = -1;
+        bool lastFlipped = false;
         while (currentlyDraggingItem != null)
         {
             if (pointerPositionAction != null && dragIconDisplay != null)
             {
                 Vector2 pointerPos = pointerPositionAction.action.ReadValue<Vector2>();
                 dragIconDisplay.rectTransform.position = pointerPos;
+                Vector2Int gridPos = GetGridPositionFromMouse(pointerPos);
+                if (gridPos != lastGridPos || currentlyDraggingItem.currentRotation != lastRotation || currentlyDraggingItem.isFlipped != lastFlipped)
+                {
+                    lastGridPos = gridPos;
+                    lastRotation = currentlyDraggingItem.currentRotation;
+                    lastFlipped = currentlyDraggingItem.isFlipped;
+                    Vector2Int[] targetPositions = currentlyDraggingItem.GetOccupiedCells(gridPos).ToArray();
+                    Color[] colors = CanPlaceItem(currentlyDraggingItem, gridPos) ? availableColors : unavailableColors;
+                    TemporalColors(targetPositions, colors);
+                }
             }
             yield return null;
         }
         if (dragIconDisplay != null) dragIconDisplay.enabled = false;
+        UpdateColors();
     }
 
     void UpdateDragVisuals()
