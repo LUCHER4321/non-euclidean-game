@@ -15,10 +15,18 @@ public class LanText : ScriptableObject
     Translation[] translations;
     public string GetContext { get => context; }
 
-    public string GetText()
+    public string GetText(params string[] stringParams)
     {
         if (OptionsMenuST.Instance == null) return "";
-        foreach (Translation t in translations) if (t.lan == OptionsMenuST.Instance.GetLanguage) return t.text;
+        foreach (Translation t in translations)
+        {
+            if (t.lan == OptionsMenuST.Instance.GetLanguage)
+            {
+                string txt = t.text;
+                for (int i = 0; i < stringParams.Length; i++) txt = txt.Replace("{" + i.ToString() + "}", stringParams[i]);
+                return txt;
+            }
+        }
         return "";
     }
 }
