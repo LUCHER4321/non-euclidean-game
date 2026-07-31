@@ -30,7 +30,7 @@ public class InventoryDragAndDrop : InventoryUI
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnEnable()
@@ -38,7 +38,7 @@ public class InventoryDragAndDrop : InventoryUI
         UpdateAllHandSlots();
         if (currentlyDraggingItem != null) StartDragging(currentlyDraggingItem);
     }
-    
+
     void OnDisable()
     {
         if (dragCoroutine != null) StopCoroutine(dragCoroutine);
@@ -76,8 +76,8 @@ public class InventoryDragAndDrop : InventoryUI
 
     public void OnRightClick(InputAction.CallbackContext context)
     {
-        if (!Player.Instance.inventory) return;
-        if (currentlyDraggingItem != null) 
+        if (!Player.Instance.inventory || !context.performed) return;
+        if (currentlyDraggingItem != null)
         {
             currentlyDraggingItem.CycleFoldOrFlipState();
             UpdateDragVisuals();
