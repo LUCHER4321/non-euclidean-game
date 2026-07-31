@@ -6,14 +6,25 @@ using System.Collections.Generic;
 public class InventoryUI : InventoryGrid
 {
     [Header("Colors Settings")]
-    [SerializeField] Color color0 = new Color(0.2f, 0.2f, 0.2f, 0.6f);
-    [SerializeField] Color color1 = new Color(0.3f, 0.3f, 0.3f, 0.6f);
+    [SerializeField]
+    Color[] baseColors = new Color[]
+    {
+        new Color(0.2f, 0.2f, 0.2f, 0.6f),
+        new Color(0.3f, 0.3f, 0.3f, 0.6f)
+    };
+    [SerializeField]
+    Color[] usedColors = new Color[]
+    {
+        new Color(0.2f, 0.2f, 0f, 1f),
+        new Color(0.3f, 0.3f, 0f, 1f)
+    };
     [Header("UI Prefabs")]
     [SerializeField] ItemUI itemUIPrefab;
     [SerializeField] Transform cells;
     public static Vector2 baseCellSize = new Vector2(64f, 64f);
 
     private Dictionary<Item, ItemUI> itemUIDictionary = new Dictionary<Item, ItemUI>();
+    private Image[,] images;
 
     public Vector2Int GetGridPositionFromMouse(Vector2 screenPosition)
     {
@@ -30,6 +41,7 @@ public class InventoryUI : InventoryGrid
     {
         bool success = base.PlaceItem(item, origin);
         if (success) CreateOrUpdateItemUI(item);
+        UpdateColors();
         return success;
     }
 
@@ -61,6 +73,7 @@ public class InventoryUI : InventoryGrid
 
     private void GenerateGridCells()
     {
+        images = new Image[width, height];
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -68,7 +81,7 @@ public class InventoryUI : InventoryGrid
                 GameObject cellObj = new GameObject($"Cell_{x}_{y}", typeof(RectTransform), typeof(Image));
                 cellObj.transform.SetParent(cells != null ? cells : transform, false);
                 RectTransform cellRect = cellObj.GetComponent<RectTransform>();
-                Image cellImage = cellObj.GetComponent<Image>();
+                images[x, y] = cellObj.GetComponent<Image>();
                 float minX = (float)x / (float)width;
                 float maxX = (float)(x + 1) / (float)width;
                 float minY = (float)(height - 1 - y) / (float)height;
@@ -78,8 +91,8 @@ public class InventoryUI : InventoryGrid
                 cellRect.offsetMin = Vector2.zero;
                 cellRect.offsetMax = Vector2.zero;
                 baseCellSize = new Vector2(cellRect.rect.width, cellRect.rect.height);
-                if ((x + y) % 2 == 0) cellImage.color = color0;
-                else cellImage.color = color1;
+                Color[] colors = GetItemAt(new Vector2Int(x, y)) == null ? baseColors : usedColors;
+                images[x, y].color = colors[(x + y) % colors.Length];
             }
         }
     }
@@ -92,6 +105,7 @@ public class InventoryUI : InventoryGrid
             Destroy(ui.gameObject);
             itemUIDictionary.Remove(item);
         }
+        UpdateColors();
     }
 
     public void CreateOrUpdateItemUI(Item item)
@@ -102,5 +116,23 @@ public class InventoryUI : InventoryGrid
             itemUIDictionary.Add(item, ui);
         }
         ui.Setup(item, width, height);
+    }
+
+    public void UpdateColors()
+    {
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                Color[] colors = GetItemAt(new Vector2Int(x, y)) == null ? baseColors : usedColors;
+                images[x, y].color = colors[(x + y) % colors.Length];
+            }
+        }
+    }
+
+    public void TemporalColors(Vector2Int[] positions, Color[] colors)
+    {
+        UpdateColors();
+        foreach (Vector2Int pos in positions) if (pos.x >= 0 && pos.x < width && pos.y >= 0 && pos.y < height) images[pos.x, pos.y].color = colors[(pos.x + pos.y) % colors.Length];
     }
 }
