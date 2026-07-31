@@ -22,7 +22,7 @@ public class Character : MonoBehaviour
     [HideInInspector] public InventoryGrid inventoryGrid;
     private Coroutine actionCoroutine;
     private Coroutine throwCoroutine;
-    private int currentHandIndex = 0;
+    protected int currentHandIndex = 0;
 
     public static int ModFunc(int a, int b)
     {
@@ -54,7 +54,11 @@ public class Character : MonoBehaviour
     protected virtual void Start()
     {
         health = characterSO.GetMaxHealth;
-        for (int i = 0; i < hands.Length; i++) hands[i].character = this;
+        for (int i = 0; i < hands.Length; i++)
+        {
+            hands[i].character = this;
+            if (hands[i].item != null) hands[i].item.owner = this;
+        }
         if (inventoryGrid == null) inventoryGrid = gameObject.AddComponent<InventoryGrid>();
         inventoryGrid.owner = this;
     }
