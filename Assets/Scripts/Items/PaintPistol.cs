@@ -1,8 +1,11 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class PaintPistol : Item
 {
     [SerializeField] int maxPaintAmount = 100;
+    [SerializeField] float range = 50f;
+    [SerializeField] float epsilon = 0.01f;
     [SerializeField] PaintColor paintColor = new PaintColor(Color.red, 100);
     [SerializeField] MeshRenderer hopper;
     private Material hopperMaterial;
@@ -78,7 +81,16 @@ public class PaintPistol : Item
         return paintColor.quantity > 0;
     }
 
-    public override void Action(bool pressing) { }
+    public override void Action(bool pressing)
+    {
+        if (pressing) return;
+        RaycastHit hit;
+        if (!Portal.Raycast(new Ray(owner.cam.transform.position, owner.cam.transform.forward), out hit, range)) return;
+        DecalProjector projector = ItemST.Instance.PaintStain(paintColor.color, hit.point + epsilon * hit.normal, Quaternion.LookRotation(-hit.normal));
+        if (projector == null) return;
+        paintColor += new PaintColor(paintColor.color, -1);
+        projector.transform.parent = hit.transform;
+    }
 
     public override void Throw(bool pressing) { }
 
