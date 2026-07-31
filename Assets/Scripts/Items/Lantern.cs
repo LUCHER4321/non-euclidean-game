@@ -19,17 +19,15 @@ public class Lantern : Item
 
     public override void Action(bool pressing)
     {
-        if (!pressing)
+        if (pressing) return;
+        turnedOn = !turnedOn;
+        if (turnedOn && CanUse())
         {
-            turnedOn = !turnedOn;
-            if (turnedOn && CanUse())
-            {
-                lanternLight.enabled = true;
-                if (drainCoroutine != null) StopCoroutine(drainCoroutine);
-                drainCoroutine = StartCoroutine(DrainEnergyRoutine());
-            }
-            else TurnOffLantern();
+            lanternLight.enabled = true;
+            if (drainCoroutine != null) StopCoroutine(drainCoroutine);
+            drainCoroutine = StartCoroutine(DrainEnergyRoutine());
         }
+        else TurnOffLantern();
     }
 
     public override void Throw(bool pressing) { }
