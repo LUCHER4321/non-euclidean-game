@@ -141,7 +141,15 @@ public class Portal : MonoBehaviour
             {
                 float remainingDistance = maxDistance - hitInfo.distance;
                 Ray redirectedRay = hitPortal.RedirectRay(hitInfo.point, ray.direction);
-                return RaycastRecursive(redirectedRay, out hitInfo, remainingDistance, layerMask, bouncesLeft - 1);
+                Collider linkedCollider = null;
+                if (hitPortal.linkedPortal != null)
+                {
+                    linkedCollider = hitPortal.linkedPortal.PortalCollider;
+                    if (linkedCollider != null) linkedCollider.enabled = false;
+                }
+                bool result = RaycastRecursive(redirectedRay, out hitInfo, remainingDistance, layerMask, bouncesLeft - 1);
+                if (linkedCollider != null) linkedCollider.enabled = true;
+                return result;
             }
         }
         return hit;
