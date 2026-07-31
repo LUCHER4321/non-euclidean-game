@@ -108,7 +108,9 @@ public abstract class Item : MonoBehaviour
         {
             if (character.hands[i].item == null)
             {
+                gameObject.SetActive(true);
                 character.hands[i].item = this;
+                Equip(character.hands[i]);
                 if (rb != null) rb.constraints = RigidbodyConstraints.FreezeAll;
                 return;
             }
