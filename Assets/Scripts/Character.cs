@@ -117,16 +117,17 @@ public class Character : MonoBehaviour
     public void HandleAction(bool isPressing, ItemAction action = ItemAction.Action)
     {
         if (currentItem == null) return;
+        Coroutine coroutine = action == ItemAction.Action ? actionCoroutine : throwCoroutine;
         if (isPressing)
         {
-            if (actionCoroutine != null) StopCoroutine(action == ItemAction.Action ? actionCoroutine : throwCoroutine);
+            if (coroutine != null) StopCoroutine(coroutine);
             Coroutine routine = StartCoroutine(ActionRoutine(action));
             if (action == ItemAction.Action) actionCoroutine = routine;
             else throwCoroutine = routine;
         }
         else
         {
-            if (actionCoroutine != null) StopCoroutine(action == ItemAction.Action ? actionCoroutine : throwCoroutine);
+            if (coroutine != null) StopCoroutine(coroutine);
             if (action == ItemAction.Action) currentItem.Action(false);
             else currentItem.Throw(false);
         }
