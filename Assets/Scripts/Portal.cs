@@ -55,7 +55,11 @@ public class Portal : MonoBehaviour
             {
                 Vector3 offset = targetPoint - lightPos;
                 Vector3 dir = offset.normalized;
-                if (Vector3.Dot(forward, dir) >= minDot && !Physics.Raycast(lightPos, dir, offset.magnitude, mask)) return true;
+                if (Vector3.Dot(forward, dir) >= minDot)
+                {
+                    if (Physics.Raycast(lightPos, dir, out RaycastHit hit, offset.magnitude, mask) && hit.collider != PortalCollider) return false;
+                    return true;
+                }
                 return false;
             }
             if (CheckPointReach(closestPoint)) return true;
