@@ -27,12 +27,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1094666046823239115}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 7.5, y: 7.5, z: 7.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 5973323720590741759}
+  m_Father: {fileID: 8790069816746576348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4082046114855677786
 MeshFilter:
@@ -148,7 +148,6 @@ Transform:
   m_Children:
   - {fileID: 8790069816746576348}
   - {fileID: 2501121071271188327}
-  - {fileID: 6150571523902537370}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3630585352590854
@@ -287,9 +286,13 @@ MonoBehaviour:
   currentRebind: {fileID: 0}
   damageEffect: {fileID: 2100000, guid: 7a0e53893abe3f940a5eff83bd9b2e4c, type: 2}
   inventoryUI: {fileID: 0}
+  itemDetector: {fileID: 6818362718431662834}
+  handSigner: {fileID: 0}
+  pickableItemText: {fileID: 0}
+  pickableItemLanText: {fileID: 11400000, guid: 4e78920380046b34488ff1d64df2dbdd, type: 2}
   fpsText: {fileID: 0}
   fpsLanText: {fileID: 11400000, guid: 068e7c2773e0acd4b9f7e9fd4d11d344, type: 2}
-  fps: 0
+  fps: 60
   fpsSmoothing: 0.1
 --- !u!114 &4447391329699403942
 MonoBehaviour:
@@ -501,7 +504,19 @@ MonoBehaviour:
     m_ActionId: e3b387c3-9273-45bc-9920-7f87a0858706
     m_ActionName: 'Player/Throw[/Mouse/rightButton]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4408732064823203925}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: PickThatItem
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 7d477b33-a2e8-4845-ad77-623f7234d21b
     m_ActionName: 'Player/Pick Item[/Keyboard/f]'
   - m_PersistentCalls:
@@ -575,6 +590,7 @@ Transform:
   m_Children:
   - {fileID: 3814406817099282194}
   - {fileID: 7455768691747369034}
+  - {fileID: 6150571523902537370}
   m_Father: {fileID: 5973323720590741759}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &961924716530478887
@@ -705,7 +721,7 @@ Transform:
   m_GameObject: {fileID: 1816925444784674257}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -0.5, z: 1.1}
+  m_LocalPosition: {x: 0.5, y: -0.5, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -737,7 +753,7 @@ Transform:
   m_GameObject: {fileID: 1943906107449111182}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -0.5, z: 1.1}
+  m_LocalPosition: {x: -0.5, y: -0.5, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
