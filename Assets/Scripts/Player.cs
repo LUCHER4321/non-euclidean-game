@@ -10,7 +10,12 @@ public class Player : Character
     public bool inventory = false;
     public RebindableAction currentRebind;
     [SerializeField] Material damageEffect;
+    [Header("Items")]
     [SerializeField] InventoryUI inventoryUI;
+    [SerializeField] SphereCollider itemDetector;
+    [SerializeField] HandSigner handSigner;
+    [SerializeField] TMP_Text pickableItemText;
+    [SerializeField] LanText pickableItemLanText;
     [Header("FPS")]
     [SerializeField] TMP_Text fpsText;
     [SerializeField] LanText fpsLanText;
@@ -20,6 +25,7 @@ public class Player : Character
     private int healthPropertyID;
     private float lastHealth = -1f;
     private InputAction moveAction;
+    private Item pickableItem;
 
     void Awake()
     {
@@ -43,6 +49,7 @@ public class Player : Character
         }
         cam.transform.localRotation = Quaternion.identity;
         moveAction = playerInput.actions["Move"];
+        if (handSigner != null) handSigner.UpdateHands(currentHandIndex);
     }
 
     // Update is called once per frame
@@ -51,6 +58,7 @@ public class Player : Character
         PlayerMove(moveAction.ReadValue<Vector2>());
         if (health != lastHealth) UpdateHealth();
         UpdateFPS();
+        SetPickableItem();
     }
 
     void UpdateFPS()
@@ -58,7 +66,7 @@ public class Player : Character
         int lastFPS = Mathf.CeilToInt(fps);
         float currentFPS = 1f / Time.unscaledDeltaTime;
         fps = Mathf.Lerp(fps, currentFPS, fpsSmoothing);
-        if(fpsText != null && lastFPS != Mathf.CeilToInt(fps)) fpsText.text = $"{fpsLanText.GetText()}: {Mathf.CeilToInt(fps)}";
+        if (fpsText != null && lastFPS != Mathf.CeilToInt(fps)) fpsText.text = fpsLanText.GetText(Mathf.CeilToInt(fps).ToString());
     }
 
     void UpdateHealth()
@@ -102,6 +110,7 @@ public class Player : Character
         if (inventory || !context.performed) return;
         int n = context.ReadValue<Vector2>().y > 0f ? 1 : -1;
         SwitchHand(n);
+        if (handSigner != null) handSigner.UpdateHands(currentHandIndex);
     }
 
     public void ToggleInput()
@@ -134,5 +143,23 @@ public class Player : Character
         if (inventory) return;
         if (currentItem == null) return;
         if (!context.performed) HandleAction(context.started, ItemAction.Throw);
+    }
+
+    public void PickThatItem()
+    {
+        SetPickableItem();
+        if (pickableItem == null) return;
+        PickItem(pickableItem);
+    }
+
+    void SetPickableItem()
+    {
+        RaycastHit hit;
+        float maxScale = Mathf.Max(Mathf.Max(Mathf.Abs(itemDetector.transform.lossyScale.x), Mathf.Abs(itemDetector.transform.lossyScale.y)), Mathf.Abs(itemDetector.transform.lossyScale.z));
+        if (!Portal.Raycast(new Ray(cam.transform.position, cam.transform.forward), out hit, itemDetector.radius * maxScale)) return;
+        pickableItem = Portal.FirstParent(hit.collider.transform).GetComponent<Item>();
+        if (pickableItemText == null || pickableItemLanText == null) return;
+        pickableItemText.gameObject.SetActive(pickableItem != null);
+        if (pickableItem != null) pickableItemText.text = pickableItemLanText.GetText(pickableItem.itemData.GetItemName);
     }
 }
