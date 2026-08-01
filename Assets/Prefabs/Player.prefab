@@ -283,6 +283,8 @@ MonoBehaviour:
   inventoryGrid: {fileID: 0}
   playerInput: {fileID: 4447391329699403942}
   inventory: 0
+  pause: 0
+  pauseMenu: {fileID: 0}
   currentRebind: {fileID: 0}
   damageEffect: {fileID: 2100000, guid: 7a0e53893abe3f940a5eff83bd9b2e4c, type: 2}
   inventoryUI: {fileID: 0}
@@ -400,7 +402,19 @@ MonoBehaviour:
     m_ActionId: ebd40c63-a808-4047-8dfa-2c46796ee7a9
     m_ActionName: Player/ToggleInput
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4408732064823203925}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Pause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 7d6a3bf8-cdd6-4055-9b5a-1a873a6d0350
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
   - m_PersistentCalls:
@@ -551,6 +565,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 05e30ea5-dfd5-40e1-91f4-4e532d74d1aa
     m_ActionName: 'Player/Mouse Position[/Mouse/position]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4408732064823203925}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Reload
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 91167e06-5130-4c0c-8c09-5ccd49363d78
+    m_ActionName: 'Player/Reload[/Keyboard/r]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
