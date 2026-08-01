@@ -8,6 +8,8 @@ public class Player : Character
     [Header("Player")]
     public PlayerInput playerInput;
     public bool inventory = false;
+    [SerializeField] bool pause = false;
+    [SerializeField] GameObject pauseMenu;
     public RebindableAction currentRebind;
     [SerializeField] Material damageEffect;
     [Header("Items")]
@@ -161,5 +163,19 @@ public class Player : Character
         if (pickableItemText == null || pickableItemLanText == null) return;
         pickableItemText.gameObject.SetActive(pickableItem != null);
         if (pickableItem != null) pickableItemText.text = pickableItemLanText.GetText(pickableItem.itemData.GetItemName);
+    }
+
+    public void Pause()
+    {
+        if (inventory)
+        {
+            ToggleInput();
+            return;
+        }
+        pause = !pause;
+        pauseMenu.SetActive(pause);
+        if (pause) OptionsMenuST.Instance.Controls(false);
+        Cursor.visible = pause;
+        Cursor.lockState = pause ? CursorLockMode.None : CursorLockMode.Locked;
     }
 }
