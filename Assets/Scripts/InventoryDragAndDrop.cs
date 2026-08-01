@@ -15,14 +15,14 @@ public class InventoryDragAndDrop : InventoryUI
     [SerializeField]
     Color[] availableColors = new Color[]
     {
-        new Color(0f, 0.2f, 0f, 1f),
-        new Color(0f, 0.3f, 0f, 1f)
+        new Color(0f, 0.2f, 0f, 0.6f),
+        new Color(0f, 0.3f, 0f, 0.6f)
     };
     [SerializeField]
     Color[] unavailableColors = new Color[]
     {
-        new Color(0.2f, 0f, 0f, 1f),
-        new Color(0.3f, 0f, 0f, 1f)
+        new Color(0.2f, 0f, 0f, 0.6f),
+        new Color(0.3f, 0f, 0f, 0.6f)
     };
     private Item currentlyDraggingItem;
     private Coroutine dragCoroutine;
