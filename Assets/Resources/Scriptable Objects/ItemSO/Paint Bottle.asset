@@ -15,7 +15,8 @@ MonoBehaviour:
   itemName: {fileID: 11400000, guid: 83341e66ac155044b8a37081e422c526, type: 2}
   maxStack: 8
   foldingConfigurations:
-  - cells: []
-    icon: {fileID: 0}
-  prefab: {fileID: 0}
+  - cells:
+    - {x: 0, y: 0}
+    icon: {fileID: 2800000, guid: c1a44694ab0a5e645a3fd72f2c1422e5, type: 3}
+  prefab: {fileID: 2545142063601207185, guid: 97de2af04ec0a7247aece032f82ec414, type: 3}
   reloadItem: {fileID: 0}
