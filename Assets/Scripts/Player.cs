@@ -29,6 +29,8 @@ public class Player : Character
     private InputAction moveAction;
     private Item pickableItem;
 
+    public bool cursorVisible { get => pause || inventory; }
+
     void Awake()
     {
         if (Instance != null && Instance != this) Destroy(this);
@@ -42,8 +44,8 @@ public class Player : Character
     protected override void Start()
     {
         base.Start();
-        Cursor.visible = inventory;
-        Cursor.lockState = inventory ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = cursorVisible;
+        Cursor.lockState = cursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
         if (RoomST.Instance != null)
         {
             transform.position = RoomST.Instance.GetRandomSpawnPoint();
@@ -80,25 +82,25 @@ public class Player : Character
 
     public void Run(InputAction.CallbackContext context)
     {
-        if (inventory) return;
+        if (cursorVisible) return;
         isRunning = !context.canceled;
     }
 
     public void PlayerMove(Vector2 input)
     {
-        if (inventory) return;
+        if (cursorVisible) return;
         Move(input.normalized);
     }
 
     public void PlayerJump()
     {
-        if (inventory) return;
+        if (cursorVisible) return;
         Jump();
     }
 
     public void PlayerLook(InputAction.CallbackContext context)
     {
-        if (inventory) return;
+        if (cursorVisible) return;
         Vector2 input0 = context.ReadValue<Vector2>();
         bool[] inverts = OptionsMenuST.Instance.GetInverts;
         float invertX = inverts[0] ? -1f : 1f;
@@ -109,7 +111,7 @@ public class Player : Character
 
     public void PlayerSwitchHand(InputAction.CallbackContext context)
     {
-        if (inventory || !context.performed) return;
+        if (cursorVisible || !context.performed) return;
         int n = context.ReadValue<Vector2>().y > 0f ? 1 : -1;
         SwitchHand(n);
         if (handSigner != null) handSigner.UpdateHands(currentHandIndex);
@@ -119,8 +121,7 @@ public class Player : Character
     {
         inventory = !inventory;
         inventoryUI.gameObject.SetActive(inventory);
-        Cursor.visible = inventory;
-        Cursor.lockState = inventory ? CursorLockMode.None : CursorLockMode.Locked;
+        UpdateCursor();
         if (inventory)
         {
             InventoryDragAndDrop dragAndDrop = inventoryUI as InventoryDragAndDrop;
@@ -135,14 +136,14 @@ public class Player : Character
 
     public void OnItemAction(InputAction.CallbackContext context)
     {
-        if (inventory) return;
+        if (cursorVisible) return;
         if (currentItem == null) return;
         if (!context.performed) HandleAction(context.started, ItemAction.Action);
     }
 
     public void OnItemThrow(InputAction.CallbackContext context)
     {
-        if (inventory) return;
+        if (cursorVisible) return;
         if (currentItem == null) return;
         if (!context.performed) HandleAction(context.started, ItemAction.Throw);
     }
@@ -175,7 +176,12 @@ public class Player : Character
         pause = !pause;
         pauseMenu.SetActive(pause);
         if (pause) OptionsMenuST.Instance.Controls(false);
-        Cursor.visible = pause;
-        Cursor.lockState = pause ? CursorLockMode.None : CursorLockMode.Locked;
+        UpdateCursor();
+    }
+
+    void UpdateCursor()
+    {
+        Cursor.visible = cursorVisible;
+        Cursor.lockState = cursorVisible ? CursorLockMode.None : CursorLockMode.Locked;
     }
 }
