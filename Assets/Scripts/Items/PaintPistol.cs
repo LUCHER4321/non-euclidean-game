@@ -10,6 +10,8 @@ public class PaintPistol : Item
     [SerializeField] MeshRenderer hopper;
     private Material hopperMaterial;
     private int hopperPropertyID, hopperColorPropertyID;
+    public static Vector3 HopperScale { get; private set; }
+    public static int maxPAmount { get; private set; }
 
     [System.Serializable]
     public struct PaintColor
@@ -104,11 +106,21 @@ public class PaintPistol : Item
         {
             item.reloadQuantity = q - maxPaintAmount;
             q = maxPaintAmount;
+            pb.UpdatePaint();
             b = false;
         }
         paintColor += new PaintColor(pb.paintColor, q - paintColor.quantity);
         UpdateMaterial();
         return b;
+    }
+
+    void Awake()
+    {
+        if (maxPaintAmount > maxPAmount && hopper != null)
+        {
+            maxPAmount = maxPaintAmount;
+            HopperScale = hopper.transform.lossyScale;
+        }
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
