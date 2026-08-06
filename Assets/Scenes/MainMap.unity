@@ -1320,7 +1320,7 @@ Transform:
   m_GameObject: {fileID: 596961657}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1417,6 +1417,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemST
   paintDecal: {fileID: 2100000, guid: 8bee5cc96e2eb734b861e3636f41bdb7, type: 2}
   paintDecalPrefab: {fileID: 6917854598007045790, guid: f9f6e4fec7320bb4e969accd4a0f4f1f, type: 3}
+  bulletDecal: {fileID: 2100000, guid: f83a58a1645506140a8e99dcf637d53b, type: 2}
+  bulletDecalPrefab: {fileID: 7284847568685625244, guid: e60959d5becee44448c2be26c83043d9, type: 3}
+  epsilon: 0.01
 --- !u!1 &619200060
 GameObject:
   m_ObjectHideFlags: 0
