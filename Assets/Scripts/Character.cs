@@ -17,8 +17,10 @@ public class Character : MonoBehaviour
     public CharacterSO characterSO;
     [Header("Combat")]
     public float health;
+    [Header("Inventory")]
     public Item currentItem { get => hands[currentHandIndex].item; }
     public Hand[] hands;
+    [SerializeField] Item[] startingItems;
     [HideInInspector] public InventoryGrid inventoryGrid;
     private Coroutine actionCoroutine;
     private Coroutine throwCoroutine;
@@ -61,6 +63,7 @@ public class Character : MonoBehaviour
         }
         if (inventoryGrid == null) inventoryGrid = gameObject.AddComponent<InventoryGrid>();
         inventoryGrid.owner = this;
+        foreach (Item item in startingItems) if (item != null) PickCopy(item);
     }
 
     // Update is called once per frame
@@ -136,6 +139,13 @@ public class Character : MonoBehaviour
     public void PickItem(Item item)
     {
         item.Pick(this);
+    }
+
+    private void PickCopy(Item item)
+    {
+        Item itemCopy = Instantiate(item);
+        itemCopy.currentStack = item.currentStack;
+        PickItem(itemCopy);
     }
 
     public void DropItem(Item item)
