@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Paint Bottle
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
   itemName: {fileID: 11400000, guid: 83341e66ac155044b8a37081e422c526, type: 2}
-  maxStack: 8
+  maxStack: 4
   foldingConfigurations:
   - cells:
     - {x: 0, y: 0}
