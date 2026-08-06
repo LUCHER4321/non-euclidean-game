@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 4235053191141754956}
   - component: {fileID: 2598574888560787572}
   - component: {fileID: 8595476369202353018}
+  - component: {fileID: 8307345109666688396}
   m_Layer: 0
   m_Name: Hopper Liquid
   m_TagString: Untagged
@@ -143,6 +144,19 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8307345109666688396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3870767550965080959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 532b7b4b411814a439dd834891d1ffcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WobbleEffect
+  liquidSO: {fileID: 11400000, guid: 1252212c35d229d46b0bc71e17d34f72, type: 2}
 --- !u!1 &4132240844287845936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,7 +1064,6 @@ MonoBehaviour:
   reloadQuantity: 1
   maxPaintAmount: 100
   range: 50
-  epsilon: 0.01
   paintColor:
     color: {r: 1, g: 0, b: 0, a: 1}
     quantity: 50
