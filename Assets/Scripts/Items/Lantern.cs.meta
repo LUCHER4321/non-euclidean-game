@@ -1,2 +1,15 @@
 fileFormatVersion: 2
 guid: a6403334ad7e07549a9daf4741f3d71d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - itemData: {fileID: 11400000, guid: efecdae46e9cdc849a91d22ea448ad92, type: 2}
+  - owner: {instanceID: 0}
+  - lanternLight: {instanceID: 0}
+  - battery: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
