@@ -14,7 +14,7 @@ public struct ItemShape
     }
 }
 
-[CreateAssetMenu(fileName = "ItemSO", menuName = "Scriptable Objects/ItemSO")]
+[CreateAssetMenu(fileName = "ItemSO", menuName = "Scriptable Objects/ItemSO/Base")]
 public class ItemSO : ScriptableObject
 {
     [SerializeField] LanText itemName;
