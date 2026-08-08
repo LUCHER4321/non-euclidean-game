@@ -280,7 +280,8 @@ MonoBehaviour:
   - character: {fileID: 4408732064823203925}
     transform: {fileID: 7455768691747369034}
     item: {fileID: 2227311645291040836}
-  startingItems: []
+  startingItems:
+  - {fileID: 2761204400431626503, guid: 3e1fda2544e4a9d478b3abff49549c60, type: 3}
   inventoryGrid: {fileID: 0}
   playerInput: {fileID: 4447391329699403942}
   inventory: 0
