@@ -22,9 +22,10 @@ public class Rock : Item
     public override void Throw(bool pressing)
     {
         if (pressing) return;
+        Character c = owner;
         Drop();
         Rigidbody rb = GetComponent<Rigidbody>();
-        rb.linearVelocity = owner.rb.linearVelocity + owner.cam.transform.forward * owner.characterSO.GetThrowingMomentum / rb.mass;
+        rb.linearVelocity = c.rb.linearVelocity + c.cam.transform.forward * c.characterSO.GetThrowingMomentum / rb.mass;
     }
 
     public override bool HandleReload(Item item)
@@ -47,6 +48,7 @@ public class Rock : Item
     private void OnTriggerEnter(Collider other)
     {
         Rigidbody rb = GetComponent<Rigidbody>();
-        if (other.TryGetComponent(out Character character)) character.health -= (rb.linearVelocity - other.attachedRigidbody.linearVelocity).magnitude * throwingDamageFactor;
+        Vector3 hitVelocity = rb.linearVelocity - other.attachedRigidbody.linearVelocity;
+        if (rb.linearVelocity.sqrMagnitude > 0 && Vector3.Dot(hitVelocity, transform.position - other.transform.position) < 0 && other.TryGetComponent(out Character character)) character.health -= hitVelocity.magnitude * throwingDamageFactor;
     }
 }
