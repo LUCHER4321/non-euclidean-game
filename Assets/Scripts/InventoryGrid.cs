@@ -13,6 +13,7 @@ public class InventoryGrid : MonoBehaviour
 
     public bool CanPlaceItem(Item item, Vector2Int origin)
     {
+        CheckGrid();
         List<Vector2Int> targetCells = item.GetOccupiedCells(origin);
         foreach (Vector2Int cell in targetCells)
         {
@@ -29,6 +30,7 @@ public class InventoryGrid : MonoBehaviour
 
     public bool PlaceItem(Item item, Vector2Int origin)
     {
+        CheckGrid();
         if (!CanPlaceItem(item, origin)) return false;
         item.owner = owner;
         List<Vector2Int> targetCells = item.GetOccupiedCells(origin);
@@ -56,19 +58,21 @@ public class InventoryGrid : MonoBehaviour
 
     Item SearchItem(ItemSO itemSO)
     {
-        foreach(Item item in grid) if(item != null && item.itemData == itemSO) return item;
+        CheckGrid();
+        foreach (Item item in grid) if (item != null && item.itemData == itemSO) return item;
         return null;
     }
 
     public Item GetItemAt(Vector2Int pos)
     {
+        CheckGrid();
         if (pos.x < 0 || pos.x >= width || pos.y < 0 || pos.y >= height) return null;
         return grid[pos.x, pos.y];
     }
 
     protected virtual void Awake()
     {
-        grid = new Item[width, height];
+        CheckGrid();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -85,8 +89,14 @@ public class InventoryGrid : MonoBehaviour
 
     public void RemoveItem(Item item)
     {
+        CheckGrid();
         List<Vector2Int> occupiedCells = item.GetOccupiedCells(item.gridPosition);
         foreach (Vector2Int cell in occupiedCells) if (grid[cell.x, cell.y] == item) grid[cell.x, cell.y] = null;
         item.owner = null;
+    }
+
+    private void CheckGrid()
+    {
+        if (grid == null) grid = new Item[width, height];
     }
 }
