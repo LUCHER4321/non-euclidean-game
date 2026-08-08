@@ -143,7 +143,7 @@ public class Character : MonoBehaviour
 
     private void PickCopy(Item item)
     {
-        Item itemCopy = Instantiate(item);
+        Item itemCopy = Instantiate(item.gameObject).GetComponent<Item>();
         itemCopy.currentStack = item.currentStack;
         PickItem(itemCopy);
     }
