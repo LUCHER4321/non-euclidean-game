@@ -60,7 +60,7 @@ public class InventoryDragAndDrop : InventoryUI
 
     public void OnClick(InputAction.CallbackContext context)
     {
-        if (!Player.Instance.inventory) return;
+        if (!Player.Instance.inventory || !context.performed) return;
         Vector2 pointerPos = pointerPositionAction.action.ReadValue<Vector2>();
         foreach (HandSlotUI slot in handSlots)
         {
