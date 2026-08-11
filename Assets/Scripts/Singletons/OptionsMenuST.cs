@@ -84,6 +84,7 @@ public class OptionsMenuST : MonoBehaviour
         senSlider.value = sensitivity;
         senText.text = $"{sensitivity}%";
         for (int i = 0; i < invertTogs.Length; i++) invertTogs[i].isOn = inverts[i];
+        LoadSettings();
     }
 
     // Update is called once per frame
