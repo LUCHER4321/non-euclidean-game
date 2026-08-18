@@ -57,7 +57,7 @@ public class OptionsMenuST : MonoBehaviour
     PREF_INVERT_Y = "InvertY",
     PREF_LANGUAGE = "Language",
     PREF_VOLUME = "Volume_";
-    private const string[] PREF_INVERT = new string[] { PREF_INVERT_X, PREF_INVERT_Y };
+    private string[] PREF_INVERT = new string[] { PREF_INVERT_X, PREF_INVERT_Y };
 
     static float PercentToDB(float p)
     {
@@ -69,6 +69,7 @@ public class OptionsMenuST : MonoBehaviour
         if (Instance != null && Instance != this) Destroy(this);
         else Instance = this;
     }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
