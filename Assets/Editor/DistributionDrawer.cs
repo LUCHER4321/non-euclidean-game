@@ -30,6 +30,13 @@ public abstract class DistributionDrawer : PropertyDrawer
         EditorGUI.EndProperty();
     }
 
+    protected void DrawField(ref Rect rect, SerializedProperty parentProperty, string fieldName)
+    {
+        SerializedProperty fieldProperty = parentProperty.FindPropertyRelative(fieldName);
+        EditorGUI.PropertyField(rect, fieldProperty);
+        rect.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+    }
+
     protected abstract int GetAdditionalLineCount(int enumValueIndex);
     protected abstract void DrawDistributionFields(ref Rect rect, SerializedProperty property, int enumValueIndex);
 }
