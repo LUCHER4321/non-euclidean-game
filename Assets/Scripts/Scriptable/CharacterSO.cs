@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CharacterSO", menuName = "Scriptable Objects/CharacterSO")]
+[CreateAssetMenu(fileName = "CharacterSO", menuName = "Scriptable Objects/CharacterSO/Base")]
 public class CharacterSO : ScriptableObject
 {
     [Header("Moving Stats")]
@@ -19,8 +19,6 @@ public class CharacterSO : ScriptableObject
     float visionLength = 1000f;
     [SerializeField, Min(0f)]
     float visionAngle = 60f;
-    [SerializeField]
-    CharacterSO[] preys;
     [Header("Combat Stats")]
     [SerializeField]
     float maxHealth = 100f;
@@ -33,7 +31,6 @@ public class CharacterSO : ScriptableObject
     public Vector2 GetLimit { get => limit; }
     public float GetVisionLength { get => visionLength; }
     public float GetVisionAngle { get => visionAngle; }
-    public CharacterSO[] GetPreys { get => preys; }
     public float GetMaxHealth { get => maxHealth; }
     public float GetThrowingMomentum { get => throwingMomentum; }
 }
