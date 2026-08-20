@@ -42,7 +42,8 @@ public class RandomDistribution : MonoBehaviour
 
     public static float LogNormal(float mu = 0f, float sigma = 1f)
     {
-        float normalValues = Normal(mu, sigma);
+        float mu2 = mu * mu, sigma2 = sigma * sigma;
+        float normalValues = Normal(Mathf.Log(mu2 / Mathf.Sqrt(sigma2 + mu2)), Mathf.Sqrt(Mathf.Log(1 + sigma2 / mu2)));
         return Mathf.Exp(normalValues);
     }
 
