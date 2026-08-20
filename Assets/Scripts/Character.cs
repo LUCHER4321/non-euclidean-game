@@ -79,11 +79,13 @@ public class Character : MonoBehaviour
         rb.linearVelocity = input.x * rb.transform.right + rb.linearVelocity.y * Vector3.up + input.y * rb.transform.forward;
     }
 
+    private float height { get => characterSO.GetHeight; }
+
     public void Jump()
     {
         if (rb == null) return;
-        Ray ray = new Ray(transform.position, Vector3.down);
-        if (!Physics.Raycast(ray, characterSO.GetHeight + 0.1f)) return;
+        Ray ray = new Ray(transform.position + Vector3.down * height, Vector3.down);
+        if (!Physics.Raycast(ray, 0.1f)) return;
         float initialSpeed = Mathf.Sqrt(2 * characterSO.GetJumpHeight * -Physics.gravity.y);
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, initialSpeed, rb.linearVelocity.z);
     }
