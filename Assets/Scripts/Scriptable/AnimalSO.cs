@@ -4,10 +4,13 @@ public interface IDistribution
 {
     float Expectancy();
     float Variance();
+}
 
-    public float StandardDeviation()
+public static class DistributionExtensions
+{
+    public static float StandardDeviation<T>(this T distribution) where T : IDistribution
     {
-        return Mathf.Sqrt(Variance());
+        return Mathf.Sqrt(distribution.Variance());
     }
 }
 
@@ -68,12 +71,12 @@ public struct FloatDistribution : IDistribution
             case DistType.Normal: return mu;
             case DistType.LogNormal: return mu;
             case DistType.Gamma: return shape * scale;
-            case DistType.Weibull: return scale * Mathf.Gamma(1f + 1f / shape);
+            case DistType.Weibull: return scale * Factorial(1f / shape);
             default: return 0f;
         }
     }
 
-    private float Variance()
+    public float Variance()
     {
         switch (distType)
         {
@@ -84,9 +87,45 @@ public struct FloatDistribution : IDistribution
             case DistType.Normal: return sigma * sigma;
             case DistType.LogNormal: return sigma * sigma;
             case DistType.Gamma: return shape * scale * scale;
-            case DistType.Weibull: return scale * scale * (Mathf.Gamma(1f + 2f / shape) - Mathf.Pow(Mathf.Gamma(1f + 1f / shape), 2f));
+            case DistType.Weibull: return scale * scale * (Factorial(2f / shape) - Mathf.Pow(Factorial(1f / shape), 2f));
             default: return 0f;
         }
+    }
+
+    private static readonly double[] LanczosCoefficients = {
+        1.000000000190015,
+        76.18009172947146,
+        -86.50532032941677,
+        24.01409824083091,
+        -1.231739572450155,
+        0.1208650973866179e-2,
+        -0.5395239384953e-5
+    };
+
+    private static readonly double LogSqrtTwoPi = (double)Mathf.Log(Mathf.Sqrt(2f * Mathf.PI));
+
+    private static double LogGamma(double z)
+    {
+        if (z < 0.5) return (double)Mathf.Log(Mathf.PI / Mathf.Sin(Mathf.PI * (float)z)) - LogGamma(1.0 - z);
+        z -= 1.0;
+        double x = LanczosCoefficients[0];
+        for (int i = 1; i < LanczosCoefficients.Length; i++) x += LanczosCoefficients[i] / (z + i);
+        double t = z + 5.5;
+        return LogSqrtTwoPi + (double)Mathf.Log((float)x) + (z + 0.5) * (double)Mathf.Log((float)t) - t;
+    }
+
+    private static double Gamma(double z)
+    {
+        return (double)Mathf.Exp((float)LogGamma(z));
+    }
+
+    private static float Factorial(float x)
+    {
+        if (x > 0f && x < 1f) return (float)Gamma((double)x + 1.0);
+        if (x == 0f) return 1f;
+        if (x >= 1f) return x * Factorial(x - 1f);
+        if (x < 0f) return x % 1f == 0f ? 0f : Factorial(x + 1f) / (x + 1f);
+        return 0f;
     }
 }
 
@@ -133,7 +172,7 @@ public struct IntDistribution : IDistribution
         }
     }
 
-    private float Variance()
+    public float Variance()
     {
         switch (distType)
         {
