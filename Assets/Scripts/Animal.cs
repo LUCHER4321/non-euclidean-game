@@ -11,12 +11,13 @@ public class Animal : Character, IFiniteStateMachine
         set => state = value;
     }
     public StateMachine Machine => stateMachine;
-    private bool hasSons = !animalSO.GetReproduction;
+    private bool hasSons = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         base.Start();
+        hasSons = !animalSO.GetReproduction;
     }
 
     // Update is called once per frame
