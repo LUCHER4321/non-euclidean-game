@@ -14,6 +14,7 @@ public class Character : MonoBehaviour
     public Rigidbody rb;
     public Camera cam;
     public bool isRunning = false;
+    public float height;
     public CharacterSO characterSO;
     [Header("Combat")]
     public float health;
@@ -78,8 +79,6 @@ public class Character : MonoBehaviour
         Vector2 input = velocity.normalized * (isRunning ? characterSO.GetRunSpeed : characterSO.GetMoveSpeed);
         rb.linearVelocity = input.x * rb.transform.right + rb.linearVelocity.y * Vector3.up + input.y * rb.transform.forward;
     }
-
-    private float height { get => characterSO.GetHeight; }
 
     public void Jump()
     {
