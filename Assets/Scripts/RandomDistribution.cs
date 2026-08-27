@@ -72,7 +72,7 @@ public struct FloatDistribution : IDistribution
             case DistType.Normal: return mu;
             case DistType.LogNormal: return mu;
             case DistType.Gamma: return shape * scale;
-            case DistType.Weibull: return scale * Factorial(1f / shape);
+            case DistType.Weibull: return shape == 0 ? 0f : scale * Factorial(1f / shape);
             default: return 0f;
         }
     }
@@ -88,7 +88,7 @@ public struct FloatDistribution : IDistribution
             case DistType.Normal: return sigma * sigma;
             case DistType.LogNormal: return sigma * sigma;
             case DistType.Gamma: return shape * scale * scale;
-            case DistType.Weibull: return scale * scale * (Factorial(2f / shape) - Mathf.Pow(Factorial(1f / shape), 2f));
+            case DistType.Weibull: return shape == 0 ? 0f : scale * scale * (Factorial(2f / shape) - Mathf.Pow(Factorial(1f / shape), 2f));
             default: return 0f;
         }
     }
