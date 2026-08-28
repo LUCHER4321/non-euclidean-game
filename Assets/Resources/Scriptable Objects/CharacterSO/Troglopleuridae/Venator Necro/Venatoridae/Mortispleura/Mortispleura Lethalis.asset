@@ -13,19 +13,20 @@ MonoBehaviour:
   m_Name: Mortispleura Lethalis
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSO
   moveSpeed: 5
-  runSpeed: 10
-  jumpHeight: 0.5
-  height: 1
-  limit: {x: -90, y: 90}
-  visionLength: 1000
-  visionAngle: 60
-  maxHealth: 100
-  throwingMomentum: 10
-  preys: []
-  meanScale: {x: 0, y: 0, z: 0}
-  stdDevScale: {x: 0, y: 0, z: 0}
+  runSpeed: 12
+  jumpHeight: 0
+  limit: {x: -45, y: 90}
+  visionLength: 900
+  visionAngle: 120
+  maxHealth: 400
+  throwingMomentum: 50
+  preys:
+  - {fileID: 11400000, guid: 09cc8f7a6ac9e0144bb74745547fee4f, type: 2}
+  - {fileID: 11400000, guid: 386b1059e12d07143aa742d444067496, type: 2}
+  meanScale: {x: 0.85, y: 0.6, z: 3.8}
+  stdDevScale: {x: 0.09, y: 0.065, z: 0.35}
   mass:
-    distType: 0
+    distType: 6
     min: 0
     max: 0
     lambda: 0
@@ -34,34 +35,34 @@ MonoBehaviour:
     beta: 0
     mu: 0
     sigma: 0
-    shape: 0
-    scale: 0
-  reproductionChance: 0.5
+    shape: 20
+    scale: 16
   lifeExpectancy:
-    distType: 0
+    distType: 4
     min: 0
     max: 0
     lambda: 0
     mode: 0
     m: 0
     beta: 0
-    mu: 0
-    sigma: 0
+    mu: 60
+    sigma: 7.5
     shape: 0
     scale: 0
   sons:
     distType: 0
-    lambda: 0
+    lambda: 5
     n: 0
     r: 0
     p: 0
+  reproductionChance: 0.6
   childbearingAge:
     min:
-      distType: 0
-      min: 0
-      max: 0
+      distType: 2
+      min: 12
+      max: 18
       lambda: 0
-      mode: 0
+      mode: 15
       m: 0
       beta: 0
       mu: 0
@@ -69,14 +70,14 @@ MonoBehaviour:
       shape: 0
       scale: 0
     max:
-      distType: 0
+      distType: 4
       min: 0
       max: 0
       lambda: 0
       mode: 0
       m: 0
       beta: 0
-      mu: 0
-      sigma: 0
+      mu: 50
+      sigma: 4
       shape: 0
       scale: 0
