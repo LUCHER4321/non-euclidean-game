@@ -9,69 +9,68 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d88617880eb194ea65bc1f65ceb769, type: 3}
+  m_Script: {fileID: 11500000, guid: 8553aec7527e3fa49a8e8ba38b5ab9ea, type: 3}
   m_Name: Formicapleura Regina
-  m_EditorClassIdentifier: Assembly-CSharp::AnimalSO
-  moveSpeed: 5
-  runSpeed: 10
-  jumpHeight: 0.5
-  height: 1
-  limit: {x: -90, y: 90}
-  visionLength: 1000
-  visionAngle: 60
-  maxHealth: 100
-  throwingMomentum: 10
+  m_EditorClassIdentifier: Assembly-CSharp::ReproductiveCasteSO
+  moveSpeed: 0.5
+  runSpeed: 1
+  jumpHeight: 0
+  limit: {x: -15, y: 30}
+  visionLength: 100
+  visionAngle: 180
+  maxHealth: 350
+  throwingMomentum: 0
   preys: []
-  meanScale: {x: 0, y: 0, z: 0}
-  stdDevScale: {x: 0, y: 0, z: 0}
+  meanScale: {x: 0.95, y: 1.1, z: 4.2}
+  stdDevScale: {x: 0.1, y: 0.12, z: 0.3}
   mass:
-    distType: 0
+    distType: 5
     min: 0
     max: 0
     lambda: 0
     mode: 0
     m: 0
     beta: 0
-    mu: 0
-    sigma: 0
+    mu: 280
+    sigma: 20
     shape: 0
     scale: 0
-  reproductionChance: 0.5
   lifeExpectancy:
-    distType: 0
+    distType: 4
     min: 0
     max: 0
     lambda: 0
     mode: 0
     m: 0
     beta: 0
-    mu: 0
-    sigma: 0
+    mu: 45
+    sigma: 5
     shape: 0
     scale: 0
   sons:
     distType: 0
-    lambda: 0
+    lambda: 15000
     n: 0
     r: 0
     p: 0
+  reproductionChance: 1
   childbearingAge:
     min:
-      distType: 0
+      distType: 4
       min: 0
       max: 0
       lambda: 0
       mode: 0
       m: 0
       beta: 0
-      mu: 0
-      sigma: 0
+      mu: 3
+      sigma: 0.5
       shape: 0
       scale: 0
     max:
       distType: 0
-      min: 0
-      max: 0
+      min: 40
+      max: 45
       lambda: 0
       mode: 0
       m: 0
@@ -80,3 +79,12 @@ MonoBehaviour:
       sigma: 0
       shape: 0
       scale: 0
+  sonsSpecies:
+  - species: {fileID: 11400000, guid: a3b5d4531c20b22459129e67b30ba202, type: 2}
+    weight: 750
+  - species: {fileID: 11400000, guid: 1aa24e4756ad1214eab4f7d9215d9ce7, type: 2}
+    weight: 150
+  - species: {fileID: 11400000}
+    weight: 99
+  - species: {fileID: 11400000, guid: bbe0bfebc59ddc94c8e714489cb29ae7, type: 2}
+    weight: 1
