@@ -12,33 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d88617880eb194ea65bc1f65ceb769, type: 3}
   m_Name: Socialis Structor
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSO
-  moveSpeed: 5
-  runSpeed: 10
-  jumpHeight: 0.5
-  height: 1
+  moveSpeed: 3
+  runSpeed: 6
+  jumpHeight: 0.2
   limit: {x: -90, y: 90}
-  visionLength: 1000
-  visionAngle: 60
-  maxHealth: 100
-  throwingMomentum: 10
+  visionLength: 150
+  visionAngle: 180
+  maxHealth: 8
+  throwingMomentum: 5
   preys: []
-  meanScale: {x: 0, y: 0, z: 0}
-  stdDevScale: {x: 0, y: 0, z: 0}
+  meanScale: {x: 0.09, y: 0.065, z: 0.35}
+  stdDevScale: {x: 0.01, y: 0.008, z: 0.035}
   mass:
-    distType: 0
+    distType: 4
     min: 0
     max: 0
     lambda: 0
     mode: 0
     m: 0
     beta: 0
-    mu: 0
-    sigma: 0
+    mu: 0.4
+    sigma: 0.05
     shape: 0
     scale: 0
-  reproductionChance: 0.5
   lifeExpectancy:
-    distType: 0
+    distType: 7
     min: 0
     max: 0
     lambda: 0
@@ -47,14 +45,15 @@ MonoBehaviour:
     beta: 0
     mu: 0
     sigma: 0
-    shape: 0
-    scale: 0
+    shape: 2.5
+    scale: 8
   sons:
     distType: 0
     lambda: 0
     n: 0
     r: 0
     p: 0
+  reproductionChance: 0
   childbearingAge:
     min:
       distType: 0
