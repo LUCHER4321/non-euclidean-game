@@ -79,3 +79,4 @@ MonoBehaviour:
       sigma: 1.5
       shape: 0
       scale: 0
+  prefab: {fileID: 4017480517752156337, guid: 51eac19c315b2fb4bb70099601a332fa, type: 3}
