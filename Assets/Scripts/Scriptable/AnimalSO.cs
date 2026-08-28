@@ -20,6 +20,9 @@ public class AnimalSO : CharacterSO
     float reproductionChance = 0.5f;
     [SerializeField]
     RangeDistribution childbearingAge;
+    [Header("Prefab")]
+    [SerializeField]
+    GameObject prefab;
     public CharacterSO[] GetPreys { get => preys; }
     public Vector3 GetScale
     {
