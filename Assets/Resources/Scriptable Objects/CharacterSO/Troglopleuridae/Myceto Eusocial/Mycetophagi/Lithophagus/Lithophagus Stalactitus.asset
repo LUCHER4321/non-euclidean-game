@@ -14,31 +14,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSO
   moveSpeed: 5
   runSpeed: 10
-  jumpHeight: 0.5
-  height: 1
+  jumpHeight: 1.5
   limit: {x: -90, y: 90}
-  visionLength: 1000
-  visionAngle: 60
-  maxHealth: 100
-  throwingMomentum: 10
+  visionLength: 200
+  visionAngle: 270
+  maxHealth: 20
+  throwingMomentum: 3
   preys: []
-  meanScale: {x: 0, y: 0, z: 0}
-  stdDevScale: {x: 0, y: 0, z: 0}
+  meanScale: {x: 0.16, y: 0.08, z: 0.55}
+  stdDevScale: {x: 0.018, y: 0.01, z: 0.06}
   mass:
-    distType: 0
+    distType: 4
     min: 0
     max: 0
     lambda: 0
     mode: 0
     m: 0
     beta: 0
-    mu: 0
-    sigma: 0
+    mu: 2.2
+    sigma: 0.3
     shape: 0
     scale: 0
-  reproductionChance: 0.5
   lifeExpectancy:
-    distType: 0
+    distType: 7
     min: 0
     max: 0
     lambda: 0
@@ -47,21 +45,22 @@ MonoBehaviour:
     beta: 0
     mu: 0
     sigma: 0
-    shape: 0
-    scale: 0
+    shape: 2.8
+    scale: 18
   sons:
     distType: 0
-    lambda: 0
+    lambda: 60
     n: 0
     r: 0
     p: 0
+  reproductionChance: 0.4
   childbearingAge:
     min:
-      distType: 0
-      min: 0
-      max: 0
+      distType: 2
+      min: 3
+      max: 5
       lambda: 0
-      mode: 0
+      mode: 4
       m: 0
       beta: 0
       mu: 0
@@ -70,8 +69,8 @@ MonoBehaviour:
       scale: 0
     max:
       distType: 0
-      min: 0
-      max: 0
+      min: 14
+      max: 17
       lambda: 0
       mode: 0
       m: 0
