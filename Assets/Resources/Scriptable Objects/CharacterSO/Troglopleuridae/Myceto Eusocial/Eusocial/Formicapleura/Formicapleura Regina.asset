@@ -85,6 +85,6 @@ MonoBehaviour:
   - species: {fileID: 11400000, guid: 1aa24e4756ad1214eab4f7d9215d9ce7, type: 2}
     weight: 150
   - species: {fileID: 11400000}
-    weight: 99
-  - species: {fileID: 11400000, guid: bbe0bfebc59ddc94c8e714489cb29ae7, type: 2}
     weight: 1
+  - species: {fileID: 11400000, guid: bbe0bfebc59ddc94c8e714489cb29ae7, type: 2}
+    weight: 99
