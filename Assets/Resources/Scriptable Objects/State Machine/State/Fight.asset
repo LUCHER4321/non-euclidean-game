@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f109399cdb9fe34888cc46fb97edb30, type: 3}
   m_Name: Fight
   m_EditorClassIdentifier: Assembly-CSharp::State
-  name: 
+  stateName: Fight
