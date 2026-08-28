@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31e70a83337ed6479ab5f275c51e4c0, type: 3}
   m_Name: Hide - Escape
   m_EditorClassIdentifier: Assembly-CSharp::Transition
-  startState: {fileID: 0}
-  endState: {fileID: 0}
+  startState: {fileID: 11400000, guid: 672d2892208d73c42a72cbe613a44293, type: 2}
+  endState: {fileID: 11400000, guid: 3f2325cb5a4831e49849dd9571c8909c, type: 2}
