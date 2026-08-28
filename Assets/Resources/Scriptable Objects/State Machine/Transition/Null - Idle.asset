@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Null - Idle
   m_EditorClassIdentifier: Assembly-CSharp::Transition
   startState: {fileID: 0}
-  endState: {fileID: 0}
+  endState: {fileID: 11400000, guid: 8ef71f3ccc022d04084d701ce9b8efa0, type: 2}
