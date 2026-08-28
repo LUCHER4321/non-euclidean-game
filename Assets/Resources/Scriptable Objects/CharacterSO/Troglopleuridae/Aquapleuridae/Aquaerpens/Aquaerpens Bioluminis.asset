@@ -12,33 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d88617880eb194ea65bc1f65ceb769, type: 3}
   m_Name: Aquaerpens Bioluminis
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSO
-  moveSpeed: 5
-  runSpeed: 10
-  jumpHeight: 0.5
-  height: 1
+  moveSpeed: 9
+  runSpeed: 20
+  jumpHeight: 0
   limit: {x: -90, y: 90}
   visionLength: 1000
-  visionAngle: 60
-  maxHealth: 100
-  throwingMomentum: 10
-  preys: []
-  meanScale: {x: 0, y: 0, z: 0}
-  stdDevScale: {x: 0, y: 0, z: 0}
+  visionAngle: 270
+  maxHealth: 380
+  throwingMomentum: 45
+  preys:
+  - {fileID: 11400000, guid: 6d48b991a3640fc459e99c5f58291b67, type: 2}
+  meanScale: {x: 0.65, y: 0.5, z: 4.8}
+  stdDevScale: {x: 0.07, y: 0.055, z: 0.45}
   mass:
-    distType: 0
+    distType: 5
     min: 0
     max: 0
     lambda: 0
     mode: 0
     m: 0
     beta: 0
-    mu: 0
-    sigma: 0
+    mu: 310
+    sigma: 30
     shape: 0
     scale: 0
-  reproductionChance: 0.5
   lifeExpectancy:
-    distType: 0
+    distType: 7
     min: 0
     max: 0
     lambda: 0
@@ -47,19 +46,20 @@ MonoBehaviour:
     beta: 0
     mu: 0
     sigma: 0
-    shape: 0
-    scale: 0
+    shape: 3.5
+    scale: 85
   sons:
     distType: 0
-    lambda: 0
+    lambda: 10
     n: 0
     r: 0
     p: 0
+  reproductionChance: 0.45
   childbearingAge:
     min:
       distType: 0
-      min: 0
-      max: 0
+      min: 18
+      max: 22
       lambda: 0
       mode: 0
       m: 0
@@ -69,14 +69,14 @@ MonoBehaviour:
       shape: 0
       scale: 0
     max:
-      distType: 0
+      distType: 4
       min: 0
       max: 0
       lambda: 0
       mode: 0
       m: 0
       beta: 0
-      mu: 0
-      sigma: 0
+      mu: 70
+      sigma: 6
       shape: 0
       scale: 0
