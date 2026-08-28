@@ -12,71 +12,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d88617880eb194ea65bc1f65ceb769, type: 3}
   m_Name: Caecocaris Gigas
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSO
-  moveSpeed: 5
-  runSpeed: 10
-  jumpHeight: 0.5
-  height: 1
-  limit: {x: -90, y: 90}
-  visionLength: 1000
-  visionAngle: 60
-  maxHealth: 100
-  throwingMomentum: 10
+  moveSpeed: 2
+  runSpeed: 5
+  jumpHeight: 0
+  limit: {x: -30, y: 90}
+  visionLength: 150
+  visionAngle: 360
+  maxHealth: 180
+  throwingMomentum: 25
   preys: []
-  meanScale: {x: 0, y: 0, z: 0}
-  stdDevScale: {x: 0, y: 0, z: 0}
+  meanScale: {x: 0.85, y: 0.45, z: 2.1}
+  stdDevScale: {x: 0.1, y: 0.05, z: 0.2}
   mass:
-    distType: 0
+    distType: 5
     min: 0
     max: 0
     lambda: 0
     mode: 0
     m: 0
     beta: 0
-    mu: 0
-    sigma: 0
+    mu: 145
+    sigma: 18
     shape: 0
     scale: 0
-  reproductionChance: 0.5
   lifeExpectancy:
-    distType: 0
+    distType: 4
     min: 0
     max: 0
     lambda: 0
     mode: 0
     m: 0
     beta: 0
-    mu: 0
-    sigma: 0
+    mu: 75
+    sigma: 12
     shape: 0
     scale: 0
   sons:
-    distType: 0
+    distType: 2
     lambda: 0
     n: 0
-    r: 0
-    p: 0
+    r: 20
+    p: 0.1
+  reproductionChance: 0.6
   childbearingAge:
     min:
-      distType: 0
+      distType: 4
       min: 0
       max: 0
       lambda: 0
       mode: 0
       m: 0
       beta: 0
-      mu: 0
-      sigma: 0
+      mu: 15
+      sigma: 2
       shape: 0
       scale: 0
     max:
-      distType: 0
+      distType: 4
       min: 0
       max: 0
       lambda: 0
       mode: 0
       m: 0
       beta: 0
-      mu: 0
-      sigma: 0
+      mu: 65
+      sigma: 5
       shape: 0
       scale: 0
