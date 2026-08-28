@@ -12,33 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d88617880eb194ea65bc1f65ceb769, type: 3}
   m_Name: Fungivorus Cavernae
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSO
-  moveSpeed: 5
-  runSpeed: 10
+  moveSpeed: 2
+  runSpeed: 5
   jumpHeight: 0.5
-  height: 1
-  limit: {x: -90, y: 90}
-  visionLength: 1000
-  visionAngle: 60
-  maxHealth: 100
-  throwingMomentum: 10
+  limit: {x: -60, y: 60}
+  visionLength: 200
+  visionAngle: 120
+  maxHealth: 15
+  throwingMomentum: 2
   preys: []
-  meanScale: {x: 0, y: 0, z: 0}
-  stdDevScale: {x: 0, y: 0, z: 0}
+  meanScale: {x: 0.185, y: 0.12, z: 0.65}
+  stdDevScale: {x: 0.021, y: 0.015, z: 0.054}
   mass:
-    distType: 0
+    distType: 5
     min: 0
     max: 0
     lambda: 0
     mode: 0
     m: 0
     beta: 0
-    mu: 0
-    sigma: 0
+    mu: 1.8
+    sigma: 0.3
     shape: 0
     scale: 0
-  reproductionChance: 0.5
   lifeExpectancy:
-    distType: 0
+    distType: 7
     min: 0
     max: 0
     lambda: 0
@@ -47,19 +45,20 @@ MonoBehaviour:
     beta: 0
     mu: 0
     sigma: 0
-    shape: 0
-    scale: 0
+    shape: 2.2
+    scale: 14
   sons:
     distType: 0
-    lambda: 0
+    lambda: 85
     n: 0
     r: 0
     p: 0
+  reproductionChance: 0.45
   childbearingAge:
     min:
       distType: 0
-      min: 0
-      max: 0
+      min: 2.5
+      max: 3.5
       lambda: 0
       mode: 0
       m: 0
@@ -70,8 +69,8 @@ MonoBehaviour:
       scale: 0
     max:
       distType: 0
-      min: 0
-      max: 0
+      min: 10
+      max: 12
       lambda: 0
       mode: 0
       m: 0
