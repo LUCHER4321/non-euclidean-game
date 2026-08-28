@@ -30,7 +30,7 @@ public class Animal : Character, IFiniteStateMachine
         base.Start();
         hasSons = !animalSO.GetReproduction;
         scale = animalSO.GetScale;
-        height = scale.y;
+        height = scale.y / 2f;
         mass = animalSO.GetMass;
         if (rb != null) rb.mass = mass;
         lifeExpectancy = animalSO.GetLifeExpectancy;
