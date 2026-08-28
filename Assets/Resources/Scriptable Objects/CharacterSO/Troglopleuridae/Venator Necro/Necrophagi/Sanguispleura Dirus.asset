@@ -12,66 +12,66 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d88617880eb194ea65bc1f65ceb769, type: 3}
   m_Name: Sanguispleura Dirus
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSO
-  moveSpeed: 5
-  runSpeed: 10
-  jumpHeight: 0.5
-  height: 1
+  moveSpeed: 3
+  runSpeed: 6
+  jumpHeight: 1.5
   limit: {x: -90, y: 90}
-  visionLength: 1000
-  visionAngle: 60
-  maxHealth: 100
-  throwingMomentum: 10
-  preys: []
-  meanScale: {x: 0, y: 0, z: 0}
-  stdDevScale: {x: 0, y: 0, z: 0}
+  visionLength: 100
+  visionAngle: 180
+  maxHealth: 3
+  throwingMomentum: 0.5
+  preys:
+  - {fileID: 11400000, guid: f3b004ce53b0a134bbb71ca55b5db38f, type: 2}
+  meanScale: {x: 0.055, y: 0.03, z: 0.25}
+  stdDevScale: {x: 0.006, y: 0.004, z: 0.025}
   mass:
-    distType: 0
+    distType: 4
     min: 0
     max: 0
     lambda: 0
     mode: 0
     m: 0
     beta: 0
-    mu: 0
-    sigma: 0
+    mu: 0.12
+    sigma: 0.02
     shape: 0
     scale: 0
-  reproductionChance: 0.5
   lifeExpectancy:
-    distType: 0
+    distType: 5
     min: 0
     max: 0
     lambda: 0
     mode: 0
     m: 0
     beta: 0
-    mu: 0
-    sigma: 0
+    mu: 3.5
+    sigma: 0.5
     shape: 0
     scale: 0
   sons:
     distType: 0
-    lambda: 0
+    lambda: 1200
     n: 0
     r: 0
     p: 0
+  reproductionChance: 0.95
   childbearingAge:
     min:
-      distType: 0
+      distType: 4
       min: 0
       max: 0
       lambda: 0
       mode: 0
       m: 0
       beta: 0
-      mu: 0
-      sigma: 0
+      mu: 0.8
+      sigma: 0.1
       shape: 0
       scale: 0
     max:
       distType: 0
-      min: 0
-      max: 0
+      min: 2.5
+      max: 3
       lambda: 0
       mode: 0
       m: 0
