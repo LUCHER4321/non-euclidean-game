@@ -12,4 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36e0ac680b399e448bcf91bd760c9fc3, type: 3}
   m_Name: Animal
   m_EditorClassIdentifier: Assembly-CSharp::StateMachine
-  transitions: []
+  transitions:
+  - {fileID: 11400000, guid: 51daeab13bad4534fa58dcc1afe80170, type: 2}
+  - {fileID: 11400000, guid: 350533a652f11b042a2e514b177e07f6, type: 2}
+  - {fileID: 11400000, guid: 70f1b03c873c937458947a688b8b0c40, type: 2}
+  - {fileID: 11400000, guid: fa527536cdf6b5d449cd036f10da6de2, type: 2}
+  - {fileID: 11400000, guid: 049703c5fd6e6f44c9e43026ef0e84ed, type: 2}
+  - {fileID: 11400000, guid: 7551a57fcc4ada34697d827e94b2b223, type: 2}
+  - {fileID: 11400000, guid: 51ef36706d6826d468c28e5a83fa9b5c, type: 2}
+  - {fileID: 11400000, guid: 57c9c2ee24afd2e4bb8c91c23e2f4369, type: 2}
+  - {fileID: 11400000, guid: 382e3db27416e924cb460a3825e3528b, type: 2}
+  - {fileID: 11400000, guid: 36f8d1893f743944596b790d4a124b34, type: 2}
+  - {fileID: 11400000, guid: 6bb3570eb0ed81d449b607dd18c84fa5, type: 2}
+  - {fileID: 11400000, guid: 382f7d5a2182acc4f8f9566eac1c9ce9, type: 2}
+  - {fileID: 11400000, guid: c3cff90c92a6f2e48813f65d0bcd6c16, type: 2}
+  - {fileID: 11400000, guid: d42a1ae65043ac44498bdd151563c401, type: 2}
+  - {fileID: 11400000, guid: 4bc1425ae645d5d41b412fc16cd6b110, type: 2}
+  - {fileID: 11400000, guid: 57056a4d464eb9f45bbec3baccce38f6, type: 2}
+  - {fileID: 11400000, guid: bf5c9b189bd68204dad6cae7c04420de, type: 2}
+  - {fileID: 11400000, guid: c1034ae6da3c330418b8955f5506d7c3, type: 2}
+  - {fileID: 11400000, guid: f5ec97e141f810d4a9eb0ed8e239825d, type: 2}
+  - {fileID: 11400000, guid: 861bcd7ba505e564a890ad08ad311d3b, type: 2}
