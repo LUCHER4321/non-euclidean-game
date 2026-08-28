@@ -12,20 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d88617880eb194ea65bc1f65ceb769, type: 3}
   m_Name: Formicapleura Miles
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSO
-  moveSpeed: 5
-  runSpeed: 10
-  jumpHeight: 0.5
-  height: 1
+  moveSpeed: 4
+  runSpeed: 9
+  jumpHeight: 1
   limit: {x: -90, y: 90}
-  visionLength: 1000
-  visionAngle: 60
-  maxHealth: 100
-  throwingMomentum: 10
+  visionLength: 250
+  visionAngle: 180
+  maxHealth: 25
+  throwingMomentum: 8
   preys: []
-  meanScale: {x: 0, y: 0, z: 0}
-  stdDevScale: {x: 0, y: 0, z: 0}
+  meanScale: {x: 0.22, y: 0.18, z: 0.75}
+  stdDevScale: {x: 0.025, y: 0.02, z: 0.08}
   mass:
-    distType: 0
+    distType: 6
     min: 0
     max: 0
     lambda: 0
@@ -34,11 +33,10 @@ MonoBehaviour:
     beta: 0
     mu: 0
     sigma: 0
-    shape: 0
-    scale: 0
-  reproductionChance: 0.5
+    shape: 12
+    scale: 0.2
   lifeExpectancy:
-    distType: 0
+    distType: 7
     min: 0
     max: 0
     lambda: 0
@@ -47,14 +45,15 @@ MonoBehaviour:
     beta: 0
     mu: 0
     sigma: 0
-    shape: 0
-    scale: 0
+    shape: 1.2
+    scale: 5
   sons:
     distType: 0
     lambda: 0
     n: 0
     r: 0
     p: 0
+  reproductionChance: 0
   childbearingAge:
     min:
       distType: 0
