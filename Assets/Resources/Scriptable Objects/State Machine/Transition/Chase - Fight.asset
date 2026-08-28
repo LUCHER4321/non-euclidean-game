@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a31e70a83337ed6479ab5f275c51e4c0, type: 3}
   m_Name: Chase - Fight
   m_EditorClassIdentifier: Assembly-CSharp::Transition
-  startState: {fileID: 0}
-  endState: {fileID: 0}
+  startState: {fileID: 11400000, guid: d67fe7b3335144a4c8a199704508de74, type: 2}
+  endState: {fileID: 11400000, guid: ef4a85338370b5247a18c82269935314, type: 2}
