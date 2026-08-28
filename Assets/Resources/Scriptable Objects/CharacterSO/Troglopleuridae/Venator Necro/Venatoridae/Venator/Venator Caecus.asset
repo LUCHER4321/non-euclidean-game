@@ -12,20 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d88617880eb194ea65bc1f65ceb769, type: 3}
   m_Name: Venator Caecus
   m_EditorClassIdentifier: Assembly-CSharp::AnimalSO
-  moveSpeed: 5
-  runSpeed: 10
-  jumpHeight: 0.5
-  height: 1
+  moveSpeed: 7
+  runSpeed: 16
+  jumpHeight: 3
   limit: {x: -90, y: 90}
-  visionLength: 1000
-  visionAngle: 60
-  maxHealth: 100
-  throwingMomentum: 10
-  preys: []
-  meanScale: {x: 0, y: 0, z: 0}
-  stdDevScale: {x: 0, y: 0, z: 0}
+  visionLength: 500
+  visionAngle: 360
+  maxHealth: 45
+  throwingMomentum: 15
+  preys:
+  - {fileID: 11400000, guid: 51f0e74447bd5d549ac26a9f8fd539c7, type: 2}
+  - {fileID: 11400000, guid: 44521b7a2b2523645b008f699df9ac34, type: 2}
+  meanScale: {x: 0.24, y: 0.18, z: 1.25}
+  stdDevScale: {x: 0.025, y: 0.015, z: 0.12}
   mass:
-    distType: 0
+    distType: 6
     min: 0
     max: 0
     lambda: 0
@@ -34,34 +35,34 @@ MonoBehaviour:
     beta: 0
     mu: 0
     sigma: 0
-    shape: 0
-    scale: 0
-  reproductionChance: 0.5
+    shape: 15
+    scale: 1.2
   lifeExpectancy:
-    distType: 0
+    distType: 4
     min: 0
     max: 0
     lambda: 0
     mode: 0
     m: 0
     beta: 0
-    mu: 0
-    sigma: 0
+    mu: 28
+    sigma: 4
     shape: 0
     scale: 0
   sons:
-    distType: 0
+    distType: 1
     lambda: 0
-    n: 0
+    n: 15
     r: 0
-    p: 0
+    p: 0.5
+  reproductionChance: 0.65
   childbearingAge:
     min:
-      distType: 0
-      min: 0
-      max: 0
+      distType: 2
+      min: 4
+      max: 7
       lambda: 0
-      mode: 0
+      mode: 5.5
       m: 0
       beta: 0
       mu: 0
@@ -69,14 +70,14 @@ MonoBehaviour:
       shape: 0
       scale: 0
     max:
-      distType: 0
+      distType: 4
       min: 0
       max: 0
       lambda: 0
       mode: 0
       m: 0
       beta: 0
-      mu: 0
-      sigma: 0
+      mu: 24
+      sigma: 2
       shape: 0
       scale: 0
