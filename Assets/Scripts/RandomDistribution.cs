@@ -70,7 +70,7 @@ public struct FloatDistribution : IDistribution
             case DistType.Triangular: return (min + mode + max) / 3f;
             case DistType.Erlang: return m * beta;
             case DistType.Normal: return mu;
-            case DistType.LogNormal: return mu;
+            case DistType.LogNormal: return sigma <= 0f ? 0f : mu * Mathf.Exp(Mathf.Pow(Mathf.Log(sigma), 2f) / 2f);
             case DistType.Gamma: return shape * scale;
             case DistType.Weibull: return shape == 0 ? 0f : scale * Factorial(1f / shape);
             default: return 0f;
@@ -86,7 +86,7 @@ public struct FloatDistribution : IDistribution
             case DistType.Triangular: return (min * min + max * max + mode * mode - min * max - min * mode - max * mode) / 18f;
             case DistType.Erlang: return m * beta * beta;
             case DistType.Normal: return sigma * sigma;
-            case DistType.LogNormal: return sigma * sigma;
+            case DistType.LogNormal: return sigma <= 0f ? 0f : mu * mu * Mathf.Exp(Mathf.Pow(Mathf.Log(sigma), 2f)) * (Mathf.Exp(Mathf.Pow(Mathf.Log(sigma), 2f)) - 1f);
             case DistType.Gamma: return shape * scale * scale;
             case DistType.Weibull: return shape == 0 ? 0f : scale * scale * (Factorial(2f / shape) - Mathf.Pow(Factorial(1f / shape), 2f));
             default: return 0f;
@@ -233,8 +233,7 @@ public class RandomDistribution : MonoBehaviour
 
     public static float LogNormal(float mu = 0f, float sigma = 1f)
     {
-        float mu2 = mu * mu, sigma2 = sigma * sigma;
-        float normalValues = Normal(Mathf.Log(mu2 / Mathf.Sqrt(sigma2 + mu2)), Mathf.Sqrt(Mathf.Log(1 + sigma2 / mu2)));
+        float normalValues = Normal(Mathf.Log(mu), Mathf.Log(sigma));
         return Mathf.Exp(normalValues);
     }
 
