@@ -1,20 +1,32 @@
 using UnityEngine;
+using UnityEngine.Events;
+using System.Linq;
+
+[System.Serializable]
+public struct StateEvent
+{
+    public State state;
+    public UnityEvent onEnter, onDuring, onExit;
+}
 
 public class Animal : Character, IFiniteStateMachine
 {
     AnimalSO animalSO { get => characterSO as AnimalSO; }
-    [SerializeField] State state;
     [SerializeField] StateMachine stateMachine;
+    [SerializeField] StateEvent[] events;
     public State CurrentState
     {
         get => state;
         set => state = value;
     }
     public StateMachine Machine => stateMachine;
+    private State state = null;
     private bool hasSons;
     private Vector3 scale;
     private float mass, lifeExpectancy, age;
     private Vector2 childbearingAge;
+    private Animal couple;
+    private Animal[] hunters, preys, oponents;
 
     private Vector3 NormalizedScale { get => VectorDiv(scale, animalSO.GetExpectedScale); }
     private static float secondsPerYear = 365.25f * 24f * 3600f;
@@ -36,12 +48,15 @@ public class Animal : Character, IFiniteStateMachine
         lifeExpectancy = animalSO.GetLifeExpectancy;
         childbearingAge = animalSO.GetChildbearingAge;
         age = RandomDistribution.Triangular(0f, RandomDistribution.Uniform(childbearingAge.x, childbearingAge.y), lifeExpectancy);
+        TransitionState("Idle");
     }
 
     // Update is called once per frame
     void Update()
     {
         age += Time.deltaTime / secondsPerYear;
+        StateEvent? stateEvent = events.FirstOrDefault(x => x.state == CurrentState);
+        if (stateEvent != null) stateEvent.Value.onDuring?.Invoke();
     }
 
     void OnValidate()
@@ -51,5 +66,27 @@ public class Animal : Character, IFiniteStateMachine
             Debug.LogWarning("Warning! The Animal script only accepts a CharacterSO characterSO of the AnimalSO sub-class.");
             characterSO = null;
         }
+    }
+
+    void TransitionState(State newState)
+    {
+        State oldState = CurrentState;
+        this.SetState(newState);
+        if (oldState == CurrentState) return;
+        StateEvent? oldStateEvent = events.FirstOrDefault(x => x.state == oldState),
+        newStateEvent = events.FirstOrDefault(x => x.state == CurrentState);
+        if (oldStateEvent != null) oldStateEvent.Value.onExit?.Invoke();
+        if (newStateEvent != null) newStateEvent.Value.onEnter?.Invoke();
+    }
+
+    void TransitionState(string newStateName)
+    {
+        if (string.IsNullOrEmpty(newStateName))
+        {
+            TransitionState((State)null);
+            return;
+        }
+        State newState = StateMachineExtensions.GetStateAssets().FirstOrDefault(x => x.name == newStateName);
+        TransitionState(newState);
     }
 }
