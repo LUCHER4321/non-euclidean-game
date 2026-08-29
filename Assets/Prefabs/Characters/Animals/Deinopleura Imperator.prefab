@@ -194,6 +194,7 @@ MonoBehaviour:
   inventoryGrid: {fileID: 0}
   state: {fileID: 0}
   stateMachine: {fileID: 11400000, guid: ee5a2130324f8584a931ad9f2ddd73df, type: 2}
+  events: []
 --- !u!54 &344902421855342146
 Rigidbody:
   m_ObjectHideFlags: 0
