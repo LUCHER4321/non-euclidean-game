@@ -52,12 +52,12 @@ public class RoomST : MonoBehaviour
         if (spawnAreas.Count == 0) return Vector3.zero;
         float randomValue = Random.Range(0f, totalArea);
         MeshFilter selectedSpawn = spawnAreas[0].spawn;
-        foreach (var sa in spawnAreas)
+        foreach (var (spawn, area) in spawnAreas)
         {
-            randomValue -= sa.area;
+            randomValue -= area;
             if (randomValue <= 0f)
             {
-                selectedSpawn = sa.spawn;
+                selectedSpawn = spawn;
                 break;
             }
         }
@@ -68,6 +68,23 @@ public class RoomST : MonoBehaviour
             Random.Range(bounds.min.z, bounds.max.z)
         );
         return selectedSpawn.transform.TransformPoint(randomLocalPoint);
+    }
+
+    public Room ClosestRoom(Vector3 position)
+    {
+        if (rooms == null || rooms.Length == 0) return null;
+        Room closestRoom = rooms[0];
+        float minDistance = closestRoom.Distance(position);
+        foreach (Room room in rooms)
+        {
+            float distance = room.Distance(position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closestRoom = room;
+            }
+        }
+        return closestRoom;
     }
 
     void Awake()
@@ -113,7 +130,6 @@ public class RoomST : MonoBehaviour
         int horizontalCount = 0;
         int upCount = 0;
         int downCount = 0;
-        //int totalGates = 0;
         foreach (Room room in rooms)
         {
             PortalGate[] gates = room.GetPortalGates;
