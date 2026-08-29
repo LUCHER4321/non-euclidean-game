@@ -5,25 +5,28 @@ public interface IFiniteStateMachine
 {
     State CurrentState { get; set; }
     StateMachine Machine { get; }
+}
 
-    public void SetState(State newState = null)
+public static class StateMachineExtensions
+{
+    public static void SetState<T>(this T fsm, State newState) where T : IFiniteStateMachine
     {
-        if (Machine == null) return;
-        if (Machine.GetTransitions(CurrentState).Select(x => x.GetEndState).Contains(newState)) CurrentState = newState;
+        if (fsm.Machine == null) return;
+        if (fsm.Machine.GetTransitions(fsm.CurrentState).Select(x => x.GetEndState).Contains(newState)) fsm.CurrentState = newState;
     }
 
-    public void SetState(string newStateName)
+    public static void SetState<T>(this T fsm, string newStateName) where T : IFiniteStateMachine
     {
-        if (Machine == null) return;
+        if (fsm.Machine == null) return;
         if (string.IsNullOrEmpty(newStateName))
         {
-            SetState((State)null);
+            fsm.SetState((State)null);
             return;
         }
-        SetState(GetStateAssets().FirstOrDefault(x => x.name == newStateName));
+        fsm.SetState(GetStateAssets().FirstOrDefault(x => x.name == newStateName));
     }
 
-    static State[] GetStateAssets()
+    public static State[] GetStateAssets()
     {
         return Resources.LoadAll<State>("");
     }
