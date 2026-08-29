@@ -40,16 +40,25 @@ public class Character : MonoBehaviour
         public Item item;
     }
 
-    public bool CanSee(GameObject target)
+    public bool CanSee(Vector3 target)
     {
         if (characterSO == null) return false;
-        Vector3 direction = target.transform.position - cam.transform.position;
-        if (direction.sqrMagnitude > Mathf.Pow(characterSO.GetVisionLength, 2)) return false;
-        if (Vector3.Dot(cam.transform.forward, direction.normalized) <= Mathf.Cos(characterSO.GetVisionAngle * Mathf.Deg2Rad)) return false;
-        if (Physics.Raycast(cam.transform.position, direction, out RaycastHit hit, characterSO.GetVisionLength))
-        {
-            return hit.collider.gameObject == target;
-        }
+        Room chRoom = RoomST.Instance.ClosestRoom(transform.position),
+        tgRoom = RoomST.Instance.ClosestRoom(target);
+        PortalGate gate;
+        bool sameRoom = chRoom == tgRoom,
+        connectedRooms = chRoom.Connected(tgRoom, out gate);
+        if (!sameRoom && !connectedRooms) return false;
+        Vector3 roomDirection = sameRoom ? target - transform.position : Vector3.zero,
+        portalDirection = connectedRooms ? gate.portal.Direction(transform.position, target) : Vector3.zero;
+        float roomDistance = sameRoom ? roomDirection.magnitude : float.MaxValue,
+        portalDistance = connectedRooms ? portalDirection.magnitude : float.MaxValue,
+        visionAngleCos = Mathf.Cos(characterSO.GetVisionAngle * Mathf.Deg2Rad);
+        bool canRoom = roomDistance <= characterSO.GetVisionLength && Vector3.Dot(cam.transform.forward, roomDirection.normalized) >= visionAngleCos,
+        canPortal = portalDistance <= characterSO.GetVisionLength && Vector3.Dot(cam.transform.forward, portalDirection.normalized) >= visionAngleCos;
+        RaycastHit hit;
+        if (canRoom) return Portal.Raycast(new Ray(transform.position, roomDirection.normalized), out hit, characterSO.GetVisionLength);
+        if (canPortal) return Portal.Raycast(new Ray(transform.position, portalDirection.normalized), out hit, characterSO.GetVisionLength);
         return false;
     }
 
