@@ -22,6 +22,7 @@ public class Portal : MonoBehaviour
     private HashSet<Collider> newObjects = new HashSet<Collider>();
     private Dictionary<Collider, bool> portalEntrySides = new Dictionary<Collider, bool>();
     public Collider PortalCollider { get; private set; }
+    public bool GetTeleport { get => teleport; }
     private Vector3[] localCorners = new Vector3[8];
 
     bool IsInBounds(Vector3 position)
@@ -97,6 +98,15 @@ public class Portal : MonoBehaviour
         return new Ray(outOrigin, outDirection);
     }
 
+    public Vector3 Direction(Vector3 start, Vector3 end)
+    {
+        if (linkedPortal == null) return (end - start).normalized;
+        Quaternion reverseRotationMapping = transform.rotation * Quaternion.Euler(0, 180, 0) * Quaternion.Inverse(linkedPortal.transform.rotation);
+        Vector3 endOffsetFromLinked = end - linkedPortal.transform.position;
+        Vector3 virtualEndPosition = transform.position + (reverseRotationMapping * endOffsetFromLinked);
+        return virtualEndPosition - start;
+    }
+
     private static Portal ClosestPortal(Vector3 position)
     {
         Portal[] portals = FindObjectsByType<Portal>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
@@ -152,6 +162,42 @@ public class Portal : MonoBehaviour
                     if (linkedCollider != null) linkedCollider.enabled = false;
                 }
                 bool result = RaycastRecursive(redirectedRay, out hitInfo, remainingDistance, layerMask, bouncesLeft - 1);
+                if (linkedCollider != null) linkedCollider.enabled = true;
+                return result;
+            }
+        }
+        return hit;
+    }
+
+    public static bool SphereCast(Ray ray, float radius, out RaycastHit hitInfo, float maxDistance = Mathf.Infinity, int layerMask = Physics.DefaultRaycastLayers, QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.UseGlobal, int maxBounces = 10)
+    {
+        Portal startingPortal;
+        if (IsInPortal(ray.origin, out startingPortal)) ray = startingPortal.RedirectRay(ray.origin, ray.direction);
+        return SphereCastRecursive(ray, radius, out hitInfo, maxDistance, layerMask, queryTriggerInteraction, maxBounces);
+    }
+
+    private static bool SphereCastRecursive(Ray ray, float radius, out RaycastHit hitInfo, float maxDistance, int layerMask, QueryTriggerInteraction queryTriggerInteraction, int bouncesLeft)
+    {
+        if (bouncesLeft < 0)
+        {
+            hitInfo = new RaycastHit();
+            return false;
+        }
+        bool hit = Physics.SphereCast(ray, radius, out hitInfo, maxDistance, layerMask, queryTriggerInteraction);
+        if (hit)
+        {
+            Portal hitPortal = hitInfo.collider.GetComponent<Portal>();
+            if (hitPortal != null)
+            {
+                float remainingDistance = maxDistance - hitInfo.distance;
+                Ray redirectedRay = hitPortal.RedirectRay(hitInfo.point, ray.direction);
+                Collider linkedCollider = null;
+                if (hitPortal.linkedPortal != null)
+                {
+                    linkedCollider = hitPortal.linkedPortal.PortalCollider;
+                    if (linkedCollider != null) linkedCollider.enabled = false;
+                }
+                bool result = SphereCastRecursive(redirectedRay, radius, out hitInfo, remainingDistance, layerMask, queryTriggerInteraction, bouncesLeft - 1);
                 if (linkedCollider != null) linkedCollider.enabled = true;
                 return result;
             }
