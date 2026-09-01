@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 public class InventoryGrid : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class InventoryGrid : MonoBehaviour
     [HideInInspector]
     public Character owner;
     private Item[,] grid;
+
+    public Item[] GetItems { get => grid.Cast<Item>().Distinct().ToArray(); }
 
     public bool CanPlaceItem(Item item, Vector2Int origin)
     {
