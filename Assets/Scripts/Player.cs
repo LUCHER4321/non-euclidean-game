@@ -125,6 +125,7 @@ public class Player : Character
         if (inventory)
         {
             InventoryDragAndDrop dragAndDrop = inventoryUI as InventoryDragAndDrop;
+            if (inventoryUI != null) inventoryUI.UpdateAllItems();
             if (dragAndDrop != null) dragAndDrop.UpdateAllHandSlots();
         }
     }
