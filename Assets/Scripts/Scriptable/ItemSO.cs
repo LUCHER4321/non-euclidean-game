@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Linq;
 
 [System.Serializable]
 public struct ItemShape
@@ -11,6 +12,12 @@ public struct ItemShape
         if (cells.Length <= 1) return true;
         foreach (Vector2Int cell in cells) if (cell.x != cells[0].x && cell.y != cells[0].y) return false;
         return true;
+    }
+
+    public Vector2Int LastCell()
+    {
+        if (cells.Length == 0) return new Vector2Int(0, 0);
+        return cells.OrderByDescending(x => x.y).ThenByDescending(x => x.x).ToArray()[0];
     }
 }
 
