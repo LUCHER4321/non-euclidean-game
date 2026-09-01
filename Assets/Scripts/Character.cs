@@ -21,7 +21,7 @@ public class Character : MonoBehaviour
     [Header("Inventory")]
     public Item currentItem { get => hands[currentHandIndex].item; }
     public Hand[] hands;
-    [SerializeField] Item[] startingItems;
+    [SerializeField] protected Item[] startingItems;
     [HideInInspector] public InventoryGrid inventoryGrid;
     private Coroutine actionCoroutine;
     private Coroutine throwCoroutine;
