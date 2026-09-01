@@ -108,6 +108,11 @@ public class InventoryUI : InventoryGrid
         UpdateColors();
     }
 
+    public void UpdateAllItems()
+    {
+        foreach (Item item in GetItems) if (item != null) CreateOrUpdateItemUI(item);
+    }
+
     public void CreateOrUpdateItemUI(Item item)
     {
         if (!itemUIDictionary.TryGetValue(item, out ItemUI ui))
