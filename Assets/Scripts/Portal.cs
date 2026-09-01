@@ -536,7 +536,7 @@ public class Portal : MonoBehaviour
     void KeepLocals(Transform other, Transform copy)
     {
         if (other.childCount == 0 || copy.childCount == 0) return;
-        for (int i = 0; i < other.childCount; i++)
+        for (int i = 0; i < Mathf.Max(other.childCount, copy.childCount); i++)
         {
             Transform child = other.GetChild(i);
             Transform copyChild = copy.GetChild(i);
