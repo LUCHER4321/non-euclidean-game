@@ -68,6 +68,18 @@ public class Animal : Character, IFiniteStateMachine
         }
     }
 
+    void Reproduce(Animal other)
+    {
+        if (CurrentState.GetStateName != "Reproduce" || other.CurrentState.GetStateName != "Reproduce" || other.animalSO != animalSO || other.hasSons || age < childbearingAge.x || other.age < other.childbearingAge.x || other.age > other.childbearingAge.y) return;
+        if (hasSons || age > childbearingAge.y)
+        {
+            TransitionState("Idle");
+            return;
+        }
+        AnimalSO[] sons = new AnimalSO[animalSO.GetSons];
+        for (int i = 0; i < sons.Length; i++) sons[i] = (animalSO is ReproductiveCasteSO) ? ((ReproductiveCasteSO)animalSO).GetSon : animalSO;
+    }
+
     void TransitionState(State newState)
     {
         State oldState = CurrentState;
