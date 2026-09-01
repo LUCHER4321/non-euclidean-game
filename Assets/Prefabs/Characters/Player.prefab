@@ -282,7 +282,13 @@ MonoBehaviour:
     transform: {fileID: 7455768691747369034}
     item: {fileID: 2227311645291040836}
   startingItems:
-  - {fileID: 2761204400431626503, guid: 3e1fda2544e4a9d478b3abff49549c60, type: 3}
+  - {fileID: 8601085498484518690, guid: 89c61a8157e7ddc4da41995f2c2e27d7, type: 3}
+  - {fileID: 5706379118661659625, guid: 97de2af04ec0a7247aece032f82ec414, type: 3}
+  - {fileID: 6233529636607053481, guid: 9794580d4b6f1b74fa1126205b5e2268, type: 3}
+  - {fileID: 6233529636607053481, guid: 9794580d4b6f1b74fa1126205b5e2268, type: 3}
+  - {fileID: 6233529636607053481, guid: 9794580d4b6f1b74fa1126205b5e2268, type: 3}
+  - {fileID: 5706379118661659625, guid: 97de2af04ec0a7247aece032f82ec414, type: 3}
+  - {fileID: 5706379118661659625, guid: 97de2af04ec0a7247aece032f82ec414, type: 3}
   inventoryGrid: {fileID: 0}
   playerInput: {fileID: 4447391329699403942}
   inventory: 0
