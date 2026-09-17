@@ -20,7 +20,8 @@ MonoBehaviour:
   visionAngle: 360
   maxHealth: 1
   throwingMomentum: 0
-  preys: []
+  preys:
+  - {fileID: 11400000, guid: 3d5d7bcda8649a64cb08ea0078bad399, type: 2}
   meanScale: {x: 0.025, y: 0.012, z: 0.08}
   stdDevScale: {x: 0.003, y: 0.002, z: 0.01}
   mass:
