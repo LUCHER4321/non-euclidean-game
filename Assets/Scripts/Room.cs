@@ -8,9 +8,15 @@ public class Room : MonoBehaviour
     MeshFilter[] spawns;
     [SerializeField]
     MeshFilter[] floor;
+    [SerializeField]
+    MeshFilter[] ceil;
+    [SerializeField]
+    MeshFilter[] walls;
     public PortalGate[] GetPortalGates { get => portalGates; }
     public MeshFilter[] GetSpawns { get => spawns; }
     public MeshFilter[] GetFloor { get => floor; }
+    public MeshFilter[] GetCeil { get => ceil; }
+    public MeshFilter[] GetWalls { get => walls; }
 
     public Vector3 ClosestPoint(Vector3 position)
     {
