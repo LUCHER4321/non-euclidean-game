@@ -49,6 +49,11 @@ MonoBehaviour:
   - {fileID: 4341657840190100386}
   connectedPortalNode: {fileID: 0}
   type: 0
+  walls:
+  - {fileID: 8145114987406746419}
+  - {fileID: 2029696922345409274}
+  - {fileID: 2568784910623254518}
+  - {fileID: 3034380693418423939}
 --- !u!1 &360832585054282812
 GameObject:
   m_ObjectHideFlags: 0
@@ -3061,6 +3066,11 @@ MonoBehaviour:
   - {fileID: 3023569903466268902}
   connectedPortalNode: {fileID: 0}
   type: 2
+  walls:
+  - {fileID: 5798602574641201031}
+  - {fileID: 4828365780177051318}
+  - {fileID: 872422017610083927}
+  - {fileID: 6312137680731875531}
 --- !u!1 &6456441479876107756
 GameObject:
   m_ObjectHideFlags: 0
@@ -3110,6 +3120,11 @@ MonoBehaviour:
   - {fileID: 6755527850723800607}
   connectedPortalNode: {fileID: 0}
   type: 0
+  walls:
+  - {fileID: 8111202994350838808}
+  - {fileID: 2192747801236241109}
+  - {fileID: 430402538341522717}
+  - {fileID: 910945633308331476}
 --- !u!1 &6639362434845744002
 GameObject:
   m_ObjectHideFlags: 0
@@ -4368,6 +4383,11 @@ MonoBehaviour:
   - {fileID: 3939792044108103730}
   connectedPortalNode: {fileID: 0}
   type: 0
+  walls:
+  - {fileID: 4092569524411897960}
+  - {fileID: 6474865398348066032}
+  - {fileID: 4192649411230340713}
+  - {fileID: 1677878150610314300}
 --- !u!1 &8918847852780150255
 GameObject:
   m_ObjectHideFlags: 0
