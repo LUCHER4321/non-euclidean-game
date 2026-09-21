@@ -12,6 +12,9 @@ public class PortalGate : Node
 {
     public PortalGateType type;
     public Portal portal { get; private set; }
+    [SerializeField]
+    MeshFilter[] walls;
+    public MeshFilter[] GetWalls { get => walls; }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
