@@ -188,8 +188,13 @@ public class RoomST : MonoBehaviour
                 portals[i].transform.localPosition = Vector3.zero;
                 portals[i].transform.localRotation = Quaternion.identity;
             }
-            for (int i = 0; i < 2; i++) pg[i].PStart();
             Destroy(pp);
+        }
+        GraphNavMeshBuilderST.Instance.BuildGraph();
+        foreach (PortalPair pair in portalPairs)
+        {
+            pair.pg0.PStart();
+            pair.pg1.PStart();
         }
     }
 }
