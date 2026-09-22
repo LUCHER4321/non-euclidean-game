@@ -5,16 +5,14 @@ using UnityEngine;
 
 public class Node : MonoBehaviour
 {
-    [SerializeField]
-    Node[] connectedNodes;
-    public PortalGate connectedPortalNode;
+    public Node[] connectedNodes;
     private Dictionary<Node, float> connections;
     public Dictionary<Node, float> GetConnections { get => connections; }
-    private static List<Node> AllPortals = new List<Node>();
+    protected static List<PortalGate> AllPortals = new List<PortalGate>();
     public float GetHeuristicDistance(Node node)
     {
         float minDistance = Vector3.Distance(transform.position, node.transform.position);
-        foreach (Node portal in AllPortals)
+        foreach (PortalGate portal in AllPortals)
         {
             float distToPortal = Vector3.Distance(transform.position, portal.transform.position);
             float distFromExitToGoal = Vector3.Distance(portal.connectedPortalNode.transform.position, node.transform.position);
@@ -28,14 +26,17 @@ public class Node : MonoBehaviour
     {
         connections = new Dictionary<Node, float>();
         foreach (Node connectedNode in connectedNodes) connections[connectedNode] = Vector3.Distance(transform.position, connectedNode.transform.position);
-        if (connectedPortalNode == null) return;
-        if (!AllPortals.Contains(this)) AllPortals.Add(this);
-        foreach (Node connectedNode in connectedPortalNode.connectedNodes) connections[connectedNode] = Vector3.Distance(transform.position, connectedNode.transform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    protected void SetConnection(Node node, float distance)
+    {
+        if (connections.ContainsKey(node)) connections[node] = distance;
+        else connections.Add(node, distance);
     }
 }
