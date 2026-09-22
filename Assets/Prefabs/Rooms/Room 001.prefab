@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 5322519902614726434}
   - component: {fileID: 2825754422259005902}
   - component: {fileID: 6043325046905334898}
+  - component: {fileID: 679439254748805629}
   m_Layer: 0
   m_Name: Ceil (8)
   m_TagString: Untagged
@@ -178,54 +179,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &683245452475535356
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3782118066047256853}
-  - component: {fileID: 7168733011480562765}
-  m_Layer: 0
-  m_Name: Node (3)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3782118066047256853
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 683245452475535356}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8050187450820657157}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7168733011480562765
+--- !u!114 &679439254748805629
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 683245452475535356}
+  m_GameObject: {fileID: 436025715580377340}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Node
-  connectedNodes:
-  - {fileID: 2140656335480500234}
-  - {fileID: 294985940679562363}
-  connectedPortalNode: {fileID: 0}
+  connectedNodes: []
 --- !u!1 &1095772343312162353
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,6 +203,7 @@ GameObject:
   - component: {fileID: 7232169752101380520}
   - component: {fileID: 5581806906255056967}
   - component: {fileID: 3913644112736483158}
+  - component: {fileID: 8914576395707303383}
   m_Layer: 0
   m_Name: Ceil (12)
   m_TagString: Untagged
@@ -315,6 +282,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8914576395707303383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095772343312162353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &1120684848132089791
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +306,7 @@ GameObject:
   - component: {fileID: 1390473305939681536}
   - component: {fileID: 3070604062239968851}
   - component: {fileID: 8865484953927357272}
+  - component: {fileID: 294761790457720847}
   m_Layer: 0
   m_Name: Floor (12)
   m_TagString: Untagged
@@ -404,6 +385,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &294761790457720847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120684848132089791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &1373864520685658065
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,54 +490,6 @@ Transform:
   - {fileID: 8800579244974351209}
   m_Father: {fileID: 6653739913210540928}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1416416703737934824
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1972145608456917867}
-  - component: {fileID: 3921354641615037331}
-  m_Layer: 0
-  m_Name: Node
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1972145608456917867
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1416416703737934824}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6, y: 0, z: -8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8050187450820657157}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3921354641615037331
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1416416703737934824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Node
-  connectedNodes:
-  - {fileID: 8916976325069777711}
-  - {fileID: 3458580221195167233}
-  connectedPortalNode: {fileID: 0}
 --- !u!1 &1778229376569050264
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,6 +501,7 @@ GameObject:
   - component: {fileID: 2854400207715533497}
   - component: {fileID: 8009502283980872284}
   - component: {fileID: 7020929023218984289}
+  - component: {fileID: 5867179238781622433}
   m_Layer: 0
   m_Name: Floor (4)
   m_TagString: Untagged
@@ -633,6 +580,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5867179238781622433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1778229376569050264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &1883792814894948893
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,6 +604,7 @@ GameObject:
   - component: {fileID: 825482938792625698}
   - component: {fileID: 5217379832847607691}
   - component: {fileID: 383800863031758343}
+  - component: {fileID: 6265256488554869541}
   m_Layer: 0
   m_Name: Ceil (11)
   m_TagString: Untagged
@@ -722,6 +683,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6265256488554869541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883792814894948893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &2087560428553337952
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,54 +831,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &2631176901338423241
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 540230664095155929}
-  - component: {fileID: 294985940679562363}
-  m_Layer: 0
-  m_Name: Node (5)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &540230664095155929
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2631176901338423241}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: -14}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8050187450820657157}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &294985940679562363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2631176901338423241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Node
-  connectedNodes:
-  - {fileID: 2694163497852449313}
-  - {fileID: 3921354641615037331}
-  connectedPortalNode: {fileID: 0}
 --- !u!1 &2734422049435379021
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,6 +931,7 @@ GameObject:
   - component: {fileID: 6314131378707346023}
   - component: {fileID: 3278277016128627063}
   - component: {fileID: 7507918178792800293}
+  - component: {fileID: 6778825141748894693}
   m_Layer: 0
   m_Name: Floor (7)
   m_TagString: Untagged
@@ -1083,6 +1010,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6778825141748894693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2756745265188528634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &2855616482334075933
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,8 +1067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69804095b9bc98b42ab688a17c4b9a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortalGate
-  connectedNodes:
-  - {fileID: 8050739650820853357}
+  connectedNodes: []
   connectedPortalNode: {fileID: 0}
   type: 2
   walls:
@@ -1136,54 +1075,6 @@ MonoBehaviour:
   - {fileID: 1023403653102976165}
   - {fileID: 8040246629535452431}
   - {fileID: 928065047920302132}
---- !u!1 &2871941678436409021
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5998287023116591500}
-  - component: {fileID: 1687527973138586406}
-  m_Layer: 0
-  m_Name: Node (2)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5998287023116591500
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2871941678436409021}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: -8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8050187450820657157}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1687527973138586406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2871941678436409021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Node
-  connectedNodes:
-  - {fileID: 2694163497852449313}
-  - {fileID: 294985940679562363}
-  connectedPortalNode: {fileID: 0}
 --- !u!1 &2938544659394878433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1195,6 +1086,7 @@ GameObject:
   - component: {fileID: 397735299563304609}
   - component: {fileID: 6574604961598533045}
   - component: {fileID: 6296037646965083922}
+  - component: {fileID: 2354368201697897566}
   m_Layer: 0
   m_Name: Ceil (5)
   m_TagString: Untagged
@@ -1273,6 +1165,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2354368201697897566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2938544659394878433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &3300426414176744076
 GameObject:
   m_ObjectHideFlags: 0
@@ -1317,8 +1222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69804095b9bc98b42ab688a17c4b9a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortalGate
-  connectedNodes:
-  - {fileID: 4900598602597357941}
+  connectedNodes: []
   connectedPortalNode: {fileID: 0}
   type: 0
   walls:
@@ -1337,6 +1241,7 @@ GameObject:
   - component: {fileID: 6587881276401973329}
   - component: {fileID: 8711735570090402253}
   - component: {fileID: 2113915456737239395}
+  - component: {fileID: 6454925239513542349}
   m_Layer: 0
   m_Name: Floor (6)
   m_TagString: Untagged
@@ -1415,6 +1320,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6454925239513542349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3640460967763069467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &3701222683214516087
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,6 +1344,7 @@ GameObject:
   - component: {fileID: 8771178643104355492}
   - component: {fileID: 5452771191051712951}
   - component: {fileID: 3346688828016410079}
+  - component: {fileID: 6649493362195531978}
   m_Layer: 0
   m_Name: Ceil (1)
   m_TagString: Untagged
@@ -1504,6 +1423,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6649493362195531978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3701222683214516087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &3856517214024872598
 GameObject:
   m_ObjectHideFlags: 0
@@ -1515,6 +1447,7 @@ GameObject:
   - component: {fileID: 194558728187817830}
   - component: {fileID: 8377163133232156768}
   - component: {fileID: 6256667314899508581}
+  - component: {fileID: 6794508983958203931}
   m_Layer: 0
   m_Name: Ceil (13)
   m_TagString: Untagged
@@ -1593,6 +1526,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &6794508983958203931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3856517214024872598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &3885225562954228056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1693,6 +1639,7 @@ GameObject:
   - component: {fileID: 8831167817411289158}
   - component: {fileID: 3469074093106417977}
   - component: {fileID: 8501676970172019584}
+  - component: {fileID: 7253958142691025321}
   m_Layer: 0
   m_Name: Floor (11)
   m_TagString: Untagged
@@ -1771,53 +1718,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &4314919404747823633
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6559802614378655082}
-  - component: {fileID: 4900598602597357941}
-  m_Layer: 0
-  m_Name: Node (7)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6559802614378655082
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4314919404747823633}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: 12}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8050187450820657157}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4900598602597357941
+--- !u!114 &7253958142691025321
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4314919404747823633}
+  m_GameObject: {fileID: 4122383068822554154}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Node
-  connectedNodes:
-  - {fileID: 5611724715504649351}
-  connectedPortalNode: {fileID: 0}
+  connectedNodes: []
 --- !u!1 &4741209113116686999
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,6 +1831,7 @@ GameObject:
   - component: {fileID: 1619770848610757286}
   - component: {fileID: 522955246119341120}
   - component: {fileID: 5498492826262973986}
+  - component: {fileID: 7871858041233966209}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -1996,6 +1910,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7871858041233966209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4918062223304055581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &4920775828014926110
 GameObject:
   m_ObjectHideFlags: 0
@@ -2007,6 +1934,7 @@ GameObject:
   - component: {fileID: 1731337979364314736}
   - component: {fileID: 731228544261279839}
   - component: {fileID: 3561610765991395020}
+  - component: {fileID: 2879655403010550489}
   m_Layer: 0
   m_Name: Ceil
   m_TagString: Untagged
@@ -2085,6 +2013,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2879655403010550489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4920775828014926110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &4937340008786927605
 GameObject:
   m_ObjectHideFlags: 0
@@ -2096,6 +2037,7 @@ GameObject:
   - component: {fileID: 5512793849344353436}
   - component: {fileID: 2730193577831192038}
   - component: {fileID: 4750966651739687514}
+  - component: {fileID: 7422137236881730849}
   m_Layer: 0
   m_Name: Floor (10)
   m_TagString: Untagged
@@ -2174,6 +2116,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7422137236881730849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4937340008786927605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &4989190803881828555
 GameObject:
   m_ObjectHideFlags: 0
@@ -2185,6 +2140,7 @@ GameObject:
   - component: {fileID: 1029794967487874114}
   - component: {fileID: 3520711760008767897}
   - component: {fileID: 7621274650012485124}
+  - component: {fileID: 7936745618085572521}
   m_Layer: 0
   m_Name: Ceil (2)
   m_TagString: Untagged
@@ -2263,6 +2219,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7936745618085572521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4989190803881828555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &5075540624328795657
 GameObject:
   m_ObjectHideFlags: 0
@@ -2363,6 +2332,7 @@ GameObject:
   - component: {fileID: 2187543506920090982}
   - component: {fileID: 6348252892680552481}
   - component: {fileID: 6283515363836712051}
+  - component: {fileID: 3298889583414379554}
   m_Layer: 0
   m_Name: Ceil (7)
   m_TagString: Untagged
@@ -2441,6 +2411,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3298889583414379554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5126361649075380903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &5140378533372633627
 GameObject:
   m_ObjectHideFlags: 0
@@ -2485,9 +2468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69804095b9bc98b42ab688a17c4b9a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortalGate
-  connectedNodes:
-  - {fileID: 3921354641615037331}
-  - {fileID: 3458580221195167233}
+  connectedNodes: []
   connectedPortalNode: {fileID: 0}
   type: 0
   walls:
@@ -2552,6 +2533,7 @@ GameObject:
   - component: {fileID: 8164707789044633053}
   - component: {fileID: 7078499646850293831}
   - component: {fileID: 7352081377548127799}
+  - component: {fileID: 397849858034694701}
   m_Layer: 0
   m_Name: Floor (8)
   m_TagString: Untagged
@@ -2630,6 +2612,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &397849858034694701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5385636503403768036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &5663390943046927474
 GameObject:
   m_ObjectHideFlags: 0
@@ -2730,6 +2725,7 @@ GameObject:
   - component: {fileID: 3841731460178593571}
   - component: {fileID: 5863556578448706131}
   - component: {fileID: 8297059552180508843}
+  - component: {fileID: 8813461287589912092}
   m_Layer: 0
   m_Name: Floor (2)
   m_TagString: Untagged
@@ -2808,53 +2804,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &5846124041581871718
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4996810123177568953}
-  - component: {fileID: 8050739650820853357}
-  m_Layer: 0
-  m_Name: Node (4)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4996810123177568953
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5846124041581871718}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6, y: 0, z: -4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8050187450820657157}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8050739650820853357
+--- !u!114 &8813461287589912092
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5846124041581871718}
+  m_GameObject: {fileID: 5746600157408748238}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Node
-  connectedNodes:
-  - {fileID: 6939989992166514992}
-  connectedPortalNode: {fileID: 0}
+  connectedNodes: []
 --- !u!1 &5944322786946188541
 GameObject:
   m_ObjectHideFlags: 0
@@ -2866,6 +2828,7 @@ GameObject:
   - component: {fileID: 687104219156820056}
   - component: {fileID: 4291041791077591974}
   - component: {fileID: 7524449616870923050}
+  - component: {fileID: 770831210632555081}
   m_Layer: 0
   m_Name: Floor (5)
   m_TagString: Untagged
@@ -2944,6 +2907,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &770831210632555081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944322786946188541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &6156954313143160689
 GameObject:
   m_ObjectHideFlags: 0
@@ -2955,6 +2931,7 @@ GameObject:
   - component: {fileID: 1572863387053769548}
   - component: {fileID: 1409622644332177364}
   - component: {fileID: 2047501036188404538}
+  - component: {fileID: 588966766752180971}
   m_Layer: 0
   m_Name: Floor (1)
   m_TagString: Untagged
@@ -3033,6 +3010,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &588966766752180971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6156954313143160689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &6334493510395273201
 GameObject:
   m_ObjectHideFlags: 0
@@ -3067,14 +3057,6 @@ Transform:
   - {fileID: 5728011305682055804}
   - {fileID: 3196986493105112406}
   - {fileID: 7804584212055002910}
-  - {fileID: 1972145608456917867}
-  - {fileID: 4996810123177568953}
-  - {fileID: 942867751253889203}
-  - {fileID: 540230664095155929}
-  - {fileID: 5998287023116591500}
-  - {fileID: 7227358121691960865}
-  - {fileID: 3782118066047256853}
-  - {fileID: 6559802614378655082}
   m_Father: {fileID: 6653739913210540928}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6504531954467840464
@@ -3088,6 +3070,7 @@ GameObject:
   - component: {fileID: 8924031026259945343}
   - component: {fileID: 3105274595692783448}
   - component: {fileID: 7602125114081664211}
+  - component: {fileID: 234776945509202834}
   m_Layer: 0
   m_Name: Floor (3)
   m_TagString: Untagged
@@ -3166,54 +3149,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &6575936871321901878
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 942867751253889203}
-  - component: {fileID: 3458580221195167233}
-  m_Layer: 0
-  m_Name: Node (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &942867751253889203
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6575936871321901878}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -14}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8050187450820657157}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3458580221195167233
+--- !u!114 &234776945509202834
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6575936871321901878}
+  m_GameObject: {fileID: 6504531954467840464}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Node
-  connectedNodes:
-  - {fileID: 8916976325069777711}
-  - {fileID: 3921354641615037331}
-  connectedPortalNode: {fileID: 0}
+  connectedNodes: []
 --- !u!1 &6921487741103900331
 GameObject:
   m_ObjectHideFlags: 0
@@ -3436,9 +3384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69804095b9bc98b42ab688a17c4b9a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortalGate
-  connectedNodes:
-  - {fileID: 3458580221195167233}
-  - {fileID: 294985940679562363}
+  connectedNodes: []
   connectedPortalNode: {fileID: 0}
   type: 0
   walls:
@@ -3457,6 +3403,7 @@ GameObject:
   - component: {fileID: 5968530189541768257}
   - component: {fileID: 2406913436289811402}
   - component: {fileID: 7375351826557263126}
+  - component: {fileID: 7850670900290265534}
   m_Layer: 0
   m_Name: Ceil (9)
   m_TagString: Untagged
@@ -3535,6 +3482,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7850670900290265534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7236978691879259724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &7329288859083141066
 GameObject:
   m_ObjectHideFlags: 0
@@ -3546,6 +3506,7 @@ GameObject:
   - component: {fileID: 5001228568671774152}
   - component: {fileID: 7438226817052696179}
   - component: {fileID: 1143701865545405407}
+  - component: {fileID: 5755838417690471289}
   m_Layer: 0
   m_Name: Ceil (4)
   m_TagString: Untagged
@@ -3624,6 +3585,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5755838417690471289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7329288859083141066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &7518859892279838964
 GameObject:
   m_ObjectHideFlags: 0
@@ -3724,6 +3698,7 @@ GameObject:
   - component: {fileID: 8496402035656617789}
   - component: {fileID: 7696611782498367510}
   - component: {fileID: 8860062956364239412}
+  - component: {fileID: 2878118885086543884}
   m_Layer: 0
   m_Name: Ceil (3)
   m_TagString: Untagged
@@ -3802,6 +3777,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2878118885086543884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7567987033780668548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &7569690927400848372
 GameObject:
   m_ObjectHideFlags: 0
@@ -3813,6 +3801,7 @@ GameObject:
   - component: {fileID: 4314034149491249801}
   - component: {fileID: 5429275479176769020}
   - component: {fileID: 3150577255543473782}
+  - component: {fileID: 4683862616508561117}
   m_Layer: 0
   m_Name: Floor (9)
   m_TagString: Untagged
@@ -3891,6 +3880,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4683862616508561117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7569690927400848372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &7668028521836943689
 GameObject:
   m_ObjectHideFlags: 0
@@ -3991,6 +3993,7 @@ GameObject:
   - component: {fileID: 1518894513303342298}
   - component: {fileID: 4201669319703396837}
   - component: {fileID: 1486380696815860620}
+  - component: {fileID: 3680962285234863612}
   m_Layer: 0
   m_Name: Ceil (10)
   m_TagString: Untagged
@@ -4069,6 +4072,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3680962285234863612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7683017055148684484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &7783915293537346563
 GameObject:
   m_ObjectHideFlags: 0
@@ -4126,6 +4142,7 @@ GameObject:
   - component: {fileID: 2266103806991917570}
   - component: {fileID: 6315394301845373413}
   - component: {fileID: 3743923041511676837}
+  - component: {fileID: 6404875160076876122}
   m_Layer: 0
   m_Name: Floor (13)
   m_TagString: Untagged
@@ -4204,54 +4221,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &8087841826920529335
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7227358121691960865}
-  - component: {fileID: 9012323586927077341}
-  m_Layer: 0
-  m_Name: Node (6)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7227358121691960865
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8087841826920529335}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: -4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8050187450820657157}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9012323586927077341
+--- !u!114 &6404875160076876122
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8087841826920529335}
+  m_GameObject: {fileID: 7920037958440826551}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Node
-  connectedNodes:
-  - {fileID: 2140656335480500234}
-  - {fileID: 7168733011480562765}
-  connectedPortalNode: {fileID: 0}
+  connectedNodes: []
 --- !u!1 &8130010285059395443
 GameObject:
   m_ObjectHideFlags: 0
@@ -4296,9 +4278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69804095b9bc98b42ab688a17c4b9a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PortalGate
-  connectedNodes:
-  - {fileID: 9012323586927077341}
-  - {fileID: 7168733011480562765}
+  connectedNodes: []
   connectedPortalNode: {fileID: 0}
   type: 1
   walls:
@@ -4652,6 +4632,7 @@ GameObject:
   - component: {fileID: 2698828886040265132}
   - component: {fileID: 5112646540731511455}
   - component: {fileID: 6794511245223279294}
+  - component: {fileID: 4683085466294244702}
   m_Layer: 0
   m_Name: Ceil (14)
   m_TagString: Untagged
@@ -4730,6 +4711,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4683085466294244702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8580095733841645326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &8718255842587987989
 GameObject:
   m_ObjectHideFlags: 0
@@ -4830,6 +4824,7 @@ GameObject:
   - component: {fileID: 1985775852643075937}
   - component: {fileID: 7910885057585809023}
   - component: {fileID: 4044155935003254728}
+  - component: {fileID: 414350686043293026}
   m_Layer: 0
   m_Name: Ceil (6)
   m_TagString: Untagged
@@ -4908,6 +4903,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &414350686043293026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8781764428470068979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &8803528963112851067
 GameObject:
   m_ObjectHideFlags: 0
@@ -4919,6 +4927,7 @@ GameObject:
   - component: {fileID: 8352841506711213555}
   - component: {fileID: 4705030082610499122}
   - component: {fileID: 2471629415551492844}
+  - component: {fileID: 3896230557030905993}
   m_Layer: 0
   m_Name: Floor (14)
   m_TagString: Untagged
@@ -4997,6 +5006,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3896230557030905993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8803528963112851067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a54bc4444cbf044868302f43c69788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Node
+  connectedNodes: []
 --- !u!1 &9072800127886575554
 GameObject:
   m_ObjectHideFlags: 0
