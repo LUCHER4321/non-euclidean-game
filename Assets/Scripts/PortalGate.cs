@@ -10,6 +10,7 @@ public enum PortalGateType
 
 public class PortalGate : Node
 {
+    public PortalGate connectedPortalNode;
     public PortalGateType type;
     public Portal portal { get; private set; }
     [SerializeField]
@@ -19,6 +20,9 @@ public class PortalGate : Node
     protected override void Start()
     {
         base.Start();
+        if (connectedPortalNode == null) return;
+        if (!AllPortals.Contains(this)) AllPortals.Add(this);
+        SetConnection(connectedPortalNode, 0f);
         portal = GetComponentsInChildren<Portal>().FirstOrDefault(x => x.GetTeleport);
     }
 
