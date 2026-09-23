@@ -24,7 +24,33 @@ public class GraphNavMeshBuilderST : MonoBehaviour
             sharedCount++;
             break;
         }
-        return sharedCount >= 2;
+        if (sharedCount >= 2) return true;
+        for (int i = 0; i < vertsA.Length; i++)
+        {
+            Vector3 a1 = vertsA[i];
+            Vector3 a2 = vertsA[(i + 1) % vertsA.Length];
+            Vector3 dirA = (a2 - a1).normalized;
+            for (int j = 0; j < vertsB.Length; j++)
+            {
+                Vector3 b1 = vertsB[j];
+                Vector3 b2 = vertsB[(j + 1) % vertsB.Length];
+                Vector3 dirB = (b2 - b1).normalized;
+                if (Mathf.Abs(Vector3.Dot(dirA, dirB)) > 0.99f)
+                {
+                    float distance = Vector3.Cross(dirA, b1 - a1).magnitude;
+                    if (distance <= vertexTolerance)
+                    {
+                        float proj1 = Vector3.Dot(a1 - b1, dirB);
+                        float proj2 = Vector3.Dot(a2 - b1, dirB);
+                        float minProj = Mathf.Min(proj1, proj2);
+                        float maxProj = Mathf.Max(proj1, proj2);
+                        float lengthB = Vector3.Distance(b1, b2);
+                        if (maxProj > vertexTolerance && minProj < lengthB - vertexTolerance) return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     void Awake()
