@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
+using System.Collections.Generic;
 
 [System.Serializable]
 public struct StateEvent
@@ -100,5 +101,40 @@ public class Animal : Character, IFiniteStateMachine
         }
         State newState = StateMachineExtensions.GetStateAssets().FirstOrDefault(x => x.name == newStateName);
         TransitionState(newState);
+    }
+
+    private List<Vector3> currentPath = new List<Vector3>();
+    private int currentPathIndex = 0;
+    private Vector3 currentTargetPosition = Vector3.negativeInfinity;
+
+    void MoveToPosition(Vector3 position, float tolerance = 0.5f)
+    {
+        if (currentTargetPosition != position || currentPath == null || currentPath.Count == 0)
+        {
+            currentTargetPosition = position;
+            currentPath = PathFinderST.GetPath(transform.position, position);
+            currentPathIndex = 0;
+        }
+        if (currentPath == null || currentPathIndex >= currentPath.Count)
+        {
+            Move(Vector2.zero);
+            return;
+        }
+        Vector3 targetWaypoint = currentPath[currentPathIndex];
+        Vector3 directionToWaypoint = targetWaypoint - transform.position;
+        if (directionToWaypoint.magnitude < tolerance)
+        {
+            currentPathIndex++;
+            if (currentPathIndex >= currentPath.Count)
+            {
+                Move(Vector2.zero);
+                return;
+            }
+            targetWaypoint = currentPath[currentPathIndex];
+            directionToWaypoint = targetWaypoint - transform.position;
+        }
+        Vector3 localDirection = transform.InverseTransformDirection(directionToWaypoint.normalized);
+        Vector2 moveInput = new Vector2(localDirection.x, localDirection.z).normalized;
+        Move(moveInput);
     }
 }
