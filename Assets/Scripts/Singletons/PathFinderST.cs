@@ -13,46 +13,80 @@ public class PathFinderST : MonoBehaviour
         else Instance = this;
     }
 
-    public static Node[] AStar(Node start, Node end)
+    public static List<Vector3> GetPath(Vector3 startPosition, Vector3 endPosition)
     {
-        if (start == end) return new Node[] { start };
-        List<Node> openSet = new List<Node> { start };
+        Node[] allNodes = Object.FindObjectsByType<Node>(FindObjectsSortMode.None);
+        if (allNodes == null || allNodes.Length == 0) return new List<Vector3>();
+        Node startNode = null;
+        Node endNode = null;
+        float minStartDist = float.MaxValue;
+        float minEndDist = float.MaxValue;
+        foreach (Node node in allNodes)
+        {
+            float dStart = Vector3.Distance(startPosition, node.transform.position);
+            if (dStart < minStartDist)
+            {
+                minStartDist = dStart;
+                startNode = node;
+            }
+            float dEnd = Vector3.Distance(endPosition, node.transform.position);
+            if (dEnd < minEndDist)
+            {
+                minEndDist = dEnd;
+                endNode = node;
+            }
+        }
+        if (startNode == null || endNode == null) return new List<Vector3>();
+        List<Node> openSet = new List<Node> { startNode };
+        HashSet<Node> closedSet = new HashSet<Node>();
         Dictionary<Node, Node> cameFrom = new Dictionary<Node, Node>();
         Dictionary<Node, float> gScore = new Dictionary<Node, float>();
-        gScore[start] = 0f;
         Dictionary<Node, float> fScore = new Dictionary<Node, float>();
-        fScore[start] = start.GetHeuristicDistance(end);
+        foreach (Node node in allNodes)
+        {
+            gScore[node] = float.MaxValue;
+            fScore[node] = float.MaxValue;
+        }
+        gScore[startNode] = 0f;
+        fScore[startNode] = startNode.GetHeuristicDistance(endNode);
         while (openSet.Count > 0)
         {
-            Node current = openSet.OrderBy(n => fScore.ContainsKey(n) ? fScore[n] : float.MaxValue).First();
-            if (current == end) return ReconstructPath(cameFrom, current);
+            Node current = openSet[0];
+            for (int i = 1; i < openSet.Count; i++) if (fScore[openSet[i]] < fScore[current]) current = openSet[i];
+            if (current == endNode) return ReconstructPath(cameFrom, current, startPosition, endPosition);
             openSet.Remove(current);
-            foreach (var connection in current.GetConnections)
+            closedSet.Add(current);
+            bool useDictionary = current.GetConnections != null && current.GetConnections.Count > 0;
+            Node[] neighbors = useDictionary ? new List<Node>(current.GetConnections.Keys).ToArray() : current.connectedNodes;
+            if (neighbors == null) continue;
+            foreach (Node neighbor in neighbors)
             {
-                Node neighbor = connection.Key;
-                float costToNeighbor = connection.Value;
-                float tentativeGScore = gScore[current] + costToNeighbor;
-                if (!gScore.ContainsKey(neighbor) || tentativeGScore < gScore[neighbor])
+                if (neighbor == null || closedSet.Contains(neighbor)) continue;
+                float weight = useDictionary ? current.GetConnections[neighbor] : Vector3.Distance(current.transform.position, neighbor.transform.position);
+                float tentative_gScore = gScore[current] + weight;
+                if (tentative_gScore < gScore[neighbor])
                 {
                     cameFrom[neighbor] = current;
-                    gScore[neighbor] = tentativeGScore;
-                    fScore[neighbor] = tentativeGScore + neighbor.GetHeuristicDistance(end);
+                    gScore[neighbor] = tentative_gScore;
+                    fScore[neighbor] = gScore[neighbor] + neighbor.GetHeuristicDistance(endNode);
                     if (!openSet.Contains(neighbor)) openSet.Add(neighbor);
                 }
             }
         }
-        return emptyNodes;
+        return new List<Vector3>();
     }
 
-    private static Node[] ReconstructPath(Dictionary<Node, Node> cameFrom, Node current)
+    private static List<Vector3> ReconstructPath(Dictionary<Node, Node> cameFrom, Node current, Vector3 startPos, Vector3 endPos)
     {
-        List<Node> totalPath = new List<Node> { current };
+        List<Vector3> path = new List<Vector3>();
+        path.Add(endPos);
         while (cameFrom.ContainsKey(current))
         {
+            path.Add(current.transform.position);
             current = cameFrom[current];
-            totalPath.Add(current);
         }
-        totalPath.Reverse();
-        return totalPath.ToArray();
+        path.Add(startPos);
+        path.Reverse();
+        return path;
     }
 }
