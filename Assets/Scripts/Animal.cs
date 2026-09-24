@@ -10,9 +10,17 @@ public struct StateEvent
     public UnityEvent onEnter, onDuring, onExit;
 }
 
+[System.Serializable]
+public struct RigidbodyPart
+{
+    public Rigidbody rb;
+    public float massPercent;
+}
+
 public class Animal : Character, IFiniteStateMachine
 {
     AnimalSO animalSO { get => characterSO as AnimalSO; }
+    [SerializeField] RigidbodyPart[] rbParts;
     [SerializeField] StateMachine stateMachine;
     [SerializeField] StateEvent[] events;
     public State CurrentState
@@ -26,8 +34,6 @@ public class Animal : Character, IFiniteStateMachine
     private Vector3 scale;
     private float mass, lifeExpectancy, age;
     private Vector2 childbearingAge;
-    private Animal couple;
-    private Animal[] hunters, preys, oponents;
 
     private Vector3 NormalizedScale { get => VectorDiv(scale, animalSO.GetExpectedScale); }
     private static float secondsPerYear = 365.25f * 24f * 3600f;
@@ -45,7 +51,17 @@ public class Animal : Character, IFiniteStateMachine
         scale = animalSO.GetScale;
         height = scale.y / 2f;
         mass = animalSO.GetMass;
-        if (rb != null) rb.mass = mass;
+        foreach (RigidbodyPart part in rbParts) if (part.rb != null) part.rb.mass = mass * part.massPercent;
+        foreach (ConfigurableJoint cJoint in GetComponentsInChildren<ConfigurableJoint>())
+        {
+            JointDrive jDrive = new JointDrive()
+            {
+                positionSpring = 200f * cJoint.GetComponent<Rigidbody>().mass,
+                positionDamper = 20f * Mathf.Sqrt(2f) * cJoint.GetComponent<Rigidbody>().mass
+            };
+            cJoint.angularXDrive = jDrive;
+            cJoint.angularYZDrive = jDrive;
+        }
         lifeExpectancy = animalSO.GetLifeExpectancy;
         childbearingAge = animalSO.GetChildbearingAge;
         age = RandomDistribution.Triangular(0f, RandomDistribution.Uniform(childbearingAge.x, childbearingAge.y), lifeExpectancy);
