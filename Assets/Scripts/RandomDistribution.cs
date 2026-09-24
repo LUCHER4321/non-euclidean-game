@@ -70,7 +70,7 @@ public struct FloatDistribution : IDistribution
             case DistType.Triangular: return (min + mode + max) / 3f;
             case DistType.Erlang: return m * beta;
             case DistType.Normal: return mu;
-            case DistType.LogNormal: return sigma <= 0f ? 0f : mu * Mathf.Exp(Mathf.Pow(Mathf.Log(sigma), 2f) / 2f);
+            case DistType.LogNormal: return sigma <= 0f ? mu : mu * Mathf.Exp(Mathf.Pow(Mathf.Log(sigma), 2f) / 2f);
             case DistType.Gamma: return shape * scale;
             case DistType.Weibull: return shape == 0 ? 0f : scale * Factorial(1f / shape);
             default: return 0f;
